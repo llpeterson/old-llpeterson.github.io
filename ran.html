@@ -1,0 +1,590 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Chapter 4: RAN Internals · Computer Networks: A Systems Approach</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-katex/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-block-align/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-flexible-alerts/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-smart-nav-collapse/smart-nav-collapse.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="styles/website.css">
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="disaggregate.html" />
+    
+    
+    <link rel="prev" href="arch.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    About
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="preface.html">
+            
+                <a href="preface.html">
+            
+                    
+                    Preface
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Chapter 1: Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="primer.html">
+            
+                <a href="primer.html">
+            
+                    
+                    Chapter 2: Wireless Transmission
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="arch.html">
+            
+                <a href="arch.html">
+            
+                    
+                    Chapter 3: Basic Architecture
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6" data-path="ran.html">
+            
+                <a href="ran.html">
+            
+                    
+                    Chapter 4: RAN Internals
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="disaggregate.html">
+            
+                <a href="disaggregate.html">
+            
+                    
+                    Chapter 5: Advanced Capabilities
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="impl.html">
+            
+                <a href="impl.html">
+            
+                    
+                    Chapter 6: Exemplar Implementation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="cloud.html">
+            
+                <a href="cloud.html">
+            
+                    
+                    Chapter 7: Cloudification of Access
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Chapter 4: RAN Internals</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="chapter-4-ran-internals">Chapter 4: RAN Internals</h1>
+<p>The description of the RAN in the previous chapter focused on
+functionality, but was mostly silent about the RAN&#x2019;s internals
+structure. We now focus in on some of the internal details, and in
+doing so, explain how the RAN is being transformed in 5G. This
+involves first describing the stages in the packet processing
+pipeline, and then showing how these stages can be distributed and
+implemented.</p>
+<h2 id="packet-processing-pipeline">Packet Processing Pipeline</h2>
+<p><a href="#pipeline">Figure 4.1</a> shows the packet processing stages implemented
+by the base station. These stages are specified by the 3GPP
+standard. Note that the figure depicts the base station as a pipeline
+(running left-to-right) but it is equally valid to view it as a
+protocol stack (as is typically done in official 3GPP documents). Also
+note that (for now) we are agnostic as to how these stages are
+implemented, but since we are ultimately heading towards a cloud-based
+implementation, you can think of each as corresponding to a
+microservice (if that is helpful).</p>
+<figure>
+    <a id="pipeline"></a>
+    <img src="figures/Slide14.png" width="600px">
+    <figcaption>Figure 4.1: RAN processing pipeline, including both
+    user and control plane components.</figcaption>
+</figure>
+
+<p>The key stages are as follows:</p>
+<ul>
+<li><p>RRC (Radio Resource Control) &#x2192; Responsible for configuring the
+coarse-grain and policy-related aspects of the pipeline. The RRC
+runs in the RAN&#x2019;s control plane; it does not process packets on the
+user plane.</p>
+</li>
+<li><p>PDCP (Packet Data Convergence Protocol) &#x2192; Responsible for
+compressing and decompressing IP headers, ciphering and integrity
+protection, and making an &#x201C;early&#x201D; forwarding decision (i.e., whether
+to send the packet down the pipeline to the UE or forward it to
+another base station).</p>
+</li>
+<li><p>RLC (Radio Link Control) &#x2192; Responsible for segmentation and
+reassembly, including reliably transmitting/receiving segments by
+implementing ARQ.</p>
+</li>
+<li><p>MAC (Media Access Control) &#x2192; Responsible for buffering, multiplexing
+and demultiplexing segments, including all real-time scheduling
+decisions about what segments are transmitted when. Also able to
+make a &#x201C;late&#x201D; forwarding decision (i.e., to alternative carrier
+frequencies, including Wi-Fi).</p>
+</li>
+<li><p>PHY (Physical Layer) &#x2192; Responsible for coding and modulation (as
+discussed in an earlier chapter), including FEC.</p>
+</li>
+</ul>
+<p>The last two stages in <a href="#pipeline">Figure 4.1</a> (D/A conversion and the
+RF front-end) are beyond the scope of this book.</p>
+<p>While it is simplest to view the stages in <a href="#pipeline">Figure 4.1</a> as
+a pure left-to-right pipeline, in practice the Scheduler running in
+the MAC stage implements the &#x201C;main loop&#x201D; for outbound traffic, reading
+data from the upstream RLC and scheduling transmissions to the
+downstream PHY. In particular, since the Scheduler determines the
+number of bytes to transmit to a given UE during each time period
+(based on all the factors outlined in an earlier chapter), it must
+request (get) a segment of that length from the upstream queue. In
+practice, the size of the segment that can be transmitted on behalf of
+a single UE during a single scheduling interval can range from a few
+bytes to an entire IP packet.</p>
+<h2 id="split-ran">Split RAN</h2>
+<p>The next step is understanding how the functionality outlined above is
+partitioned between physical elements, and hence, &#x201C;split&#x201D; across
+centralized and distributed locations. Although the 3GPP standard
+allows for multiple split-points, the partition shown in
+<a href="#split-ran">Figure 4.2</a> is the one being actively pursued by the
+operator-led O-RAN (Open RAN) Alliance. It is the split we adopt
+throughout the rest of this book.</p>
+<figure>
+    <a id="split-ran"></a>
+    <img src="figures/Slide15.png" width="600px">
+    <figcaption>Figure 4.2: Split-RAN processing pipeline distributed
+    across a Central Unit (CU), Distributed Unit (DU), and Radio Unit
+    (RU).</figcaption>
+</figure>
+
+<p>This results in a RAN-wide configuration similar to that shown in
+<a href="#ran-hierarchy">Figure 4.3</a>, where a single <em>Central Unit (CU)</em>
+running in the cloud serves multiple <em>Distributed Units (DUs)</em>, each
+of which in turn serves multiple <em>Radio Units (RUs)</em>. Critically, the
+RRC (centralized in the CU) is responsible for only near-real time
+configuration and control decision making, while the Scheduler that is
+part of the MAC stage is responsible for all real-time scheduling
+decisions.</p>
+<figure>
+    <a id="ran-hierarchy"></a>
+    <img src="figures/Slide16.png" width="400px">
+    <figcaption>Figure 4.3: Split-RAN hierarchy, with one CU serving
+    multiple DUs, each of which serves multiple RUs.</figcaption>
+</figure>
+
+<p>Clearly, a DU needs to be &#x201C;near&#x201D; (within 1ms) the RUs it manages since
+the MAC schedules the radio in real-time. One familiar configuration
+is to co-locate a DU and an RU in a cell tower. But when an RU
+corresponds to a small cell, many of which might be spread across a
+modestly sized geographic area (e.g., a mall, campus, or factory),
+then a single DU would likely service multiple RUs. The use of mmWave
+in 5G is likely to make this later configuration all the more common.</p>
+<p>Also note that the split-RAN changes the nature of the Backhaul
+Network, which in 4G connected the base stations (eNBs) back to the
+Mobile Core. With the split-RAN there are multiple connections, which
+are officially labelled as follows:</p>
+<ul>
+<li>RU-DU connectivity is called the Fronthaul</li>
+<li>DU-CU connectivity is called the Midhaul</li>
+<li>CU-Mobile Core connectivity is called the Backhaul</li>
+</ul>
+<p>As we will see in a later chapter, one possible deployment co-locates
+the CU and Mobile Core in the same cluster, meaning the backhaul is
+implemented in the cluster switching fabric. In such a configuration,
+the midhaul then effectively serves the same purpose as the original
+backhaul, and the fronthaul is constrained by the
+predictable/low-latency requirements of the MAC stage&#x2019;s real-time
+scheduler.</p>
+<h2 id="software-defined-ran">Software-Defined RAN</h2>
+<p>Finally, we describe how the RAN is implemented according to SDN
+principles, resulting in an SD-RAN. The key architectural insight is
+shown in <a href="#rrc-split">Figure 4.4</a>, where the RRC from
+<a href="#pipeline">Figure 4.1</a> is partitioned into two sub-components: the
+one on the left provides a 3GPP-compliant way for the RAN to interface
+to the Mobile Core&#x2019;s control plane, while the latter opens a new
+programmatic API for exerting software-based control over the pipeline
+that implements the RAN user plane. To be more specific, the left
+sub-component simply forwards control packets between the Mobile Core
+and the PDCP, providing a path over which the Mobile Core can
+communication with the UE for control purposes, whereas the right
+sub-component implements the core of the RCC&#x2019;s control functionality.</p>
+<figure>
+    <a id="rrc-split"></a>
+    <img src="figures/Slide18.png" width="600px">
+    <figcaption>Figure 4.4: RRC disaggregated into a Mobile Core
+    facing control plane component and a Near Real-Time
+    Controller.</figcaption>
+</figure>
+
+<p>Although not shown in <a href="#rrc-split">Figure 4.4</a>, keep in mind (from
+<a href="#split-ran">Figure 4.2</a>) that all constituent parts of the RRC, plus
+the PDCP, form the CU.</p>
+<p>Completing the picture, <a href="#ran-controller">Figure 4.5</a> shows the
+Near-RT RAN Controller implemented as a traditional SDN Controller
+hosting a set of SDN control apps. The Near Real-Time Controller
+maintains a RAN Network Information Base (R-NIB) that includes
+time-averaged CQI values and other per-session state (e.g., GTP tunnel
+IDs, QCI values for the type of traffic), while the MAC (as part of
+the DU) maintains the instantaneous CQI values required by the
+real-time scheduler. Specifically, the R-NIB includes the following
+state:</p>
+<ul>
+<li>NODES: Base Stations and Mobile Devices<ul>
+<li>Base Station Attributes:<ul>
+<li>Identifiers</li>
+<li>Version</li>
+<li>Config Report</li>
+<li>RRM config</li>
+<li>PHY resource usage</li>
+</ul>
+</li>
+<li>Mobile Device Attributes:<ul>
+<li>Identifiers</li>
+<li>Capability</li>
+<li>Measurement Config</li>
+<li>State (Active/Idle)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>LINKS: Physical between two nodes and potential between UEs and all neighbor cells<ul>
+<li>Link Attributes:<ul>
+<li>Identifiers</li>
+<li>Link Type</li>
+<li>Config / Bearer Parameters</li>
+<li>QCI Value</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SLICES: Virtualized RAN construct<ul>
+<li>Slice Attributes:<ul>
+<li>Links</li>
+<li>Bearers / Flows</li>
+<li>Validity Period</li>
+<li>Desired KPIs</li>
+<li>MAC RRM Configuration</li>
+<li>RRM Control Configuration</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure>
+    <a id="ran-controller"></a>
+    <img src="figures/Slide19.png" width="500px">
+    <figcaption>FIgure 4.5: Example set of control applications
+    running on top of Near Real-Time RAN Controller.</figcaption>
+</figure>
+
+<p>The example Control Apps in <a href="#ran-controller">Figure 4.5</a> include a
+range of possibilities, but is not intended to be an exhaustive
+list. The right-most example, RAN Slicing, is the most ambitious in
+that it introduces a new capability: Virtualizing the RAN. It is also
+an idea that has been implemented, which we describe in more detail in
+the next chapter.</p>
+<p>The next three (RF Configuration, Semi-Persistent Scheduling, Cipher
+Key Assignment) are examples of configuration-oriented applications.
+They provide a programmatic way to manage seldom-changing
+configuration state, thereby enabling zero-touch operations. Coming up
+with meaningful policies (perhaps driven by analytics) is likely to be
+an avenue for innovation in the future.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="arch.html" class="navigation navigation-prev " aria-label="Previous page: Chapter 3: Basic Architecture">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="disaggregate.html" class="navigation navigation-next " aria-label="Next page: Chapter 5: Advanced Capabilities">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Chapter 4: RAN Internals","level":"1.6","depth":1,"next":{"title":"Chapter 5: Advanced Capabilities","level":"1.7","depth":1,"path":"disaggregate.md","ref":"disaggregate.md","articles":[]},"previous":{"title":"Chapter 3: Basic Architecture","level":"1.5","depth":1,"path":"arch.md","ref":"arch.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs","katex","block-align","flexible-alerts","sequence-diagrams","creativecommons","intopic-toc","custom-favicon","smart-nav-collapse"],"root":".","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css"},"pluginsConfig":{"intopic-toc":{"label":"Content","selector":".markdown-section h2","visible":true},"block-align":{},"search":{},"sequence-diagrams":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"bridge.ico","custom-favicon":{},"creativecommons":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"smart-nav-collapse":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"branch":"master"},"title":"Computer Networks: A Systems Approach","gitbook":"*"},"file":{"path":"ran.md","mtime":"2019-09-11T16:41:36.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-11T18:10:08.147Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-anchorjs/anchor.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-flexible-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-intopic-toc/gumshoe.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-smart-nav-collapse/smart-nav-collapse.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
