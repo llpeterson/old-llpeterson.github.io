@@ -1,264 +1,423 @@
 
-
-<!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Chapter 7: Cloudification of Access &mdash; 5G Mobile Networks: A Systems Approach Version 0.1 documentation</title>
-  
-
-  
-  
-    <link rel="shortcut icon" href="_static/bridge.ico"/>
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Chapter 7: Cloudification of Access · Computer Networks: A Systems Approach</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+    <link rel="stylesheet" href="gitbook/style.css">
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/rtd_theme_mods.css" type="text/css" />
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="About This Book" href="README.html" />
-    <link rel="prev" title="Chapter 6: Exemplar Implementation" href="impl.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="index.html" class="icon icon-home"> 5G Mobile Networks: A Systems Approach
-          
-
-          
-          </a>
-
-          
             
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-katex/katex.min.css">
+                
             
-              <div class="version">
-                Version 0.1
-              </div>
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-block-align/plugin.css">
+                
             
-          
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-flexible-alerts/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-intopic-toc/style.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-smart-nav-collapse/smart-nav-collapse.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
 
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
+    
+
+    
+        
+        <link rel="stylesheet" href="styles/website.css">
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="impl.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
 </div>
 
-          
-        </div>
+            
+                <nav role="navigation">
+                
 
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
             
+                <a href="./">
             
-              
+                    
+                    About
             
+                </a>
             
-              <p class="caption"><span class="caption-text">Table of Contents</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Chapter 1:  Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="primer.html">Chapter 2:  Wireless Transmission</a></li>
-<li class="toctree-l1"><a class="reference internal" href="arch.html">Chapter 3:  Basic Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ran.html">Chapter 4:  RAN Internals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="disaggregate.html">Chapter 5:  Advanced Capabilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="impl.html">Chapter 6:  Exemplar Implementation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Chapter 7:  Cloudification of Access</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html">About This Book</a></li>
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="preface.html">
+            
+                <a href="preface.html">
+            
+                    
+                    Preface
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="intro.html">
+            
+                <a href="intro.html">
+            
+                    
+                    Chapter 1: Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="primer.html">
+            
+                <a href="primer.html">
+            
+                    
+                    Chapter 2: Wireless Transmission
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="arch.html">
+            
+                <a href="arch.html">
+            
+                    
+                    Chapter 3: Basic Architecture
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="ran.html">
+            
+                <a href="ran.html">
+            
+                    
+                    Chapter 4: RAN Internals
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="disaggregate.html">
+            
+                <a href="disaggregate.html">
+            
+                    
+                    Chapter 5: Advanced Capabilities
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="impl.html">
+            
+                <a href="impl.html">
+            
+                    
+                    Chapter 6: Exemplar Implementation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.9" data-path="cloud.html">
+            
+                <a href="cloud.html">
+            
+                    
+                    Chapter 7: Cloudification of Access
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
 </ul>
 
+
+                </nav>
             
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
         
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">5G Mobile Networks: A Systems Approach</a>
+    </div>
+
+    <div class="book-body">
         
-      </nav>
+            <div class="body-inner">
+                
+                    
 
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
+<div class="book-header" role="navigation">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>Chapter 7:  Cloudification of Access</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/cloud.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
 
-  
-  <hr/>
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Chapter 7: Cloudification of Access</a>
+    </h1>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <div class="section" id="chapter-7-cloudification-of-access">
-<h1>Chapter 7:  Cloudification of Access<a class="headerlink" href="#chapter-7-cloudification-of-access" title="Permalink to this headline">¶</a></h1>
-<p>The previous chapters went step-by-step, first breaking 5G down into its
-elemental components and then showing how those components could be put
-back together using best practices in cloud design to build a fully
-functional, 3GPP-compliant 5G cellular network. In doing so, it is easy
-to lose sight of the big picture, which is that the cellular network is
-undergoing a dramatic transformation. That’s the whole point of 5G. We
-conclude by making some observations about this big picture.</p>
-<p>To understand the impact, it is helpful to first understand what’s
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="chapter-7-cloudification-of-access">Chapter 7: Cloudification of Access</h1>
+<p>The previous chapters went step-by-step, first breaking 5G down into
+its elemental components and then showing how those components could
+be put back together using best practices in cloud design to build a
+fully functional, 3GPP-compliant 5G cellular network. In doing so, it
+is easy to lose sight of the big picture, which is that the cellular
+network is undergoing a dramatic transformation. That&#x2019;s the whole
+point of 5G. We conclude by making some observations about this big
+picture.</p>
+<p>To understand the impact, it is helpful to first understand what&apos;s
 important about the cloud. The cloud has fundamentally changed the way
 we compute, and more importantly, the pace of innovation. It has done
 this through a combination of:</p>
-<ul class="simple">
-<li><strong>Disaggregation:</strong> Breaking vertically integrated systems into
-independent components with open interfaces.</li>
-<li><strong>Virtualization:</strong> Being able to run multiple independent copies of
-those components on a common hardware platform.</li>
-<li><strong>Commoditization:</strong> Being able to elastically scale those virtual
-components across commodity hardware bricks as workload dictates.</li>
+<ul>
+<li><p><strong>Disaggregation:</strong> Breaking vertically integrated systems into
+independent components with open interfaces.</p>
+</li>
+<li><p><strong>Virtualization:</strong> Being able to run multiple independent copies of those
+components on a common hardware platform.</p>
+</li>
+<li><p><strong>Commoditization:</strong> Being able to elastically scale those virtual
+components across commodity hardware bricks as workload dictates.</p>
+</li>
 </ul>
-<p>There is an opportunity for the same to happen with the access network,
-or from another perspective, for the cloud to essentially expand so far
-as to subsume the access network.</p>
-<div class="figure align-center" id="id1">
-<span id="fig-cloud"></span><a class="reference internal image-reference" href="_images/Slide32.png"><img alt="_images/Slide32.png" src="_images/Slide32.png" style="width: 700px;" /></a>
-<p class="caption"><span class="caption-text">Figure 7.1: A multi-tenant / multi-cloud—including virtualized RAN
-resources alongside conventional compute, storage, and network
-resources—hosting both Telco and Over-the-Top (OTT) services and
-applications.</span></p>
-</div>
-<p><a class="reference internal" href="#fig-cloud"><span class="std std-ref">Figure 7.1</span></a> gives a high-level overview of how the
+<p>There is an opportunity for the same to happen with the access
+network, or from another perspective, for the cloud to essentially
+expand so far as to subsume the access network.</p>
+<figure>
+    <a id="cloud"></a>
+    <img src="figures/Slide32.png" width="700px">
+    <figcaption>FIgure 7.1: A multi-tenant / multi-cloud&#x2014;including
+    virtualized RAN resources alongside conventional compute, storage,
+    and network resources&#x2014;hosting both Telco and Over-the-Top (OTT)
+    services and applications.</figcaption>
+</figure>
+
+<p><a href="#cloud">Figure 7.1</a> gives a high-level overview of how the
 transformation might play out, with the global cloud spanning edge
 clouds, private Telco clouds, and the familiar public clouds. Each
 individual cloud site is potentially owned by a different organization
 (this includes the cell towers, as well), and as a consequence, each
 site will likely be multi-tenant in that it is able to host (and
-isolate) applications on behalf of many other people and organizations.
-Those applications, in turn, will include a combination of the RAN and
-Core services (as described throughout this book), Over-the-Top (OTT)
-applications commonly found today in public clouds (but now also
-distributed across edge clouds), and new Telco-managed applications
-(also distributed across centralized and edge locations).</p>
+isolate) applications on behalf of many other people and
+organizations. Those applications, in turn, will include a combination
+of the RAN and Core services (as described throughout this book),
+Over-the-Top (OTT) applications commonly found today in public clouds
+(but now also distributed across edge clouds), and new Telco-managed
+applications (also distributed across centralized and edge locations).</p>
 <p>Eventually, we can expect common APIs to emerge, lowering the barrier
-for anyone (not just today’s network operators or cloud providers) to
-deploy applications across multiple sites by acquiring the storage,
+for anyone (not just today&#x2019;s network operators or cloud providers) to
+deploy applications across multiple sites by  acquiring the storage,
 compute, networking, and connectivity resources they need.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
 </div>
 
+                        </div>
+                    </div>
+                
+            </div>
 
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="README.html" class="btn btn-neutral float-right" title="About This Book" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="impl.html" class="btn btn-neutral float-left" title="Chapter 6: Exemplar Implementation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+            
+                
+                <a href="impl.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Chapter 6: Exemplar Implementation">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
     </div>
-  
 
-  <hr/>
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Chapter 7: Cloudification of Access","level":"1.9","depth":1,"previous":{"title":"Chapter 6: Exemplar Implementation","level":"1.8","depth":1,"path":"impl.md","ref":"impl.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchorjs","katex","block-align","flexible-alerts","sequence-diagrams","creativecommons","intopic-toc","custom-favicon","smart-nav-collapse"],"root":".","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css"},"pluginsConfig":{"intopic-toc":{"label":"Content","selector":".markdown-section h2","visible":true},"block-align":{},"search":{},"sequence-diagrams":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"favicon":"bridge.ico","custom-favicon":{},"creativecommons":{},"flexible-alerts":{"danger":{"className":"danger","icon":"fa fa-ban","label":"Attention"},"note":{"className":"info","icon":"fa fa-info-circle","label":"Note"},"style":"callout","tip":{"className":"tip","icon":"fa fa-lightbulb-o","label":"Tip"},"warning":{"className":"warning","icon":"fa fa-exclamation-triangle","label":"Warning"}},"smart-nav-collapse":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"branch":"master"},"title":"Computer Networks: A Systems Approach","gitbook":"*"},"file":{"path":"cloud.md","mtime":"2019-09-18T17:29:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-18T17:30:03.555Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
 
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
     
-   
+        
+        <script src="gitbook/gitbook-plugin-anchorjs/anchor.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-flexible-alerts/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-intopic-toc/anchor.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-intopic-toc/gumshoe.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-intopic-toc/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-smart-nav-collapse/smart-nav-collapse.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
 
-</body>
+    </body>
 </html>
+
