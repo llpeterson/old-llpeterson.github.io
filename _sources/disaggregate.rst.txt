@@ -226,8 +226,8 @@ the flexibility it provides in how this mapping is performed.
 
 While in principle one could define an uber scheduler that takes dozens
 of different factors into account, the key to network slicing is to add
-a layer of indirection, such that (as shown in :ref:`Figure 5.6
-<fig-hypervisor>`, we perform a second mapping of Virtual RBs to
+a layer of indirection. As shown in :ref:`Figure 5.6 <fig-hypervisor>`,
+the idea is to perform a second mapping of Virtual RBs to
 Physical RBs. This sort of virtualization is common in resource
 allocators throughout computing systems because we want to separate how
 many resources are allocated to each user from the decision as to which
