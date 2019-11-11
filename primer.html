@@ -195,10 +195,10 @@ description of 5G that follows in the reality of wireless communication.</p>
 transmitted brings a number of impairments, including noise,
 attenuation, distortion, fading, and interference. This challenge is
 addressed by a combination of coding and modulation, as depicted in
-<a class="reference internal" href="#fig-modulation"><span class="std std-ref">Figure 2.1</span></a>.</p>
+<a class="reference internal" href="#fig-modulation"><span class="std std-numref">Figure 1</span></a>.</p>
 <div class="figure align-center" id="id1">
 <span id="fig-modulation"></span><a class="reference internal image-reference" href="_images/Slide09.png"><img alt="_images/Slide09.png" src="_images/Slide09.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-text">Figure 2.1: The role of coding and modulation in mobile communication.</span></p>
+<p class="caption"><span class="caption-number">Figure 1. </span><span class="caption-text">The role of coding and modulation in mobile communication.</span></p>
 </div>
 <p>At its core, coding inserts extra bits into the data to help recover
 from all the environmental factors that interfere with signal
@@ -214,18 +214,18 @@ uses RF modulation to transmit the signal as an electromagnetic wave
 over an assigned <em>carrier frequency.</em></p>
 <p>For a deeper appreciation of the challenges of reliably transmitting
 data by propagating radio signals through the air, consider the
-scenario depicted in <a class="reference internal" href="#fig-multipath"><span class="std std-ref">Figure 2.2</span></a>, where
+scenario depicted in <a class="reference internal" href="#fig-multipath"><span class="std std-numref">Figure 2</span></a>, where
 the signal bounces off various stationary and moving objects,
 following multiple paths from the transmitter to the receiver, who may
 also be moving.</p>
 <div class="figure align-center" id="id2">
 <span id="fig-multipath"></span><a class="reference internal image-reference" href="_images/Slide10.png"><img alt="_images/Slide10.png" src="_images/Slide10.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-text">Figure 2.2: Signals propagate along multiple paths from
+<p class="caption"><span class="caption-number">Figure 2. </span><span class="caption-text">Signals propagate along multiple paths from
 transmitter to receiver.</span></p>
 </div>
 <p>As a consequence of these multiple paths, the original signal arrives at
 the receiver spread over time, as illustrated in
-<a class="reference internal" href="#fig-coherence"><span class="std std-ref">Figure 2.3</span></a>. Empirical evidence shows that the
+<a class="reference internal" href="#fig-coherence"><span class="std std-numref">Figure 3</span></a>. Empirical evidence shows that the
 Multipath Spread—the time between the first and last signals of one
 transmission arriving at the receiver—is 1 to 10μs in urban
 environments and 10 to 30μs in suburban environments. Theoretical
@@ -247,11 +247,11 @@ to the target physical environment), it is possible to calculate
 transmitted without undue risk of interference.</p>
 <div class="figure align-center" id="id3">
 <span id="fig-coherence"></span><a class="reference internal image-reference" href="_images/Slide11.png"><img alt="_images/Slide11.png" src="_images/Slide11.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-text">Figure 2.3: Received data spread over time due to multipath
+<p class="caption"><span class="caption-number">Figure 3. </span><span class="caption-text">Received data spread over time due to multipath
 variation.</span></p>
 </div>
 <p>To complicate matters further,
-<a class="reference internal" href="#fig-multipath"><span class="std std-ref">Figure 2.2</span></a> and <a class="reference internal" href="#fig-coherence"><span class="std std-ref">2.3</span></a> imply
+<a class="reference internal" href="#fig-multipath"><span class="std std-numref">Figure 2</span></a> and <a class="reference internal" href="#fig-coherence"><span class="std std-numref">3</span></a> imply
 the transmission originates from a single
 antenna, but cell towers are equipped with an array of antennas, each
 transmitting in a different (but overlapping) direction. This
@@ -291,24 +291,24 @@ duration of time. The subbands are narrow (e.g., 15kHz), but the coding
 of user data into OFDMA symbols is designed to minimize the risk of data
 loss due to interference between adjacent bands.</p>
 <p>The use of OFDMA naturally leads to conceptualizing the radio spectrum
-as a two-dimensional resource, as shown in <a class="reference internal" href="#fig-sched-grid"><span class="std std-ref">Figure 2.4</span></a>.
+as a two-dimensional resource, as shown in <a class="reference internal" href="#fig-sched-grid"><span class="std std-numref">Figure 4</span></a>.
 The minimal schedulable unit, called a <em>Resource Element (RE)</em>,
 corresponds to a 15kHz-wide band around one subcarrier frequency and the
 time it takes to transmit one OFDMA symbol. The number of bits that can
 be encoded in each symbol depends on the modulation rate, so for example
 using <em>Quadrature Amplitude Modulation (QAM)</em>, 16-QAM yields 4 bits per
-symbol and 64-QAM yields 16 bits per symbol</p>
+symbol and 64-QAM yields 6 bits per symbol</p>
 <div class="figure align-center" id="id4">
 <span id="fig-sched-grid"></span><a class="reference internal image-reference" href="_images/Slide12.png"><img alt="_images/Slide12.png" src="_images/Slide12.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-text">Figure 2.4: Spectrum abstractly represented by a 2-D grid of
+<p class="caption"><span class="caption-number">Figure 4. </span><span class="caption-text">Spectrum abstractly represented by a 2-D grid of
 schedulable Resource Elements.</span></p>
 </div>
 <p>A scheduler allocates some number of REs to each user that has data to
 transmit during each 1ms <em>Transmission Time Interval (TTI)</em>, where users
-are depicted by different colored blocks in <a class="reference internal" href="#fig-sched-grid"><span class="std std-ref">Figure 2.4</span></a>.
+are depicted by different colored blocks in <a class="reference internal" href="#fig-sched-grid"><span class="std std-numref">Figure 4</span></a>.
 The only constraint on the scheduler is that it must make its allocation
 decisions on blocks of 7x12=84 resource elements, called a <em>Physical
-Resource Block (PRB)</em>. <a class="reference internal" href="#fig-sched-grid"><span class="std std-ref">Figure 2.4</span></a> shows two
+Resource Block (PRB)</em>. <a class="reference internal" href="#fig-sched-grid"><span class="std std-numref">Figure 4</span></a> shows two
 back-to-back PRBs. Of course time continues to flow along one axis, and
 depending on the size of the available frequency band (e.g., it might be
 100MHz wide), there may be many more subcarrier slots (and hence PRBs)
@@ -333,7 +333,7 @@ to receive. In 4G, the QCI value assigned to each class (there are nine
 such classes, in total) indicates whether the traffic has a <em>Guaranteed
 Bit Rate (GBR)</em> or not <em>(non-GBR)</em>, plus the class’s relative priority
 within those two categories.</p>
-<p>Finally, keep in mind that <a class="reference internal" href="#fig-sched-grid"><span class="std std-ref">Figure 2.4</span></a> focuses on
+<p>Finally, keep in mind that <a class="reference internal" href="#fig-sched-grid"><span class="std std-numref">Figure 4</span></a> focuses on
 scheduling transmissions from a single antenna, but the MIMO technology
 described above means the scheduler also has to determine which antenna
 (or more generally, what subset of antennas) will most effectively reach
@@ -377,10 +377,10 @@ section).</p>
 <li>For sub-1GHz bands, 5G allows maximum 50MHz bandwidths. In this case,
 there are two waveforms: one with subcarrier spacing of 15kHz and
 another of 30kHz. (We used 15kHz in the example shown in
-<a class="reference internal" href="#fig-sched-grid"><span class="std std-ref">Figure 2.4</span></a>.)
+<a class="reference internal" href="#fig-sched-grid"><span class="std std-numref">Figure 4</span></a>.)
 The corresponding scheduling intervals are
 0.5ms and 0.25ms, respectively. (We used 0.5ms in the example shown
-in <a class="reference internal" href="#fig-sched-grid"><span class="std std-ref">Figure 2.4</span></a>.)</li>
+in <a class="reference internal" href="#fig-sched-grid"><span class="std std-numref">Figure 4</span></a>.)</li>
 <li>For 1GHz-6GHz bands, maximum bandwidths go up to 100MHz.
 Correspondingly, there are three waveforms with subcarrier spacings
 of 15kHz, 30kHz and 60kHz, corresponding to scheduling intervals of
@@ -398,7 +398,7 @@ We instead use more abstract terminology, and talk about allocating
 <em>Resource Blocks</em> to subscribers, where the 5G scheduler determines both
 the size and number of Resource Blocks allocated during each time
 interval.</p>
-<p><a class="reference internal" href="#fig-scheduler"><span class="std std-ref">Figure 2.5</span></a> depicts the role of the scheduler
+<p><a class="reference internal" href="#fig-scheduler"><span class="std std-numref">Figure 5</span></a> depicts the role of the scheduler
 from this more abstract perspective, where just as with 4G, CQI
 feedback from the receivers and the QCI quality-of-service class
 selected by the subscriber are the two key pieces of input to the
@@ -422,7 +422,7 @@ multiple classes at any given time. We explore this idea in much more
 depth in a later chapter.</p>
 <div class="figure align-center" id="id5">
 <span id="fig-scheduler"></span><a class="reference internal image-reference" href="_images/Slide13.png"><img alt="_images/Slide13.png" src="_images/Slide13.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-text">Figure 2.5: Scheduler allocates Resource Blocks to user data
+<p class="caption"><span class="caption-number">Figure 5. </span><span class="caption-text">Scheduler allocates Resource Blocks to user data
 streams based on CQI feedback from receivers and the QCI
 parameters associated with each class of service.</span></p>
 </div>
