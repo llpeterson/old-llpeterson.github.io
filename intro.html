@@ -178,7 +178,7 @@ kilobits-per-second. Today, the industry is at 4G (supporting data rates
 typically measured in the few megabits-per-second) and starting the
 transition to 5G, with the promise of a tenfold increase in data rates.</p>
 <p>But 5G is about much more than increased bandwidth. In the same way 3G
-defined the transition from voice to broadband, 5G’s promise is mostly
+defined the transition from voice to broadband, 5G’s promise is primarily
 about the transition from a single access service (broadband
 connectivity) to a richer collection of edge services and devices,
 including support for immersive user interfaces (e.g., AR/VR),
@@ -190,7 +190,7 @@ from their smartphones, but also swarms of autonomous devices working
 together on their behalf. All of this requires a fundamentally
 different architecture.</p>
 <p>The requirements for this architecture are ambitious, and can be
-summarized as having three primary objectives:</p>
+summarized as having three main objectives:</p>
 <ul class="simple">
 <li>To support <em>Massive Internet-of-Things</em>, potentially including
 devices with ultra-low energy (10+ years of battery life), ultra-low
@@ -297,7 +297,7 @@ to the rest of the Internet through some large operator’s backbone.</p>
 aggregation points-of-presence within close proximity to end users,
 each of which serves anywhere from 1,000 to 100,000 subscribers,
 depending on population density. In practice, the physical deployment
-of these ”edge” locations vary from operator to operator, but one
+of these “edge” locations vary from operator to operator, but one
 possible scenario is to anchor both the cellular and wireline access
 networks in Telco <em>Central Offices</em>.</p>
 <p>Historically, the Central Office—officially known as the <em>PSTN
@@ -384,14 +384,16 @@ operated, including practices like <em>DevOps</em> and <em>Continuous Integratio
 operational issues cloud providers face—we recommend you read <a class="reference external" href="https://landing.google.com/sre/books/">Site
 Reliability Engineering: How Google Runs Production Systems</a>.</p>
 </div>
-<p>One final note about terminology. Anyone that has been paying attention
-to the discussion surrounding 5G will have undoubtedly heard about
-<em>Network Function Virtualization (NFV)</em>, which involves moving
+<p>One final note about terminology. Anyone that has been paying
+attention to the discussion surrounding 5G will have undoubtedly heard
+about <em>Network Function Virtualization (NFV)</em>, which involves moving
 functionality that was once embedded in hardware appliances into VMs
 running on commodity servers. In our experience, NFV is a stepping
-stone towards the fully disaggregated solution we describe, and so we do
-not dwell on it. You can think of NFV as an alternative to the cloud
-native exemplar presented here.</p>
+stone towards the fully disaggregated and cloud native solution we
+describe, and so we do not dwell on it. In other words, you can think
+of the NFV initiative as largely consistent with the approach taken in
+this book, but making some different engineering choices when we get
+down into the details of the implementation.</p>
 </div>
 </div>
 
