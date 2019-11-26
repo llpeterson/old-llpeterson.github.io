@@ -524,23 +524,25 @@ specification.</p>
 <h2>3.4 Security Architecture<a class="headerlink" href="#security-architecture" title="Permalink to this headline">¶</a></h2>
 <p>It worth being more specific about the security architecture of the
 cellular network, which also serves to fill in some details about how
-each individual UE connects to the network.</p>
-<p>Each Base Station trusts that it is connected to the Mobile Core by a
-secure private network, and establishes the tunnels introduced in
-<a class="reference internal" href="#fig-tunnels"><span class="std std-numref">Figure 11</span></a> over that network: a GTP/UDP/IP
-tunnel to the Core’s User Plane (Core-UP) and a SCTP/IP tunnel to the
-Core’s Control Plane (Core-CP). Each UE has an operator-provided SIM
-card, which uniquely identifies the subscriber (by phone number) and
-establishes the radio parameters need to communicate with that
-operator’s Base Stations. The SIM card also includes a secret key used
-to authenticate the UE.</p>
+each individual UE connects to the network. The architecture is
+grounded by two trust assumptions.</p>
+<p>First, each Base Station trusts that it is connected to the Mobile
+Core by a secure private network, and establishes the tunnels
+introduced in <a class="reference internal" href="#fig-tunnels"><span class="std std-numref">Figure 11</span></a> over that network: a
+GTP/UDP/IP tunnel to the Core’s User Plane (Core-UP) and a SCTP/IP
+tunnel to the Core’s Control Plane (Core-CP). Second, each UE has an
+operator-provided SIM card, which uniquely identifies the subscriber
+(by phone number) and establishes the radio parameters (e.g.,
+frequency band) need to communicate with that operator’s Base
+Stations. The SIM card also includes a secret key used to authenticate
+the UE.</p>
 <div class="figure align-center" id="id12">
 <span id="fig-secure"></span><a class="reference internal image-reference" href="_images/Slide34.png"><img alt="_images/Slide34.png" src="_images/Slide34.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 16. </span><span class="caption-text">Sequence of steps to establish secure Control and User Plane
 channels.</span></p>
 </div>
-<p>Given this starting point, <a class="reference internal" href="#fig-secure"><span class="std std-numref">Figure 16</span></a> shows the
-per-UE connection sequence. When a UE first comes becomes active, it
+<p>With this starting point, <a class="reference internal" href="#fig-secure"><span class="std std-numref">Figure 16</span></a> shows the
+per-UE connection sequence. When a UE first becomes active, it
 communicates with a nearby Base Station over a temporary
 (unauthenticated) radio link (Step 1).  The Base Station forwards the
 request to the Core-CP over the existing tunnel, and the Core-CP
