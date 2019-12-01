@@ -101,7 +101,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id1">5G Mobile Core</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#security-architecture">3.4 Security Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security">3.4 Security</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deployment-options">3.5 Deployment Options</a></li>
 </ul>
 </li>
@@ -520,22 +520,22 @@ since it is considered an implementation choice rather than part of the
 specification.</p>
 </div>
 </div>
-<div class="section" id="security-architecture">
-<h2>3.4 Security Architecture<a class="headerlink" href="#security-architecture" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="security">
+<h2>3.4 Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
 <p>We now take a closer look at the security architecture of the cellular
 network, which also serves to fill in some details about how each
 individual UE connects to the network. The architecture is grounded in
 two trust assumptions.</p>
 <p>First, each Base Station trusts that it is connected to the Mobile
 Core by a secure private network, over which it establishes the
-tunnels introduced in <a class="reference internal" href="#fig-tunnels"><span class="std std-numref">Figure 11</span></a> over that
-network: a GTP/UDP/IP tunnel to the Core’s User Plane (Core-UP) and a
-SCTP/IP tunnel to the Core’s Control Plane (Core-CP). Second, each UE
-has an operator-provided SIM card, which uniquely identifies the
-subscriber (i.e., phone number) and establishes the radio parameters
-(e.g., frequency band) need to communicate with that operator’s Base
-Stations. The SIM card also includes a secret key used to authenticate
-the UE.</p>
+tunnels introduced in <a class="reference internal" href="#fig-tunnels"><span class="std std-numref">Figure 11</span></a>: a GTP/UDP/IP
+tunnel to the Core’s User Plane (Core-UP) and a SCTP/IP tunnel to the
+Core’s Control Plane (Core-CP). Second, each UE has an
+operator-provided SIM card, which uniquely identifies the subscriber
+(i.e., phone number) and establishes the radio parameters (e.g.,
+frequency band) need to communicate with that operator’s Base
+Stations. The SIM card also includes a secret key that the UE uses to
+authenticate itself.</p>
 <div class="figure align-center" id="id12">
 <span id="fig-secure"></span><a class="reference internal image-reference" href="_images/Slide34.png"><img alt="_images/Slide34.png" src="_images/Slide34.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 16. </span><span class="caption-text">Sequence of steps to establish secure Control and User Plane
