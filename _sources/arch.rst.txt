@@ -1,528 +1,352 @@
 Chapter 3:  Basic Architecture
-==============================
+===============================
 
-This chapter identifies the main architectural components of cellular
-access networks. It focuses on the components that are common to both 4G
-and 5G, and as such, establishes a foundation for understanding the
-advanced features of 5G presented in later chapters.
+SDN is an approach to building networks that favors programmable
+commodity hardware, with the intelligence that forwards packets—as
+well as controls packet forwarding—implemented in software. Realizing
+such a design is independent of any particular protocol stack, but
+instead requires a set of open APIs and a new collection of software
+components that support those APIs. This chapter introduces the basic
+architecture of such an *SDN software stack*.
 
-This overview is partly an exercise in introducing 3GPP terminology. For
-someone that is familiar with the Internet, this terminology can seem
-arbitrary (e.g., “eNB” is a “base station”), but it is important to keep
-in mind that this terminology came out of the 3GPP standardization
-process, which has historically been concerned about telephony and
-almost completely disconnected from the IETF and other Internet-related
-efforts. To further confuse matters, the 3GPP terminology often changes
-with each generation (e.g., a base station is called eNB in 4G and gNB
-in 5G). We address situations like this by using generic terminology
-(e.g., base station), and referencing the 3GPP-specific counterpart only
-when the distinction is helpful.
+This chapter defines the general architecture of such a software
+stack, and while there are multiple options for the specific
+components and tools that can be plugged into this architecture, it
+also introduces an example set. We do this to make the discussion more
+concrete, but the particular components we describe two important
+attributes. One, they are open source and freely available on
+GitHub. Two, they are designed to work together, providing a
+comprehensive solution; there are no gaps in our story. Both
+attributes make it possible for *anyone* to build the same end-to-end
+system that is running today in production networks.
 
-.. note::
-   This example is only the tip of the terminology iceberg. For a
-   slightly broader perspective on the complexity of terminology in 5G,
-   see Marcin Dryjanski’s `blog
-   post <https://www.grandmetric.com/blog/2018/07/14/lte-and-5g-differences-system-complexity/>`__.
-
-3.1 Main Components
+3.1 Software Stack
 -------------------
 
-The cellular network provides wireless connectivity to devices that are
-on the move. These devices, which are known as *User Equipment (UE)*,
-have until recently corresponded to smartphones and tablets, but will
-increasingly include cars, drones, industrial and agricultural machines,
-robots, home appliances, medical devices, and so on.
+An overview of the software stack is given in :numref:`Figure %s
+<fig-stack>`, which includes a *White-Box Switch* running a local
+*Switch OS*, controlled by a global Network OS hosting a collection of
+*Control Applications*. :numref:`Figure %s <fig-stack>` also calls out
+a corresponding set of exemplar open source components (*Trellis*,
+*ONOS*, and *Stratum*) on the right, as well as a related *P4
+Toolchain* on the left. This chapter introduces these components, with
+later chapters giving more detail.
 
-.. _fig-cellular:
-.. figure:: figures/Slide01.png 
+Note the similarity between this diagram and :numref:`Figure %s
+<fig-market2>` in Chapter 1, both of which include two open
+interfaces: one between the Control Apps and the Network OS, and a
+second between the Network OS and the underlying white-box
+switches. These two interfaces are depicted as “API shims” in
+:numref:`Figure %s <fig-stack>`, and in the context of the exemplar
+components, correspond to a combination of *gNMI*, *gNOI* and
+*FlowObjective* in the first case, and a combination of *gNMI*, *gNOI*
+and either *P4Runtime* or *OpenFlow* in the second case. That gRPC is
+shown as the transport protocol for these two APIs is an
+implementation choice, but one that we will take for granted from here
+on.
+
+.. _fig-stack:
+.. figure:: figures/Slide8.png
+    :width: 550px
+    :align: center
+
+    Overall architecture of the SDN software stack.
+
+It is important to keep in mind that the software components listed in
+:numref:`Figure %s <fig-stack>` correspond to active open source
+projects, and as a consequence, they continue to evolve (as do their
+APIs). Specific versions of each component—and their associated
+APIs—have been integrated and deployed into both trial and production
+environments. For example, while the figure shows P4Runtime as a
+candidate control interface exported by the Switch OS, there are
+deployed solutions that use OpenFlow instead. (This includes the
+Comcast deployment.) Similarly, while the figure shows gNMI/gNOI as
+the config/ops interface to each switch, there are solutions that use
+NETCONF instead.
+
+For the purpose of this book, we do not attempt to track all possible
+combinations of component versions and APIs, but opt instead to focus
+on the single consistent stack enumerated in :numref:`Figure %s
+<fig-stack>`, since it represents our best judgement as to the “right”
+approach based on experience (so far) with earlier versions up-and-down
+the stack.
+
+3.1.1 Switch vs Host Implementation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The top-to-bottom view of the software stack shown in :numref:`Figure
+%s <fig-stack>` is from the perspective of a single switch, but it is
+important to also keep the network perspective in
+mind. :numref:`Figure %s <fig-e2e>` gives such a perspective by
+focusing on an end-to-end path through the network, connecting a pair
+of VMs.
+
+.. _fig-e2e:
+.. figure:: figures/Slide19.png
+    :width: 500px
+    :align: center
+
+    End-to-End Perspective of a Software-Defined Network, including
+    the end hosts and the Virtual Machines (VMs) they host.
+
+This perspective highlights two important aspects of the system. The
+first re-enforces the point we’ve been making: that the Network OS
+(e.g., ONOS) is network-wide, while the Switch OS (e.g., Stratum) is
+per-switch.
+
+The second is that part of the SDN software stack runs on the end
+hosts. In particular, there is a *Virtual Switch (vSwitch)*\
+—typically implemented in software as part of the Virtual Machine
+Hypervisor running on the server—that is responsible for forwarding
+packets to and from the VMs running on that server. Just like a
+physical switch, the vSwitch forwards packets from input port to
+output port, but these are virtual ports connected to VMs rather than
+physical ports connected to physical machines.
+
+Fortunately, we can view a vSwitch as behaving just like a physical
+switch, including the APIs it supports. That a vSwitch is implemented
+in software on a general-purpose processor rather than in an ASIC is
+an implementation detail. While this is a true statement, being a
+software switch dramatically lowers the barrier to introducing
+additional features, so the feature set is both richer and more
+dynamic. For example, *Open vSwitch (OvS)* is a widely-used open
+source vSwitch that has been integrated with an assortment of
+complementary tools. One example is DPDK, another open source
+component that optimizes the path from network device to/from
+processes running in user space on the host OS. Although it’s an
+important topic, this book does not explore the full range of
+possibilities for a vSwitch like OvS or other end-host optimizations,
+but instead treats it just like any other switch along the end-to-end
+path.
+
+Another implementation detail shown in :numref:`Figure %s <fig-e2e>`
+is that the host may have a *Smart Network Interface Card (SmartNIC)*
+that assists (or possibly even replaces) the vSwitch. Vendors have a
+long history of off-loading kernel functionality onto NICs (e.g.,
+everything from computing TCP/IP checksums to supporting VMs), but in
+the SDN context, the interesting possibility is to replicate the
+forwarding pipeline found on the network switches. Again, there are a
+range of possible implementation choices, including both FPGA and
+ASIC, as well as whether the NIC is fixed-function or programmable
+(using P4). For our purposes, we will treat such Smart NICs as yet
+another switching element along the end-to-end path.
+
+3.2 White-Box Switch
+-------------------------
+
+Starting at the bottom and working our way up the stack shown in
+:numref:`Figures %s <fig-stack>` and :numref:`%s <fig-e2e>`, the
+network data plane is implemented by an interconnected set of
+white-box switches. Our focus for now is on a single switch, where the
+overall network topology is dictated by the Control Applications
+running at the top of the software stack. For example, we describe a
+Control Application that manages a leaf-spine topology in a later
+section.
+
+The architecture is agnostic as to the switch vendor, but the full
+software stack outlined in this chapter runs on switches built using
+Tofino and Tomahawk switching chips manufactured by Barefoot Networks
+(now an Intel company) and Broadcom, respectively. The Tofino chip
+implements a programmable forwarding pipeline based on PISA, while the
+Tomahawk chip implements a fixed-function pipeline.
+
+In the case of both chips, a pair of P4 programs defines the
+forwarding pipeline. The first (``forward.p4``) specifies the
+forwarding behavior. The second (``arch.p4``) specifies the logical
+architecture of the target forwarding chip. The P4 compiler
+generates target files that are loaded into both the Network OS and
+the switch. These target files are not named in :numref:`Figure %s
+<fig-stack>` (we will return to the details in Chapters 4 and 5), but
+both components need to know about the output because one *implements*
+the forwarding behavior (the switch), and the other *controls* the
+forwarding behavior (the Network OS).
+
+We return to the details of the compiler toolchain in Chapter 4, which
+includes answering the question of why we need a P4 program in the
+case of a fixed-function switching chip. To preview that discussion,
+P4 programs are written to an abstract model of the forwarding
+pipeline, and whether the chip’s actual hardware pipeline is fixed or
+programmable, we still need to know how to map the abstract pipeline
+onto the physical pipeline. This is where ``arch.p4`` plays a role. As
+for the role of ``forward.p4``, this program actually prescribes the
+pipeline in the case of a programmable chip, whereas for the
+fixed-function chip, ``forward.p4`` merely describes the pipeline. But
+we still need ``forward.p4`` in both cases because the toolchain uses
+it to generate the API that sits between the control and data planes.
+
+3.3 Switch OS
+-------------------
+
+Moving up from the base hardware, each switch runs a local Switch
+OS. Not to be confused with the Network OS that manages a network of
+switches, this Switch OS runs on a commodity processor internal to
+the switch (not shown in :numref:`Figure %s <fig-stack>`). It is
+responsible for handling API calls issued to the switch, for example
+from the Network OS. This includes taking the appropriate action on
+the switch’s internal resources, which sometimes affects the switching
+chip.
+
+Multiple open source Switch OSes are available (including SONiC,
+originally developed at Microsoft Azure), but we use a combination of
+Stratum and *Open Network Linux (ONL)* as our primary example. ONL is
+a switch-ready distribution of Linux (originally prepared by
+BigSwitch), while Stratum (originally developed at Google) is
+primarily responsible for translating between the external-facing API
+and the internal switch resources. For this reason, we sometimes refer
+to Stratum as a *Thin Switch OS*.
+
+Stratum mediates all interactions between the switch and the outside
+world. This includes loading the target files generated by the P4
+compiler, which defines a contract between the data plane and the
+control plane. This contract effectively replaces OpenFlow’s flow rule
+abstraction with an auto-generated specification. The rest of the
+Stratum-managed API is defined as follows:
+
+* **P4Runtime:** An interface for controlling forwarding behavior at
+  runtime. It is the key for populating forwarding tables and
+  manipulating forwarding state, and it does so in a P4 program and
+  hardware agnostic way. (For completeness, :numref:`Figure %s
+  <fig-stack>` also lists OpenFlow as an alternative control interface.)
+  
+* **gNMI (gRPC Network Management Interface):** Used to set and
+  retrieve configuration state. gNMI is usually paired with OpenConfig
+  YANG models that define the structure of the configuration and state
+  tree.
+  
+* **gNOI (gRPC Network Operations Interfaces):** Used to set and
+  retrieve operational state, for example supporting certificates
+  management, device testing, software upgrades, and networking
+  troubleshooting.
+  
+If you recall the distinction between Control and Configuration
+introduced in Chapter 1, then you will recognize P4Runtime as the
+Control API and the gNMI/gNOI combination as a modern version of a
+switch’s traditional Configuration API. This latter API has
+historically been called the OAM interface (for “Operations,
+Administration, and Maintenance”), and it has most often been
+implemented as a command-line interface.
+
+3.4 Network OS
+-------------------
+
+The Network OS is a platform for configuring and controlling a network
+of white-box switches. It runs off-switch as a logically centralized
+SDN controller, and manages a set of switches on a network-wide
+basis. Central to this role is responsibility for monitoring the state
+of those switches (e.g., detecting port and link failures),
+maintaining a global view of the topology that reflects the current
+state of the network, and making that view available to any interested
+Control Apps. Those Control Apps, in turn, “instruct” the Network OS
+to control packet flows through the underlying switches according to
+whatever service they are providing. The way these “control
+instructions” are expressed is a key aspect of the Network OS’s API.
+
+Going beyond this conceptual description requires a specific Network
+OS, and we use *ONOS (Open Network Operating System)* as our
+exemplar. ONOS is best-of-breed in terms of performance, scalability,
+and availability. At a high-level, ONOS takes responsibility for three
+things:
+
+* **Managing Topology:** Tracks inventory of network infrastructure
+  devices and their interconnection to provide a shared view of the
+  network environment for the rest of the platform and applications.
+  
+* **Managing Configuration:** Facilitates issuing, tracking, rolling
+  back, and validating atomic configuration operations on multiple
+  network devices. This effectively mirrors the per-switch
+  configuration and operation interfaces (also using gNMI and gNOI),
+  but does so at the network level rather than the device level.
+  
+* **Controlling Switches:** Allows shaping the data plane packet
+  processing pipelines of the network switches and subsequent control
+  of flow rules, group, meters and other building blocks within those
+  pipelines.
+  
+With respect to this last role, ONOS exports a northbound
+*FlowObjectives* abstraction, which generalizes Flow Rules in a
+pipeline-independent way.\ [#]_ This interface, which Chapter 6
+describes in more detail, is not standardized in the same way as the
+control interface exported by individual switches. As with a
+conventional OS running on a server, applications written to the ONOS
+API do not easily port to another Network OS. The requirement is that
+this interface be open and well-defined; not that there be just one
+such interface. If over time there is consensus about the Network OS
+interface, then applications will be more easily portable. But just as
+with server operating systems, the higher one goes up the software
+stack, the more difficult it becomes to reach such a consensus.
+
+.. [#] We make no claim that FlowObjectives are an ideal interface for
+       controlling a switch. They evolved out of necessity, allowing
+       developers to deal with different pipelines. Defining a general
+       interface is the subject of ongoing research.
+
+Finally, although :numref:`Figure %s <fig-stack>` does not show any
+details about the internals of ONOS, to better appreciate the role it
+plays in the larger scheme of things, we note that the most critical
+subsystem in any Network OS is a *Scalable Key/Value Store*. Because
+ONOS provides a logically centralized view of the network, the key to
+its performance, scalability, and availability is how it stores that
+state. In the case of ONOS, this store is provided by a companion open
+source project, called Atomix, which implements the RAFT consensus
+algorithm. Storage services like Atomix are the cornerstone of nearly
+all horizontally scalable cloud services today, as Chapter 6 describes
+in more detail.
+
+3.5 Leaf-Spine Fabric
+---------------------------
+
+Because we use ONOS as the Network OS, we are limited to ONOS-hosted
+SDN Control Applications. For illustrative purposes, we use Trellis as
+that Control App. Trellis implements a *leaf-spine* fabric on a
+network of white-box switches. This means Trellis dictates a
+particular network topology: a leaf-spine topology common to
+datacenter clusters. As outlined in Section 2.3, this topology
+includes a set of leaf switches, each of which serves as a Top-of-Rack
+switch (i.e., it connects all the servers in a single rack), where the
+leaf switches are, in turn, interconnected by a set of spine switches.
+
+At a high level, Trellis plays three roles. First, it provides a
+switching fabric that interconnects servers—and the VMs running on
+those servers—in a multi-rack cluster. Second, it connects the cluster
+as a whole upstream to peer networks, including the Internet, using
+BGP (i.e., it behaves much like a router). Third, it connects the
+cluster as a whole to downstream access networks (i.e., it terminates
+access network technologies like PON and LTE/5G). In other words,
+instead of thinking about Trellis as a conventional leaf-spine fabric
+that’s locked away in some datacenter, Trellis is best viewed an
+interconnect running at the network edge, helping to bridge
+access-specific edge clouds to IP-based datacenter clouds.
+
+In terms of implementation, Trellis actually corresponds to a suite of
+Control Apps running on ONOS, as opposed to a single app. This suite
+supports several control plane features, including:
+
+* VLANs and L2 bridging
+* IPv4 and IPv6 unicast and multicast routing
+* DHCP L3 relay
+* Dual-homing of servers and upstream routers
+* QinQ forwarding/termination
+* MPLS-based pseudowires.
+  
+For each of these features, the corresponding Control App interacts
+with ONOS—by observing changes in the network topology and issuing
+Flow Objectives—rather than by using any of the standard protocol
+implementations found in legacy routers and switches. The only time a
+legacy protocol is involved is when Trellis needs to communicate with
+the outside world (e.g., upstream metro/core routers), in which case
+it uses standard BGP (as implemented by the open source Quagga
+server).
+
+.. _fig-trellis:
+.. figure:: figures/Slide9.png
     :width: 600px
     :align: center
-	    
-    Cellular networks consists of a Radio Access Network
-    (RAN) and a Mobile Core.
 
-As shown in :numref:`Figure %s <fig-cellular>`,
-the cellular network consists of
-two main subsystems: the *Radio Access Network (RAN)* and the *Mobile
-Core*. The RAN manages the radio spectrum, making sure it is both used
-efficiently and meets the quality-of-service requirements of every user.
-The main component in the RAN is the crypticly named *eNodeB* (or
-*eNB*), which is short for the equally cryptic *evolved Node B*. The
-Mobile Core is a bundle of functionality (as opposed to a device) that
-serves several purposes:
-
--  Provides Internet (IP) connectivity for both data and voice services.
--  Ensures this connectivity fulfills the promised QoS requirements.
--  Tracks user mobility to ensure uninterrupted service.
--  Tracks subscriber usage for billing and charging.
-
-.. note::
-
-   Mobile Core is another example of a generic term. In 4G this is
-   called the Evolved Packet Core (EPC) and in 5G it is called the Next
-   Generation Core (NG-Core).
-
-Even though the word “Core” is in its name, from an Internet
-perspective, the Mobile Core is still part of the access network,
-effectively providing a bridge between the RAN and the IP-world.
-
-Taking a closer look at :numref:`Figure %s <fig-cellular>`, we see that a
-*Backhaul Network* interconnects the eNBs that implement the RAN with
-the Mobile Core. This network is typically wired, may or may not have
-the ring topology shown in the Figure, and is often constructed from
-commodity components found elsewhere in the Internet. For example, the
-Passive Optical Network (PON) that implements Fiber-to-the-Home is a
-prime candidate for implementing the RAN backhaul. The backhaul network
-is obviously a necessary part of the RAN, but it is an implementation
-choice and not prescribed by the 3GPP standard.
-
-Although 3GPP specifies all the elements that implement the RAN and
-Mobile Core in an open standard—including sub-layers we have not yet
-introduced—network operators have historically bought proprietary
-implementations of each subsystem from a single vendor. This lack of an
-open source implementation contributes to the perceived “opaqueness” of
-the cellular network in general, and the RAN in particular. And while it
-is true that an eNodeB implementation does contain sophisticated
-algorithms for scheduling transmission on the radio spectrum—algorithms
-that are considered valuable Intellectual Property of the equipment
-vendors—there is significant opportunity to open and disaggregate both
-the RAN and the Mobile Core. The following two sections describe each,
-in turn.
-
-Before getting to those details, :numref:`Figure %s <fig-cups>`
-redraws components from :numref:`Figure %s <fig-cellular>`
-to highlight two important
-distinctions. The first is that the eNB (which we will refer to as the
-Base Station from here on) has an analog component (depicted by an
-antenna) and a digital component (depicted by a processor). The second
-is that the Mobile Core is partitioned into a *Control Plane* and *User
-Plane*, which is similar to the control/data plane split that someone
-familiar with the Internet would recognize. (3GPP also recently
-introduced a corresponding acronym—\ *CUPS, Control and User Plane
-Separation*—to denote this idea). The importance of these two
-distinctions will become clear in the following discussion.
-
-.. _fig-cups:
-.. figure:: figures/Slide02.png 
-    :width: 400px
-    :align: center
-    
-    Mobile Core divided into a Control Plan and a User
-    Plane, an architectural feature known as CUPS: Control and User
-    Plane Separation
-
-3.2 Radio Access Network
-------------------------
-
-We now describe the RAN by sketching the role each base station plays.
-Keep in mind this is kind of like describing the Internet by explaining
-how a router works—a not unreasonable place to start, but it doesn’t
-fully do justice to the end-to-end story.
-
-First, each base station establishes the wireless channel for a
-subscriber’s UE upon power-up or upon handover when the UE is active.
-This channel is released when the UE remains idle for a predetermined
-period of time. Using 3GPP terminology, this wireless channel is said to
-provide a bearer service.
-
-.. note::
-   The term “bearer” has historically been used in telecommunications
-   (including early wireline technologies like ISDN) to denote “data,”
-   as opposed to a channel that carries “signalling” information.
-
-.. _fig-active-ue:
-.. figure:: figures/Slide03.png 
-    :width: 500px
-    :align: center
-
-    Base Station detects (and connects to) active UEs.
-
-Second, each base station establishes "3GPP Control Plane” connectivity
-between the UE and the corresponding Mobile Core Control Plane
-component, and forwards signaling traffic between the two. This
-signaling traffic enables UE authentication, registration, mobility
-tracking.
-
-.. _fig-control-plane:
-.. figure:: figures/Slide04.png 
-    :width: 500px
-    :align: center
-	    
-    Base Station establishes control plane connectivity
-    between each UE and the Mobile Core.
-
-Third, for each active UE, the base station establishes one or more
-tunnels between the corresponding Mobile Core User Plane component.
-
-.. _fig-user-plane:
-.. figure:: figures/Slide05.png 
-    :width: 500px
-    :align: center
-	    
-    Base station establishes one or more tunnels between
-    each UE and the Mobile Core’s User Plane.
-
-Fourth, the base station forwards both control and user plane packets
-between the Mobile Core and the UE. These packets are tunnelled over
-SCTP/IP and GTP/UDP/IP, respectively. SCTP (Stream Control Transport
-Protocol) is 3GPP-defined alternative to TCP, tailored to carry
-signalling (control) information for telephony services. GTP (a nested
-acronym corresponding to (General Packet Radio Service) Tunneling
-Protocol) is a 3GPP-specific tunneling protocol designed to run over
-UDP.
-
-As an aside, it is noteworthy that connectivity between the RAN and the
-Mobile Core is IP-based. This was introduced as one of the main changes
-between 3G and 4G. Prior to 4G, the internals of the cellular network
-were circuit-based, which is not surprising given its origins as a voice
-network.
-
-.. _fig-tunnels:
-.. figure:: figures/Slide06.png 
-    :width: 500px
-    :align: center
-	    
-    Base Station to Mobile Core (and Base Station to Base
-    Station) control plane tunneled over SCTP/IP and user plane
-    tunneled over GTP/UDP/IP.
-
-Fifth, the base station coordinates UE handovers between neighboring
-base stations, using direct station-to-station links. Exactly like the
-station-to-core connectivity shown in the previous figure, these links
-are used to transfer both control plane (SCTP over IP) and user plane
-(GTP over UDP/IP) packets.
-
-.. _fig-handover:
-.. figure:: figures/Slide07.png 
-    :width: 500px
-    :align: center
-	    
-    Base Stations cooperate to implement UE hand over.
-    
-Sixth, the base station coordinates wireless multi-point transmission to
-a UE from multiple base stations, which may or may not be part of a UE
-handover from one base station to another.
-
-.. _fig-link-aggregation:
-.. figure:: figures/Slide08.png 
-    :width: 500px
-    :align: center
-	    
-    Base Stations cooperate to implement multipath
-    transmission (link aggregation) to UEs.
-
-For our purposes, the main takeaway is that the base station can be
-viewed as a specialized forwarder. In the Internet-to-UE direction, it
-fragments outgoing IP packets into physical layer segments and schedules
-them for transmission over the available radio spectrum, and in the
-UE-to-Internet direction it assembles physical layer segments into IP
-packets and forwards them (over a GTP/UDP/IP tunnel) to the upstream
-user plane of the Mobile Core. Also, based on observations of the
-wireless channel quality and per-subscriber policies, it decides whether
-to (a) forward outgoing packets directly to the UE, (b) indirectly
-forward packets to the UE via a neighboring base station, or (c) utilize
-multiple paths to reach the UE. The third case has the option of either
-spreading the physical payloads across multiple base stations or across
-multiple carrier frequencies of a single base station (including Wi-Fi).
-
-Note that as outlined in the previous chapter, scheduling is complex and
-multi-faceted, even when viewed as a localized decision at a single base
-station. What we now see is that there is also a global element, whereby
-it’s possible to forward traffic to a different base station (or to
-multiple base stations) in an effort to make efficient use of the radio
-spectrum over a larger geographic area.
-
-In other words, the RAN as a whole (i.e., not just a single base
-station) not only supports handovers (an obvious requirement for
-mobility), but also *link aggregation* and *load balancing*, mechanisms
-that are familiar to anyone that understands the Internet. We will
-revisit how such RAN-wide (global) decisions can be made using SDN
-techniques in a later chapter.
-
-3.3 Mobile Core
----------------
-
-The main function of the Mobile Core is to provide external packet data
-network (e.g., Internet) connectivity to mobile subscribers, while
-ensuring that they are authenticated and their observed service
-qualities satisfy their subscription SLAs. An important aspect of the
-Mobile Core is that it needs to manage all subscribers’ mobility by
-keeping track of their last whereabouts at the granularity of the
-serving base station.
-
-While the aggregate functionality remains largely the same as we migrate
-from 4G to 5G, how that functionality is virtualized and factored into
-individual components changes, with the 5G Mobile Core heavily
-influenced by the cloud’s march towards a microservice-based (cloud
-native) architecture. This shift to cloud native is deeper than it might
-first appear, in part because it opens the door to customization and
-specialization. Instead of supporting just voice and broadband
-connectivity, the 5G Mobile Core can evolve to also support, for
-example, massive IoT, which has a fundamentally different latency
-requirement and usage pattern (e.g., many more devices connecting
-intermittently). This stresses—if not breaks—a one-size-fits-all
-approach to session management.
-
-4G Mobile Core
-~~~~~~~~~~~~~~
-
-The 4G Mobile Core, which 3GPP officially refers to as the *Evolved
-Packet Core (EPC)*, consists of five main components, the first three of
-which run in the Control Plane (CP) and the second two of which run in
-the User Plane (UP):
-
--  MME (Mobility Management Entity): Tracks and manages the movement of
-   UEs throughout the RAN. This includes recording when the UE is not
-   active.
-
--  HSS (Home Subscriber Server): A database that contains all
-   subscriber-related information.
-
--  PCRF (Policy & Charging Rules Function): Tracks and manages policy
-   rules and records billing data on subscriber traffic.
-
--  SGW (Serving Gateway): Forwards IP packets to and from the RAN.
-   Anchors the Mobile Core end of the bearer service to a (potentially
-   mobile) UE, and so is involved in handovers from one base station to
-   another.
-
--  PGW (Packet Gateway): Essentially an IP router, connecting the Mobile
-   Core to the external Internet. Supports additional access-related
-   functions, including policy enforcement, traffic shaping, and
-   charging.
-
-Although specified as distinct components, in practice the SGW
-(RAN-facing) and PGW (Internet-facing) are often combined in a single
-device, commonly referred to as an S/PGW. The end result is illustrated
-in :numref:`Figure %s <fig-4g-core>`.
-
-.. _fig-4g-core:
-.. figure:: figures/Slide20.png 
-    :width: 700px
-    :align: center
-	    
-    4G Mobile Core (Evolved Packet Core).
-
-Note that 3GPP is flexible in how the Mobile Core components are
-deployed to serve a geographic area. For example, a single MME/PGW pair
-might serve a metropolitan area, with SGWs deployed across ~10 edge
-sites spread throughout the city, each of which serves ~100 base
-stations. But alternative deployment configurations are allowed by the
-spec.
-
-5G Mobile Core
-~~~~~~~~~~~~~~
-
-The 5G Mobile Core, which 3GPP calls the *NG-Core*, adopts a
-microservice-like architecture, where we say “microservice-like” because
-while the 3GPP specification spells out this level of disaggregation, it
-is really just prescribing a set of functional blocks and not an
-implementation. Keeping in mind a set of functional blocks is very
-different from the collection of engineering decisions that go into
-designing a microservice-based system, viewing the collection of
-components shown in :numref:`Figure %s <fig-5g-core>` 
-as a set of microservices is a good working model.
-
-The following organizes the set of functional blocks into three groups.
-The first group runs in the Control Plane (CP) and has a counterpart in
-the EPC:
-
--  AMF (Core Access and Mobility Management Function): Manages the
-   mobility-related aspects of the EPC’s MME. Responsible for connection
-   and reachability management, mobility management, access
-   authentication and authorization, and location services.
-
--  SMF (Session Management Function): Manages each UE session, including
-   IP address allocation, selection of associated UP function, control
-   aspects of QoS, and control aspects of UP routing. Roughly
-   corresponds to part of the EPC’s MME and the control-related aspects
-   of the EPC’s PGW.
-
--  PCF (Policy Control Function): Manages the policy rules that other CP
-   functions then enforce. Roughly corresponds to the EPC’s PCRF.
-
--  UDM (Unified Data Management): Manages user identity, including the
-   generation of authentication credentials. Includes part of the
-   functionality in the EPC’s HSS.
-
--  AUSF (Authentication Server Function): Essentially an authentication
-   server. Includes part of the functionality in the EPC’s HSS.
-
-The second group also runs in the Control Plane (CP) but does not have
-a direct counterpart in the EPC:
-
--  SDSF (Structured Data Storage Network Function): A “helper” service
-   used to store structured data. Could be implemented by an “SQL
-   Database” in a microservices-based system.
-
--  UDSF (Unstructured Data Storage Network Function): A “helper” service
-   used to store unstructured data. Could be implemented by a “Key/Value
-   Store” in a microservices-based system.
-
--  NEF (Network Exposure Function): A means to expose select
-   capabilities to third-party services, including translation between
-   internal and external representations for data. Could be implemented
-   by an “API Server” in a microservices-based system.
-
--  NRF (NF Repository Function): A means to discover available services.
-   Could be implemented by a “Discovery Service” in a
-   microservices-based system.
-
--  NSSF (Network Slicing Selector Function): A means to select a Network
-   Slice to serve a given UE. Network slices are essentially a way to
-   differentiate service given to different users. It is a key feature
-   of 5G that we discuss in depth later in a later chapter.
-
-The third group includes the one component that runs in the User Plane
-(UP):
-
--  UPF (User Plane Function): Forwards traffic between RAN and the
-   Internet, corresponding to the S/PGW combination in EPC. In addition
-   to packet forwarding, it is responsible for policy enforcement, lawful
-   intercept, traffic usage reporting, and QoS policing.
-
-Of these, the first and third groups are best viewed as a
-straightforward refactoring of 4G’s EPC, while the second group—despite
-the gratuitous introduction of new terminology—is 3GPP’s way of pointing
-to a cloud native solution as the desired end-state for the Mobile Core.
-Of particular note, introducing distinct storage services means that all
-the other services can be stateless, and hence, more readily scalable.
-Also note that :numref:`Figure %s <fig-5g-core>` adopts an idea that’s
-common in microservice-based systems, namely, to show a *message bus*
-interconnecting all the components rather than including a full set of
-pairwise connections. This also suggests a well-understood
-implementation strategy.
-
-.. _fig-5g-core:
-.. figure:: figures/Slide33.png 
-    :width: 700px
-    :align: center
-	    
-    5G Mobile Core (NG-Core).
-
-Stepping back from these details, and with the caveat that we are
-presuming an implementation, the main takeaway is that we can
-conceptualize the Mobile Core as a *Service Mesh*. We adopt this
-terminology for “an interconnected set of microservices” since it is
-widely used in cloud native systems. Other terms you will sometimes hear
-are *Service Graph* and *Service Chain*, the latter being more prevalent
-in NFV-oriented documents. 3GPP is silent on the specific terminology
-since it is considered an implementation choice rather than part of the
-specification.
-
-3.4 Security
-------------
-
-We now take a closer look at the security architecture of the cellular
-network, which also serves to fill in some details about how each
-individual UE connects to the network. The architecture is grounded in
-two trust assumptions.
-
-First, each Base Station trusts that it is connected to the Mobile
-Core by a secure private network, over which it establishes the
-tunnels introduced in :numref:`Figure %s <fig-tunnels>`: a GTP/UDP/IP
-tunnel to the Core's User Plane (Core-UP) and a SCTP/IP tunnel to the
-Core's Control Plane (Core-CP). Second, each UE has an
-operator-provided SIM card, which uniquely identifies the subscriber
-(i.e., phone number) and establishes the radio parameters (e.g.,
-frequency band) need to communicate with that operator's Base
-Stations. The SIM card also includes a secret key that the UE uses to
-authenticate itself.
-
-.. _fig-secure:
-.. figure:: figures/Slide34.png 
-    :width: 600px
-    :align: center
-	    
-    Sequence of steps to establish secure Control and User Plane
-    channels. 
-
-With this starting point, :numref:`Figure %s <fig-secure>` shows the
-per-UE connection sequence. When a UE first becomes active, it
-communicates with a nearby Base Station over a temporary
-(unauthenticated) radio link (Step 1).  The Base Station forwards the
-request to the Core-CP over the existing tunnel, and the Core-CP
-(specifically, the MME in 4G and the AMF in 5G) initiates an
-authentication protocol with the UE (Step 2). 3GPP identifies a set of
-options, including the *Advanced Encryption Standard* (AES), where the
-actual protocol used is an implementation choice. Note that this
-authentication exchange is in the clear since the Base Station to UE
-link is not yet secure.
-
-Once the UE and Core-CP are satisfied with each other's identity, the
-Core-CP informs the other components of the parameters they will need
-to service the UE (Step 3). This includes (a) instructing the Core-UP
-to initialize the user plane (e.g., assign an IP address to the UE and
-set the appropriate QCI parameter); (b) instructing the Base Station
-to establish an encrypted channel to the UE; and (c) giving the UE the
-symmetric key it will need to use the encrypted channel with the Base
-Station.  Once complete, the UE can use the end-to-end user plane
-channel through the Core-UP (Step 4).
-
-There are three additional details of note about this process. First,
-the secure control channel between the UE and the Core-CP set up
-during Step 2 remains available, and is used by the Core-CP to send
-additional control instructions to the UE during the course of the
-session.
-
-Second, the user plane channel established during Step 4 is referred
-to as the *Default Bearer Service*, but additional channels can be
-established between the UE and Core-UP, each with a potentially
-different QCI value. This might be done on an
-application-by-application basis, for example, under the control of
-the Mobile Core doing *Deep Packet Inspection* (DPI) on the traffic,
-looking for flows that that require special treatment.
-
-.. _fig-per-hop:
-.. figure:: figures/Slide35.png 
-    :width: 600px
-    :align: center
-	    
-    Sequence of per-hop tunnels involved in an end-to-end User Plane
-    channel.
-
-Third, while the resulting user plane channels are logically
-end-to-end, each is actually implemented as a sequence of per-hop
-tunnels, as illustrated in :numref:`Figure %s <fig-per-hop>`.  (The
-Figure shows the SGW and PGW from the 4G Mobile Core to make the
-example more concrete.) This means each component on the end-to-end
-path terminates a downstream tunnel using one local identifier for a
-given UE, and initiates an upstream tunnel using a second local
-identifier for that UE. In practice, these per-flow tunnels are often
-bundled into an single inter-component tunnel, which makes it
-impossible to differentiate the level of service given to any
-particular end-to-end UE channel. This is a limitation of 4G that 5G
-has ambitions to correct.
-
-3.5 Deployment Options
-----------------------
-
-With an already deployed 4G RAN/EPC in the field and a new 5G
-RAN/NG-Core deployment underway, we can’t ignore the issue of
-transitioning from 4G to 5G (an issue the IP-world has been grappling
-with for 20 years). 3GPP officially spells out multiple deployment
-options, which can be summarized as follows:
-
--  Stand-Alone 4G / Stand-Alone 5G
--  Non-Stand-Alone (4G+5G RAN) over 4G’s EPC
--  Non-Stand-Alone (4G+5G RAN) over 5G’s NG-Core
-
-Focusing on the second pair, which imply incremental phasing, we see two
-general strategies. The first is to connect new 5G base stations to
-existing 4G-based EPCs, and then incrementally evolve the Mobile Core by
-refactoring the components and adding NG-Core capabilities over time.
-The second is to implement a backward-compatible NG-Core that can
-support both 4G and 5G base stations, where the new NG-Core could be
-implemented from scratch, but would likely start with the existing EPC
-code base.
-
-One reason we call attention to the phasing issue is that we face a
-similar challenge in the chapters that follow. The closer the following
-discussion gets to implementation details, the more specific we have to
-be about whether we are using 4G components or 5G components. As a
-general rule, we use 4G components—particularly with respect to the
-Mobile Core, since that’s what's available in open source today—and trust
-the reader can make the appropriate substitution without loss of
-generality. Like the broader industry, the open source community is in
-the process of incrementally evolving its 4G code base into its
-5G-compliant counterpart.
+    Trellis suite of control apps managing a (potentially distributed)
+    leaf-spine fabric.
+
+Finally, Trellis is sometimes deployed at a single site with multiple
+mobile base stations connected via Trellis leaf-switches. But Trellis
+can also be extended to multiple sites deeper into the network using
+multiple stages of spines, as shown in :numref:`Figure %s
+<fig-trellis>`. Chapter 7 describes all of this in more detail.

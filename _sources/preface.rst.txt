@@ -1,46 +1,46 @@
 Preface 
 =======
 
-The transition to 5G is happening, and unless you’ve been actively
-trying to ignore it, you’ve undoubtedly heard the hype. But if you are
-like 99% of the CS-trained, systems-oriented, cloud-savvy people in
-the world, the cellular network is largely a mystery. You know it’s an
-important technology used in the last mile to connect people to the
-Internet, but you’ve otherwise abstracted it out of your
-scope-of-concerns.
+The Internet is the midst of a transformation, one that moves away
+from bundled proprietary devices, and instead embraces disaggregating
+network hardware (which becomes commodity) from the software that
+controls it (which scales in the cloud). The transformation is
+generally known as *Software-Defined Networking (SDN)*, but because it
+is disrupting the marketplace, it is challenging to untangle business
+positioning from technical fundamentals, from short-term engineering
+decisions. This book provides such an untangling, where the most
+important thing we hope readers take away is an understanding of an
+SDN-based network as a scalable distributed system running on
+commodity hardware.
 
-The important thing to understand about 5G is that it implies much more 
-than a generational upgrade in bandwidth. It involves transformative 
-changes that blur the line between the access network and the cloud. And 
-it will encompass enough value that it has the potential to turn the 
-“Access-as-frontend-to-Internet” perspective on its head. We will just as 
-likely be talking about “Internet-as-backend-to-Access” ten years from 
-now. 
+Anyone that has taken an introductory networking class recognizes the
+protocol stack as the canonical framework for describing the
+network. Whether that stack has seven layers or just three, it shapes
+and constrains the way we think about computer networks.  SDN suggests
+a completely different world-view, one that comes with a new software
+stack. This book is organized around that new stack, with the goal of
+presenting a top-to-bottom tour of SDN without leaving any significant
+gaps that the reader might suspect can only be filled with magic or
+some expert's secret sauce.
 
-This book is written for someone that has a working understanding of the 
-Internet and Cloud, but has had limited success penetrating the myriad 
-of acronyms that dominate cellular networking. In fairness, the Internet 
-has its share acronyms, but it also comes with a sufficient set of 
-abstractions to help manage the complexity. It’s hard to say the same 
-for the cellular network, where pulling on one thread seemingly unravels 
-the entire space. It has also been the case that the cellular network 
-had been largely hidden inside proprietary devices, which has made it 
-impossible to figure it out for yourself. 
+An important aspect of meeting this goal is to use open source. We do
+this in large part by taking advantage of two community-based
+organizations that are leading the way. One is the *Open Compute
+Project (OCP)*, which is actively specifying and certifying commodity
+hardware (e.g., white-box switches) upon which the SDN software stack
+runs. The second is the *Open Networking Foundation (ONF)*, which is
+actively implementing a suite of software components that can be
+integrated into an end-to-end solution. There are many other players
+in this space—from incumbent vendors to network operators, startups,
+standards bodies, and other open source projects—each offering varied
+interpretations of what SDN *is* and *is not*. We discuss these other
+perspectives and explain how they fit into the larger scheme of
+things, but we do not let them deter us from describing the full
+potential of SDN. Only time will tell where the SDN journey takes us,
+but we believe it is important to understand the scope of the
+opportunity.
 
-This book is the result of a mobile networking expert teaching a 
-systems person about 5G as we’ve collaborated on an open source 5G 
-implementation. The material has been used to train other software 
-developers, and we are hopeful it will be useful to anyone that wants a 
-deeper understanding of 5G and the opportunity for innovation it 
-provides. Readers that want hands-on experience can also access the open 
-source software introduced in the book. 
+| Larry Peterson, Carmelo Cascone, Brian O'Connor, and Thomas Vachuska
+| Open Networking Foundation
+| March 2020
 
-This book will likely be a work-in-progress for the foreseeable future. 
-It’s not intended to be encyclopedic—favoring perspective and end-to-end 
-completeness over every last bit of detail—but we do plan to flesh out 
-the content over time. Your suggestions (and contributions) to this end 
-are welcome. 
-
-| Larry Peterson and Oguz Sunay 
-| Open Networking Foundation 
-| August 2019 

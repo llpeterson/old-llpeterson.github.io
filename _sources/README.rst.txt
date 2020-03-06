@@ -1,8 +1,8 @@
 About This Book
 ===============
 
-This `repository <https://github.com/SystemsApproach/5G>`__ contains
-source for *5G Mobile Networks: A Systems Approach*, available under
+This `repository <https://github.com/SystemsApproach/SDN>`__ contains
+source for *Softwarwe-Defined Networks: A Systems Approach*, available under
 terms of the `Creative Commons (CC BY 4.0)
 <https://creativecommons.org/licenses/by/4.0>`__ license. The
 community is invited to contribute corrections, improvements, updates,
@@ -11,18 +11,18 @@ and new material under the same terms.
 If you make use of this work, the attribution should include the
 following information:
 
-| *Title: 5G Mobile Networks: A Systems Approach* 
-| *Authors: Larry Peterson and Oguz Sunay* 
-| *Source:* https://github.com/SystemsApproach/5G 
+| *Title: Software-Defined Networks: A Systems Approach* 
+| *Authors: Larry Peterson, Carmelo Cascone, Brian O'Connor, and Thomas Vachuska* 
+| *Source:* https://github.com/SystemsApproach/SDN 
 | *License:* \ `CC BY 4.0 <https://creativecommons.org/licenses/by/4.0>`__
 
 Read the Book
 -------------
 
 An online version of the book is published at
-`https://5G.systemsapproach.org <https://5g.systemsapproach.org>`__. You
+`https://sdn.systemsapproach.org <https://sdn.systemsapproach.org>`__. You
 can also find PDF and eBook versions
-`here <https://github.com/SystemsApproach/5G/releases>`__.
+`here <https://github.com/SystemsApproach/SDN/releases>`__.
 
 To track progress and receive notices about new versions, you can follow
 the project on
@@ -38,9 +38,9 @@ To build a web-viewable version, you first need to download the source:
 
 .. code:: shell 
 
-   mkdir ~/5G 
-   cd ~/5G 
-   git clone https://github.com/SystemsApproach/5G.git 
+   mkdir ~/SDN 
+   cd ~/SDN 
+   git clone https://github.com/SystemsApproach/SDN.git 
 
 The build process is stored in the Makefile and requires Python be 
 installed. The Makefile will create a virtualenv (``doc_venv``) which 
@@ -66,5 +66,5 @@ addressed, and issuing *Pull Requests* to merge your improvements back
 into GitHub.
 
 If you’d like to contribute and are looking for something that needs
-attention, see the `wiki <https://github.com/SystemsApproach/5G/wiki>`__
+attention, see the `wiki <https://github.com/SystemsApproach/SDN/wiki>`__
 for the current TODO list.
