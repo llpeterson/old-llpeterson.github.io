@@ -293,15 +293,15 @@ scheduler.</p>
 principles, resulting in an SD-RAN. The key architectural insight is
 shown in <a class="reference internal" href="#fig-rrc-split"><span class="std std-numref">Figure 21</span></a>, where the RRC from
 <a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 18</span></a> is partitioned into two
-sub-components: the one on
-the left provides a 3GPP-compliant way for the RAN to interface to the
-Mobile Core’s control plane, while the latter opens a new programmatic
-API for exerting software-based control over the pipeline that
-implements the RAN user plane. To be more specific, the left
-sub-component simply forwards control packets between the Mobile Core
-and the PDCP, providing a path over which the Mobile Core can
-communicate with the UE for control purposes, whereas the right
-sub-component implements the core of the RCC’s control functionality.</p>
+sub-components: the one on the left provides a 3GPP-compliant way for
+the RAN to interface to the Mobile Core’s control plane, while the one
+on the right opens a new programmatic API for exerting software-based
+control over the pipeline that implements the RAN user plane. To be
+more specific, the left sub-component simply forwards control packets
+between the Mobile Core and the PDCP, providing a path over which the
+Mobile Core can communicate with the UE for control purposes, whereas
+the right sub-component implements the core of the RCC’s control
+functionality.</p>
 <div class="figure align-center" id="id4">
 <span id="fig-rrc-split"></span><a class="reference internal image-reference" href="_images/Slide18.png"><img alt="_images/Slide18.png" src="_images/Slide18.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 21. </span><span class="caption-text">RRC disaggregated into a Mobile Core facing control
