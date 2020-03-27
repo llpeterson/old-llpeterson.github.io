@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Chapter 4: RAN Internals &mdash; 5G Mobile Networks: A Systems Approach Version 0.2 documentation</title>
+  <title>Chapter 4: RAN Internals &mdash; 5G Mobile Networks: A Systems Approach Version 0.3-dev documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                Version 0.2
+                Version 0.3-dev
               </div>
             
           
@@ -312,8 +312,9 @@ plane component and a Near Real-Time Controller.</span></p>
 the RRC, plus the PDCP, form the CU.</p>
 <p>Completing the picture, <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">Figure 22</span></a> shows
 the Near-RT RAN Controller implemented as a traditional SDN Controller
-hosting a set of SDN control apps. The Near Real-Time Controller
-maintains a RAN Network Information Base (R-NIB) that includes
+hosting a set of SDN control apps. The Near Real-Time Controller,
+which is sometimes referred to as a <em>RAN Intelligent Controller (RIC)</em>,
+maintains a <em>RAN Network Information Base (R-NIB)</em> that includes
 time-averaged CQI values and other per-session state (e.g., GTP tunnel
 IDs, QCI values for the type of traffic), while the MAC (as part of the
 DU) maintains the instantaneous CQI values required by the real-time
