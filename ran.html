@@ -27,6 +27,7 @@
         <script type="text/javascript" src="static/underscore.js"></script>
         <script type="text/javascript" src="static/doctools.js"></script>
         <script type="text/javascript" src="static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="static/js/theme.js"></script>
 
@@ -239,11 +240,13 @@ scheduling interval can range from a few bytes to an entire IP packet.</p>
 <h2>4.2 Split RAN<a class="headerlink" href="#split-ran" title="Permalink to this headline">¶</a></h2>
 <p>The next step is understanding how the functionality outlined above is
 partitioned between physical elements, and hence, “split” across
-centralized and distributed locations. Although the 3GPP standard allows
-for multiple split-points, the partition shown in <a class="reference internal" href="#fig-split-ran"><span class="std std-numref">Figure 19</span></a>
-is the one being actively pursued by the
-operator-led O-RAN (Open RAN) Alliance. It is the split we adopt
-throughout the rest of this book.</p>
+centralized and distributed locations. The dominant option has
+historically been “no split,” with the entire pipeline shown in
+<a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 18</span></a> running in the base station.  Going
+forward, the 3GPP standard has been extended to allow for multiple
+split-points, with the partition shown in <a class="reference internal" href="#fig-split-ran"><span class="std std-numref">Figure 19</span></a> being actively pursued by the operator-led O-RAN
+(Open RAN) Alliance. It is the split we adopt throughout the rest of
+this book.</p>
 <div class="figure align-center" id="id2">
 <span id="fig-split-ran"></span><a class="reference internal image-reference" href="_images/Slide15.png"><img alt="_images/Slide15.png" src="_images/Slide15.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 19. </span><span class="caption-text">Split-RAN processing pipeline distributed across a
