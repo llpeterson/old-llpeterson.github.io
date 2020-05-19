@@ -298,3 +298,40 @@ depth in a later chapter.
     Scheduler allocates Resource Blocks to user data
     streams based on CQI feedback from receivers and the QCI
     parameters associated with each class of service.
+
+We close by noting that while we have introduced 5G as introducing
+additional degrees of freedom into how data is scheduled for
+transmission in 4G, the end result is a qualitatively more powerful
+radio. Sometimes referred to as *New Radio (NR)*, the 5G air interface
+specification that enables three distinct and new use cases:
+
+* Extreme Mobile Broadband (eMBB)
+* Ultra-Reliable Low-Latency Communications (URLLC)
+* Massive Machine-Type Communications (mMTC)
+
+All three address the requirements outlinled in Chapter 1, and most
+importantly, go well beyond simply delivering increased bandwidth.
+The 5G NR architecture does this by building three key design
+principles:
+
+* 5G NR utilizes millimeter-waves (in addition to the traditional
+  mid-band spectrum) to support very high data rates over very wide
+  transmission bandwidths.
+
+* 5G NR has the flexibility to potentially support new, yet unknown,
+  use cases when they arise,
+  
+* 5G NR architecture needs to have highly efficient energy
+  utilization.
+
+Like its 4G counterpart, 5G NR uses OFDM waveform for mobile
+transmission, exploiting both time and frequency domains in a robust
+way in a hostile mobile transmission environment. However, to support
+a wide range of transmission spectra and associated bandwidths, 5G NR
+introduces flexibility to the OFDM numerology. This flexibility is
+also key for potential support for upcoming use cases. 5G NR is
+architected to use the same frame structure for both
+frequency-division duplexing (FDD) and time-division duplexing (TDD)
+operations. Further, the duplexing in question can be selected to be
+full-duplex or half-duplex.
+
