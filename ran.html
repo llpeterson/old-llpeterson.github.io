@@ -187,7 +187,7 @@ describing the stages in the packet processing pipeline, and then
 showing how these stages can be distributed and implemented.</p>
 <div class="section" id="packet-processing-pipeline">
 <h2>4.1 Packet Processing Pipeline<a class="headerlink" href="#packet-processing-pipeline" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 18</span></a> shows the packet processing stages
+<p><a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 19</span></a> shows the packet processing stages
 implemented by the base station. These stages are specified by the 3GPP
 standard. Note that the figure depicts the base station as a pipeline
 (running left-to-right) but it is equally valid to view it as a protocol
@@ -198,7 +198,7 @@ you can think of each as corresponding to a microservice (if that is
 helpful).</p>
 <div class="figure align-center" id="id1">
 <span id="fig-pipeline"></span><a class="reference internal image-reference" href="_images/Slide14.png"><img alt="_images/Slide14.png" src="_images/Slide14.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">Figure 18. </span><span class="caption-text">RAN processing pipeline, including both user and
+<p class="caption"><span class="caption-number">Figure 19. </span><span class="caption-text">RAN processing pipeline, including both user and
 control plane components.</span></p>
 </div>
 <p>The key stages are as follows:</p>
@@ -223,9 +223,9 @@ frequencies, including Wi-Fi).</li>
 <li>PHY (Physical Layer) → Responsible for coding and modulation (as
 discussed in an earlier chapter), including FEC.</li>
 </ul>
-<p>The last two stages in <a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 18</span></a> (D/A
+<p>The last two stages in <a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 19</span></a> (D/A
 conversion and the RF front-end) are beyond the scope of this book.</p>
-<p>While it is simplest to view the stages in <a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 18</span></a>
+<p>While it is simplest to view the stages in <a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 19</span></a>
 as a pure left-to-right pipeline, in practice the Scheduler running in the
 MAC stage implements the “main loop” for outbound traffic, reading data
 from the upstream RLC and scheduling transmissions to the downstream
@@ -242,18 +242,18 @@ scheduling interval can range from a few bytes to an entire IP packet.</p>
 partitioned between physical elements, and hence, “split” across
 centralized and distributed locations. The dominant option has
 historically been “no split,” with the entire pipeline shown in
-<a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 18</span></a> running in the base station.  Going
+<a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 19</span></a> running in the base station.  Going
 forward, the 3GPP standard has been extended to allow for multiple
-split-points, with the partition shown in <a class="reference internal" href="#fig-split-ran"><span class="std std-numref">Figure 19</span></a> being actively pursued by the operator-led O-RAN
+split-points, with the partition shown in <a class="reference internal" href="#fig-split-ran"><span class="std std-numref">Figure 20</span></a> being actively pursued by the operator-led O-RAN
 (Open RAN) Alliance. It is the split we adopt throughout the rest of
 this book.</p>
 <div class="figure align-center" id="id2">
 <span id="fig-split-ran"></span><a class="reference internal image-reference" href="_images/Slide15.png"><img alt="_images/Slide15.png" src="_images/Slide15.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">Figure 19. </span><span class="caption-text">Split-RAN processing pipeline distributed across a
+<p class="caption"><span class="caption-number">Figure 20. </span><span class="caption-text">Split-RAN processing pipeline distributed across a
 Central Unit (CU), Distributed Unit (DU), and Radio Unit (RU).</span></p>
 </div>
 <p>This results in a RAN-wide configuration similar to that shown in
-<a class="reference internal" href="#fig-ran-hierarchy"><span class="std std-numref">Figure 20</span></a>, where a single <em>Central Unit (CU)</em>
+<a class="reference internal" href="#fig-ran-hierarchy"><span class="std std-numref">Figure 21</span></a>, where a single <em>Central Unit (CU)</em>
 running in the cloud serves multiple <em>Distributed Units (DUs)</em>, each of
 which in turn serves multiple <em>Radio Units (RUs)</em>. Critically, the RRC
 (centralized in the CU) is responsible for only near-real time
@@ -262,7 +262,7 @@ part of the MAC stage is responsible for all real-time scheduling
 decisions.</p>
 <div class="figure align-center" id="id3">
 <span id="fig-ran-hierarchy"></span><a class="reference internal image-reference" href="_images/Slide16.png"><img alt="_images/Slide16.png" src="_images/Slide16.png" style="width: 400px;" /></a>
-<p class="caption"><span class="caption-number">Figure 20. </span><span class="caption-text">Split-RAN hierarchy, with one CU serving multiple DUs,
+<p class="caption"><span class="caption-number">Figure 21. </span><span class="caption-text">Split-RAN hierarchy, with one CU serving multiple DUs,
 each of which serves multiple RUs.</span></p>
 </div>
 <p>Clearly, a DU needs to be “near” (within 1ms) the RUs it manages since
@@ -300,8 +300,8 @@ NGMN Alliance Report, March 2015.</p>
 <h2>4.3 Software-Defined RAN<a class="headerlink" href="#software-defined-ran" title="Permalink to this headline">¶</a></h2>
 <p>Finally, we describe how the RAN is implemented according to SDN
 principles, resulting in an SD-RAN. The key architectural insight is
-shown in <a class="reference internal" href="#fig-rrc-split"><span class="std std-numref">Figure 21</span></a>, where the RRC from
-<a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 18</span></a> is partitioned into two
+shown in <a class="reference internal" href="#fig-rrc-split"><span class="std std-numref">Figure 22</span></a>, where the RRC from
+<a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 19</span></a> is partitioned into two
 sub-components: the one on the left provides a 3GPP-compliant way for
 the RAN to interface to the Mobile Core’s control plane, while the one
 on the right opens a new programmatic API for exerting software-based
@@ -318,13 +318,13 @@ in the CU, as opposed to the ~1ms control loop required by the MAC
 scheduler running in the DU.</p>
 <div class="figure align-center" id="id4">
 <span id="fig-rrc-split"></span><a class="reference internal image-reference" href="_images/Slide18.png"><img alt="_images/Slide18.png" src="_images/Slide18.png" style="width: 600px;" /></a>
-<p class="caption"><span class="caption-number">Figure 21. </span><span class="caption-text">RRC disaggregated into a Mobile Core facing control
+<p class="caption"><span class="caption-number">Figure 22. </span><span class="caption-text">RRC disaggregated into a Mobile Core facing control
 plane component and a Near Real-Time Controller.</span></p>
 </div>
-<p>Although not shown in <a class="reference internal" href="#fig-rrc-split"><span class="std std-numref">Figure 21</span></a>, keep in mind
-(from <a class="reference internal" href="#fig-split-ran"><span class="std std-numref">Figure 19</span></a>) that all constituent parts of
+<p>Although not shown in <a class="reference internal" href="#fig-rrc-split"><span class="std std-numref">Figure 22</span></a>, keep in mind
+(from <a class="reference internal" href="#fig-split-ran"><span class="std std-numref">Figure 20</span></a>) that all constituent parts of
 the RRC, plus the PDCP, form the CU.</p>
-<p>Completing the picture, <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">Figure 22</span></a> shows
+<p>Completing the picture, <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">Figure 23</span></a> shows
 the Near-RT RIC implemented as a traditional SDN Controller hosting a
 set of SDN control apps. The RIC maintains a <em>RAN Network Information
 Base (R-NIB)</em> that includes time-averaged CQI values and other
@@ -377,10 +377,10 @@ neighbor cells<ul>
 </ul>
 <div class="figure align-center" id="id5">
 <span id="fig-ran-controller"></span><a class="reference internal image-reference" href="_images/Slide19.png"><img alt="_images/Slide19.png" src="_images/Slide19.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-number">Figure 22. </span><span class="caption-text">Example set of control applications running on top of
+<p class="caption"><span class="caption-number">Figure 23. </span><span class="caption-text">Example set of control applications running on top of
 Near Real-Time RAN Controller.</span></p>
 </div>
-<p>The example Control Apps in <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">Figure 22</span></a>
+<p>The example Control Apps in <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">Figure 23</span></a>
 include a range of possibilities, but is not intended to be an
 exhaustive list.  The right-most example, RAN Slicing, is the most
 ambitious in that it introduces a new capability: Virtualizing the
@@ -416,11 +416,35 @@ implementation choice, and the result is intended to be
 3GPP-compliant. This means that 3GPP-defined interfaces still apply to
 inter-module communication, and while we do not focus on the details
 of those interfaces in this book, it is good to be aware that they
-exist. <a class="reference internal" href="#fig-3gpp"><span class="std std-numref">Figure 23</span></a> shows those interfaces overlayed
+exist. <a class="reference internal" href="#fig-3gpp"><span class="std std-numref">Figure 24</span></a> shows those interfaces overlayed
 on the disaggregated components introduced throughout this chapter.</p>
 <div class="figure align-center" id="id6">
 <span id="fig-3gpp"></span><a class="reference internal image-reference" href="_images/Slide38.png"><img alt="_images/Slide38.png" src="_images/Slide38.png" style="width: 450px;" /></a>
-<p class="caption"><span class="caption-number">Figure 23. </span><span class="caption-text">Split-RAN plus SD-RAN annotated with 3GPP-defined interfaces.</span></p>
+<p class="caption"><span class="caption-number">Figure 24. </span><span class="caption-text">Split-RAN plus SD-RAN annotated with 3GPP-defined interfaces.</span></p>
+</div>
+<div class="sidebar">
+<p class="first sidebar-title">3GPP versus O-RAN</p>
+<p>As explained in Chapter 1, 3GPP is the standardization body
+responsible for the cellular network. This includes
+identifying the potential “break points” for splitting the RAN
+into CU, DU, and RU, as depicted in <a class="reference internal" href="#fig-split-ran"><span class="std std-numref">Figure 20</span></a>. One might wonder, then, what role the O-RAN
+plays in all of this. There is both a technical and a business
+answer to this question.</p>
+<p>The technical answer is that O-RAN is responsible for defining
+the interfaces needed to apply SDN as an implementation option
+into the 3GPP-defined Split-RAN standard. These SDN-related
+elements include the NEAR-RT RIC (plus associated Control
+Apps) and the E2 interface shown in <a class="reference internal" href="#fig-3gpp"><span class="std std-numref">Figure 24</span></a>. Everything else shown in the figure is
+3GPP-specified.</p>
+<p class="last">The business answer is that over time 3GPP has become a
+vendor-dominated organization, whereas O-RAN was created more
+recently by network operators. (AT&amp;T and China Mobile were the
+founding members.) O-RAN’s goal is to catalyze a
+software-based implementation that breaks the vendor lock-in
+that dominates today’s marketplace. The E2 interface, which is
+architected around the idea of supporting different Service
+Models, is central to this strategy. Whether the operators
+will be successful in their ultimate goal is yet to be seen.</p>
 </div>
 <p>The interface names are cryptic, but easily summarized. The mobile
 operator’s management plane—typically called the <em>OSS (Operations
@@ -440,6 +464,26 @@ from the RIC control apps is an implementation choice; O-RAN
 architecture documents treat the applications as part of the
 RIC. Calling them out separately foreshadows the implementation
 described in Chapter 6.</p>
+<p>The E2 interface shown in <a class="reference internal" href="#fig-3gpp"><span class="std std-numref">Figure 24</span></a> is the
+interesting one, and worth a bit more discussion. The goal is to
+disaggregate the vendor-specific RRM, moving control to the Near-RT
+RIC. You will notice in the figure that the E2 interface connects the
+Near-RT RIC to different types of RAN elements, ranging from legacy
+eNodeBs to the full CU/DU/RU split-RAN. This range is reflected in the
+API, which revolves around a <em>Service Model</em> abstraction. The idea is
+that each RAN element advertises a Service Model, which effectively
+defines the set of RAN Functions the element is able to support. The
+RIC then issues a combination of the following four operations against
+this Service Model:</p>
+<ul class="simple">
+<li><strong>Report:</strong> RIC asks the element to report a function-specific value setting.</li>
+<li><strong>Insert:</strong> RIC instructs the element to activate a user plane function.</li>
+<li><strong>Control:</strong> RIC instructs the element to activate a control plane function.</li>
+<li><strong>Policy:</strong> RIC sets a policy parameter on one of the activated functions.</li>
+</ul>
+<p>Of course, it is the RAN element, through its published Service Model,
+that defines the relevant set of functions that can be activated, the
+variables that can be reported, and policies that can b set.</p>
 <p>Knowing these interface names adds nothing to our conceptual
 understanding of the RAN, except perhaps to re-enforce how challenging
 it is to introduce a transformative technology like Software-Defined
@@ -448,7 +492,7 @@ full backward compatibility and universal interoperability. It is
 instructive to contrast this approach with the Internet’s philosophy
 of trying to minimize the universally agreed upon definitions.</p>
 <p>Finally, to help solidify your understanding, we recommend that you
-match-up the elements in <a class="reference internal" href="#fig-3gpp"><span class="std std-numref">Figure 23</span></a> with those
+match-up the elements in <a class="reference internal" href="#fig-3gpp"><span class="std std-numref">Figure 24</span></a> with those
 described earlier in this chapter. As you do so, keep in mind that you
 won’t find an explicit Central Unit Control Plane (CU-C) and Central
 Unit User Plane (CU-U) in the earlier diagrams. They are there, but by

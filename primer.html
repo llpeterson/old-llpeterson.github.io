@@ -94,8 +94,12 @@
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Chapter 1:  Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Chapter 2:  Radio Transmission</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#coding-and-modulation">2.1 Coding and Modulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#scheduling-4g">2.2 Scheduling: 4G</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#scheduling-5g">2.3 Scheduling: 5G</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scheduling">2.2 Scheduling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#g-scheduling">2.2.1 4G Scheduling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2.2.2 5G Scheduling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#new-radio-nr">2.3 New Radio (NR)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="arch.html">Chapter 3:  Basic Architecture</a></li>
@@ -205,7 +209,7 @@ transmitted brings a number of impairments, including noise,
 attenuation, distortion, fading, and interference. This challenge is
 addressed by a combination of coding and modulation, as depicted in
 <a class="reference internal" href="#fig-modulation"><span class="std std-numref">Figure 1</span></a>.</p>
-<div class="figure align-center" id="id1">
+<div class="figure align-center" id="id4">
 <span id="fig-modulation"></span><a class="reference internal image-reference" href="_images/Slide09.png"><img alt="_images/Slide09.png" src="_images/Slide09.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Figure 1. </span><span class="caption-text">The role of coding and modulation in mobile communication.</span></p>
 </div>
@@ -227,7 +231,7 @@ scenario depicted in <a class="reference internal" href="#fig-multipath"><span c
 the signal bounces off various stationary and moving objects,
 following multiple paths from the transmitter to the receiver, who may
 also be moving.</p>
-<div class="figure align-center" id="id2">
+<div class="figure align-center" id="id5">
 <span id="fig-multipath"></span><a class="reference internal image-reference" href="_images/Slide10.png"><img alt="_images/Slide10.png" src="_images/Slide10.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 2. </span><span class="caption-text">Signals propagate along multiple paths from
 transmitter to receiver.</span></p>
@@ -254,7 +258,7 @@ time. Based on the target parameters to this model (selected according
 to the target physical environment), it is possible to calculate
 <span class="math notranslate nohighlight">\(T_c\)</span>, which in turn bounds the rate at which symbols can be
 transmitted without undue risk of interference.</p>
-<div class="figure align-center" id="id3">
+<div class="figure align-center" id="id6">
 <span id="fig-coherence"></span><a class="reference internal image-reference" href="_images/Slide11.png"><img alt="_images/Slide11.png" src="_images/Slide11.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Figure 3. </span><span class="caption-text">Received data spread over time due to multipath
 variation.</span></p>
@@ -279,19 +283,21 @@ the data bits. The base station then uses this information to adapt how
 it allocates the available radio spectrum to the subscribers it is
 serving, as well as which coding and modulation scheme to employ.
 All of these decisions are made by  the scheduler.</p>
-<p>How the scheduler does its job is one of the most important properties
-of each generation of the cellular network, which in turn depends on the
-multiplexing mechanism. For example, 2G used <em>Time Division Multiple
-Access (TDMA)</em> and 3G used <em>Code Division Multiple Access (CDMA)</em>. It is
-also a major differentiator for 4G and 5G, completing the transition
-from the cellular network being fundamentally circuit-switched to
-fundamentally packet-switched. The following two sections describe each,
-in turn.</p>
 </div>
-<div class="section" id="scheduling-4g">
-<h2>2.2 Scheduling: 4G<a class="headerlink" href="#scheduling-4g" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="scheduling">
+<h2>2.2 Scheduling<a class="headerlink" href="#scheduling" title="Permalink to this headline">¶</a></h2>
+<p>How the scheduler does its job is one of the most important properties
+of each generation of the cellular network, which in turn depends on
+the multiplexing mechanism. For example, 2G used <em>Time Division
+Multiple Access (TDMA)</em> and 3G used <em>Code Division Multiple Access
+(CDMA)</em>. It is also a major differentiator for 4G and 5G, completing
+the transition from the cellular network being fundamentally
+circuit-switched to fundamentally packet-switched. This section
+describe each, in turn.</p>
+<div class="section" id="g-scheduling">
+<h3>2.2.1 4G Scheduling<a class="headerlink" href="#g-scheduling" title="Permalink to this headline">¶</a></h3>
 <p>The state-of-the-art in multiplexing 4G cellular networks is called
-<em>Orthogonal Frequency-Division Multiple Access (OFDMA)</em>. The idea is to
+<em>Orthogonal Frequency-Division Multiple Access (OFDMA)</em>. <a class="footnote-reference" href="#id2" id="id1">[1]</a> The idea is to
 multiplex data over a set of 12 orthogonal subcarrier frequencies, each
 of which is modulated independently. The “Multiple Access” in OFDMA
 implies that data can simultaneously be sent on behalf of multiple
@@ -299,6 +305,16 @@ users, each on a different subcarrier frequency and for a different
 duration of time. The subbands are narrow (e.g., 15kHz), but the coding
 of user data into OFDMA symbols is designed to minimize the risk of data
 loss due to interference between adjacent bands.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>This section focuses on the discrete aspects of scheduling the
+radio spectrum, and not so much the underlying challenges of
+modulation. We return to the broader issue of defining a “air
+interface” that makes efficient use of the spectrum in a
+concluding section.</td></tr>
+</tbody>
+</table>
 <p>The use of OFDMA naturally leads to conceptualizing the radio spectrum
 as a two-dimensional resource, as shown in <a class="reference internal" href="#fig-sched-grid"><span class="std std-numref">Figure 4</span></a>.
 The minimal schedulable unit, called a <em>Resource Element (RE)</em>,
@@ -306,8 +322,8 @@ corresponds to a 15kHz-wide band around one subcarrier frequency and the
 time it takes to transmit one OFDMA symbol. The number of bits that can
 be encoded in each symbol depends on the modulation rate, so for example
 using <em>Quadrature Amplitude Modulation (QAM)</em>, 16-QAM yields 4 bits per
-symbol and 64-QAM yields 6 bits per symbol</p>
-<div class="figure align-center" id="id4">
+symbol and 64-QAM yields 6 bits per symbol.</p>
+<div class="figure align-center" id="id7">
 <span id="fig-sched-grid"></span><a class="reference internal image-reference" href="_images/Slide12.png"><img alt="_images/Slide12.png" src="_images/Slide12.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 4. </span><span class="caption-text">Spectrum abstractly represented by a 2-D grid of
 schedulable Resource Elements.</span></p>
@@ -359,8 +375,8 @@ architecture open to innovations like this is one of our goals, and as
 we will see in the next section, becomes even more important in 5G where
 the scheduler operates with even more degrees of freedom.</p>
 </div>
-<div class="section" id="scheduling-5g">
-<h2>2.3 Scheduling: 5G<a class="headerlink" href="#scheduling-5g" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>2.2.2 5G Scheduling<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>The transition from 4G to 5G introduces additional flexibility in
 how the radio spectrum is scheduled, making it possible to adapt the
 cellular network to a more diverse set of devices and applications
@@ -429,45 +445,49 @@ accurate to say that each QCI is associated with a class of traffic
 subscriber might be sending and receiving traffic that belongs to
 multiple classes at any given time. We explore this idea in much more
 depth in a later chapter.</p>
-<div class="figure align-center" id="id5">
+<div class="figure align-center" id="id8">
 <span id="fig-scheduler"></span><a class="reference internal image-reference" href="_images/Slide13.png"><img alt="_images/Slide13.png" src="_images/Slide13.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 5. </span><span class="caption-text">Scheduler allocates Resource Blocks to user data
 streams based on CQI feedback from receivers and the QCI
 parameters associated with each class of service.</span></p>
 </div>
-<p>We close by noting that while we have introduced 5G as introducing
-additional degrees of freedom into how data is scheduled for
-transmission in 4G, the end result is a qualitatively more powerful
-radio. Sometimes referred to as <em>New Radio (NR)</em>, the 5G air interface
-specification that enables three distinct and new use cases:</p>
+</div>
+</div>
+<div class="section" id="new-radio-nr">
+<h2>2.3 New Radio (NR)<a class="headerlink" href="#new-radio-nr" title="Permalink to this headline">¶</a></h2>
+<p>We conclude by noting that while the previous section describes 5G as
+introducing additional degrees of freedom into how data is scheduled
+for transmission in 4G, the end result is a qualitatively more
+powerful radio. This new 5G air interface specification, which is
+sometimes referred to as <em>New Radio (NR)</em>, enables three new use cases
+that go well beyond simply delivering increased bandwidth:</p>
 <ul class="simple">
 <li>Extreme Mobile Broadband (eMBB)</li>
 <li>Ultra-Reliable Low-Latency Communications (URLLC)</li>
 <li>Massive Machine-Type Communications (mMTC)</li>
 </ul>
-<p>All three address the requirements outlinled in Chapter 1, and most
-importantly, go well beyond simply delivering increased bandwidth.
-The 5G NR architecture does this by building three key design
-principles:</p>
-<ul class="simple">
-<li>5G NR utilizes millimeter-waves (in addition to the traditional
-mid-band spectrum) to support very high data rates over very wide
-transmission bandwidths.</li>
-<li>5G NR has the flexibility to potentially support new, yet unknown,
-use cases when they arise,</li>
-<li>5G NR architecture needs to have highly efficient energy
-utilization.</li>
-</ul>
-<p>Like its 4G counterpart, 5G NR uses OFDM waveform for mobile
-transmission, exploiting both time and frequency domains in a robust
-way in a hostile mobile transmission environment. However, to support
-a wide range of transmission spectra and associated bandwidths, 5G NR
-introduces flexibility to the OFDM numerology. This flexibility is
-also key for potential support for upcoming use cases. 5G NR is
-architected to use the same frame structure for both
-frequency-division duplexing (FDD) and time-division duplexing (TDD)
-operations. Further, the duplexing in question can be selected to be
-full-duplex or half-duplex.</p>
+<p>All three address the requirements outlinled in Chapter 1, and can be
+traced to two key enhancements.</p>
+<p>First, both 4G and 5G use <em>OFDM (Orthogonal Frequency-Division
+Multiplexing)</em> as their foundational modulation technique, resulting
+in the discrete <em>frequency × time</em> resource blocks that become the
+“schedulable unit” described in the previous section. For our
+purposes, you can think of OFDMA as extending OFDM, where the
+“Multiple Access” that corresponds to the “MA” in OFDMA has to do with
+how the scheduler multiplexes the available resource blocks among
+different traffic sources. In 4G, this multiplexing happens in both
+the frequency and time domains for downstream traffic, but in only the
+frequency domain for upstream traffic. 5G NR multiplexes both upstream
+and downstream traffic in both the time and frequency domains. Doing
+so provides finer-grain scheduling control needed by latency-sensitive
+applications.</p>
+<p>Second, 5G NR has a plethora of spectrum available to it, with the new
+mmWave allocations opening above 24-GHz being especially
+important. This is not only because of the abundance of capacity, but
+also because the higher-frequency enables even finer-grain resource
+blocks. Again, this provides increased scheduling flexibility to the
+benefit of mission-critical applications that cannot tolerate
+unpredictable latency.</p>
 </div>
 </div>
 

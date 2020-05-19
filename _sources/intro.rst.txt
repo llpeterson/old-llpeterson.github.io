@@ -71,8 +71,7 @@ even more value.
 
 	That 5G is on an evolutionary path is the central theme of
 	this book.  We call attention to its importance here, and
-	revisit the topic with sidebars like this one throughout the
-	book.
+	revisit the topic throughout the book.
 
 	We are writing this book with *system generalists* in mind,
 	with the goal of helping bring a community that understands
