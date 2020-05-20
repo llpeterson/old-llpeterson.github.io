@@ -134,24 +134,26 @@ the transition from the cellular network being fundamentally
 circuit-switched to fundamentally packet-switched. This section
 describe each, in turn.
 
+Before getting into the details, it is important to understand that we
+take a decidedly abstract perspective of multiplexing, focusing on
+"discrete scheduleable units of the radio spectrum" rather the the
+signalling and modulation underpinnings that yield those scheduleable
+units. We return to the broader issue of the *air interface* that
+makes efficient use of the spectrum in the concluding section.
+
 2.2.1 4G Scheduling
 ~~~~~~~~~~~~~~~~~~~
 
-The state-of-the-art in multiplexing 4G cellular networks is called
-*Orthogonal Frequency-Division Multiple Access (OFDMA)*. \ [#]_ The idea is to
-multiplex data over a set of 12 orthogonal subcarrier frequencies, each
-of which is modulated independently. The “Multiple Access” in OFDMA
-implies that data can simultaneously be sent on behalf of multiple
-users, each on a different subcarrier frequency and for a different
-duration of time. The subbands are narrow (e.g., 15kHz), but the coding
-of user data into OFDMA symbols is designed to minimize the risk of data
-loss due to interference between adjacent bands.
-
-.. [#] This section focuses on the discrete aspects of scheduling the
-       radio spectrum, and not so much the underlying challenges of
-       modulation. We return to the broader issue of defining a "air
-       interface" that makes efficient use of the spectrum in a
-       concluding section.
+The approach to multiplexing 4G cellular networks is called
+*Orthogonal Frequency-Division Multiple Access (OFDMA)*. The
+idea is to multiplex data over a set of 12 orthogonal subcarrier
+frequencies, each of which is modulated independently. The “Multiple
+Access” in OFDMA implies that data can simultaneously be sent on
+behalf of multiple users, each on a different subcarrier frequency and
+for a different duration of time. The subbands are narrow (e.g.,
+15kHz), but the coding of user data into OFDMA symbols is designed to
+minimize the risk of data loss due to interference between adjacent
+bands.
 
 The use of OFDMA naturally leads to conceptualizing the radio spectrum
 as a two-dimensional resource, as shown in :numref:`Figure %s <fig-sched-grid>`.
@@ -315,14 +317,14 @@ We conclude by noting that while the previous section describes 5G as
 introducing additional degrees of freedom into how data is scheduled
 for transmission in 4G, the end result is a qualitatively more
 powerful radio. This new 5G air interface specification, which is
-sometimes referred to as *New Radio (NR)*, enables three new use cases
+commonly referred to as *New Radio (NR)*, enables three new use cases
 that go well beyond simply delivering increased bandwidth:
 
 * Extreme Mobile Broadband (eMBB)
 * Ultra-Reliable Low-Latency Communications (URLLC)
 * Massive Machine-Type Communications (mMTC)
 
-All three address the requirements outlinled in Chapter 1, and can be
+All three address the requirements outlined in Chapter 1, and can be
 traced to two key enhancements.
 
 First, both 4G and 5G use *OFDM (Orthogonal Frequency-Division
@@ -330,13 +332,13 @@ Multiplexing)* as their foundational modulation technique, resulting
 in the discrete *frequency × time* resource blocks that become the
 "schedulable unit" described in the previous section. For our
 purposes, you can think of OFDMA as extending OFDM, where the
-"Multiple Access" that corresponds to the "MA" in OFDMA has to do with
-how the scheduler multiplexes the available resource blocks among
-different traffic sources. In 4G, this multiplexing happens in both
-the frequency and time domains for downstream traffic, but in only the
-frequency domain for upstream traffic. 5G NR multiplexes both upstream
-and downstream traffic in both the time and frequency domains. Doing
-so provides finer-grain scheduling control needed by latency-sensitive
+"Multiple Access" aspect of OFDMA has to do with how the scheduler
+multiplexes the available resource blocks among different traffic
+sources. In 4G, this multiplexing happens in both the frequency and
+time domains for downstream traffic, but in only the frequency domain
+for upstream traffic. 5G NR multiplexes both upstream and downstream
+traffic in both the time and frequency domains. Doing so provides
+finer-grain scheduling control needed by latency-sensitive
 applications.
 
 Second, 5G NR has a plethora of spectrum available to it, with the new
