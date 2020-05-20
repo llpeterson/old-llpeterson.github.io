@@ -464,7 +464,20 @@ that go well beyond simply delivering increased bandwidth:</p>
 <li>Massive Machine-Type Communications (mMTC)</li>
 </ul>
 <p>All three address the requirements outlined in Chapter 1, and can be
-attributed to three key factors.</p>
+attributed to three key improvements.</p>
+<div class="sidebar">
+<p class="first sidebar-title">OFDMA and OFDM</p>
+<p>We have been describing multiplexing in terms of OFDMA, but
+that is (in part) an artifact of our initial focus on the
+narrow issue of how 4G schedules downstream traffic. Once we
+introduce the flexibility of changing the waveform, as is the
+case for 5G NR, it is more appropriate to step back from OFDMA
+and talk instead about the more general idea of <em>OFDM
+(Orthogonal Frequency-Division Multiplexing)</em> .</p>
+<p class="last">For our purposes, OFDMA layers “multiple access” onto OFDM,
+parameterized with a specific numerology, including the
+selected waveforms, subcarrier spacing, and scheduling itervals.</p>
+</div>
 <p>The first is the one identified in the previous section: being able to
 change the waveform. This effectively introduces the ability to
 dynamically change the size and number of scheduleable resource units,
