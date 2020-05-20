@@ -141,8 +141,8 @@ signalling and modulation underpinnings that yield those scheduleable
 units. We return to the broader issue of the *air interface* that
 makes efficient use of the spectrum in the concluding section.
 
-2.2.1 4G Scheduling
-~~~~~~~~~~~~~~~~~~~
+2.2.1 Multiplexing in 4G
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The approach to multiplexing 4G cellular networks is called
 *Orthogonal Frequency-Division Multiple Access (OFDMA)*. The
@@ -224,8 +224,8 @@ architecture open to innovations like this is one of our goals, and as
 we will see in the next section, becomes even more important in 5G where
 the scheduler operates with even more degrees of freedom.
 
-2.2.2 5G Scheduling
-~~~~~~~~~~~~~~~~~~~
+2.2.2 Multiplexing in 5G
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The transition from 4G to 5G introduces additional flexibility in
 how the radio spectrum is scheduled, making it possible to adapt the
@@ -325,29 +325,31 @@ that go well beyond simply delivering increased bandwidth:
 * Massive Machine-Type Communications (mMTC)
 
 All three address the requirements outlined in Chapter 1, and can be
-traced to two key enhancements.
+attributed to three key factors.
 
-First, both 4G and 5G use *OFDM (Orthogonal Frequency-Division
-Multiplexing)* as their foundational modulation technique, resulting
-in the discrete *frequency × time* resource blocks that become the
-"schedulable unit" described in the previous section. For our
-purposes, you can think of OFDMA as extending OFDM, where the
-"Multiple Access" aspect of OFDMA has to do with how the scheduler
-multiplexes the available resource blocks among different traffic
-sources. In 4G, this multiplexing happens in both the frequency and
-time domains for downstream traffic, but in only the frequency domain
-for upstream traffic. 5G NR multiplexes both upstream and downstream
-traffic in both the time and frequency domains. Doing so provides
-finer-grain scheduling control needed by latency-sensitive
-applications.
+The first is the one identified in the previous section: being able to
+change the waveform. This effectively introduces the ability to
+dynamically change the size and number of scheduleable resource units,
+which opens the door to making fine-grain scheduling decisions that
+are critical to predictable, low-latency communication.
 
-Second, 5G NR has a plethora of spectrum available to it, with the new
-mmWave allocations opening above 24-GHz being especially
-important. This is not only because of the abundance of capacity, but
-also because the higher-frequency enables even finer-grain resource
-blocks. Again, this provides increased scheduling flexibility to the
-benefit of mission-critical applications that cannot tolerate
-unpredictable latency.
+The second is related to the "Multiple Access" aspect of how distinct
+traffic sources are multiplexed onto the available spectrum. In 4G,
+multiplexing happens in both the frequency and time domains for
+downstream traffic (as described in Section2.2.1), but multiplexing
+happens in only the frequency domain for upstream traffic. 5G NR
+multiplexes both upstream and downstream traffic in both the time and
+frequency domains. Doing so provides finer-grain scheduling control
+needed by latency-sensitive applications.
+
+The third is related to the plethora of spectrum available to 5G NR,
+with the new mmWave allocations opening above 24-GHz being especially
+important. This is not only because of the abundance of capacity—which
+makes it possible to set aside dedicated capacity for mission-critical
+applications—but also because the higher-frequency enables even
+finer-grain resource blocks (e.g., scheduling intervals as short as
+0.125ms). Again, this improves scheduling granularity to the benefit
+of applications that cannot tolerate unpredictable latency.
 
 
 
