@@ -613,24 +613,16 @@ options, which can be summarized as follows:</p>
 <li>Non-Standalone (4G+5G RAN) over 4G’s EPC</li>
 <li>Non-Standalone (4G+5G RAN) over 5G’s NG-Core</li>
 </ul>
-<p>Focusing on the second pair, which imply incremental phasing, we see two
-general strategies. The first is to connect new 5G base stations to
-existing 4G-based EPCs, and then incrementally evolve the Mobile Core by
-refactoring the components and adding NG-Core capabilities over time.
-The second is to implement a backward-compatible NG-Core that can
-support both 4G and 5G base stations, where the new NG-Core could be
-implemented from scratch, but would likely start with the existing EPC
-code base.</p>
-<p>Of these options, the second is the most common. Generally referred to
-by its NSA acroynm, it involves 5G base stations being deployed
-alongside the existing 4G base stations in a given geography to
-provide a data-rate and capacity boost. In NSA, control plane traffic
-between the user equipment and the 4G Mobile Core utilizes (i.e., is
-forwarded through) 4G base stations, and the 5G base stations
-are used only to carry user traffic. Eventually, it is expected that
-operators complete their migration to 5G by deploying NG Core and
-connecting their 5G base stations to it for Standalone (SA)
-operation. NSA and SA operations are illustrated in <a class="reference internal" href="#fig-nsa"><span class="std std-numref">Figure 18</span></a>.</p>
+<p>The second of the three options, which is generally referred to by its
+NSA acroynm, involves 5G base stations being deployed alongside the
+existing 4G base stations in a given geography to provide a data-rate
+and capacity boost. In NSA, control plane traffic between the user
+equipment and the 4G Mobile Core utilizes (i.e., is forwarded through)
+4G base stations, and the 5G base stations are used only to carry user
+traffic. Eventually, it is expected that operators complete their
+migration to 5G by deploying NG Core and connecting their 5G base
+stations to it for Standalone (SA) operation. NSA and SA operations
+are illustrated in <a class="reference internal" href="#fig-nsa"><span class="std std-numref">Figure 18</span></a>.</p>
 <div class="figure align-center" id="id14">
 <span id="fig-nsa"></span><a class="reference internal image-reference" href="_images/Slide39.png"><img alt="_images/Slide39.png" src="_images/Slide39.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 18. </span><span class="caption-text">NSA and SA options for 5G deployment.</span></p>
