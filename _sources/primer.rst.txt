@@ -122,7 +122,7 @@ it allocates the available radio spectrum to the subscribers it is
 serving, as well as which coding and modulation scheme to employ.
 All of these decisions are made by  the scheduler.
 
-2.2 Scheduling 
+2.2 Scheduler
 ------------------
 
 How the scheduler does its job is one of the most important properties
@@ -131,29 +131,38 @@ the multiplexing mechanism. For example, 2G used *Time Division
 Multiple Access (TDMA)* and 3G used *Code Division Multiple Access
 (CDMA)*. It is also a major differentiator for 4G and 5G, completing
 the transition from the cellular network being fundamentally
-circuit-switched to fundamentally packet-switched. This section
-describe each, in turn.
+circuit-switched to fundamentally packet-switched.
 
-Before getting into the details, it is important to understand that we
-take a decidedly abstract perspective of multiplexing, focusing on
-"discrete scheduleable units of the radio spectrum" rather the the
-signalling and modulation underpinnings that yield those scheduleable
-units. We return to the broader issue of the *air interface* that
-makes efficient use of the spectrum in the concluding section.
+Both 4G and 5G are based on *Orthogonal Frequency-Division
+Multiplexing (OFDM)*, an approach that multiplexes data over multiple
+orthogonal subcarrier frequencies, each of which is modulated
+independently. The value and efficiency of OFDM is in how it selects
+subcarrier frequencies so as to avoid interference, that is, how it
+achieves orthogonality. That topic is beyond the scope of this book.
+We instead take a decidedly abstract perspective of multiplexing,
+focusing on "discrete scheduleable units of the radio spectrum" rather
+the the signalling and modulation underpinnings that yield those
+scheduleable units. We return to the broader issue of the *air
+interface* that makes efficient use of the spectrum in the concluding
+section.
 
 2.2.1 Multiplexing in 4G
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-The approach to multiplexing 4G cellular networks is called
-*Orthogonal Frequency-Division Multiple Access (OFDMA)*. The
-idea is to multiplex data over a set of 12 orthogonal subcarrier
-frequencies, each of which is modulated independently. The “Multiple
-Access” in OFDMA implies that data can simultaneously be sent on
-behalf of multiple users, each on a different subcarrier frequency and
-for a different duration of time. The subbands are narrow (e.g.,
-15kHz), but the coding of user data into OFDMA symbols is designed to
-minimize the risk of data loss due to interference between adjacent
-bands.
+The 4G approach to multiplexing downstream transmissions is called
+*Orthogonal Frequency-Division Multiple Access (OFDMA)*, a specific
+application of OFDM that multiplexes data over a set of 12 orthogonal
+subcarrier frequencies, each of which is modulated independently.\ [#]_ The
+“Multiple Access” in OFDMA implies that data can simultaneously be
+sent on behalf of multiple users, each on a different subcarrier
+frequency and for a different duration of time. The subbands are
+narrow (e.g., 15kHz), but the coding of user data into OFDMA symbols
+is designed to minimize the risk of data loss due to interference
+between adjacent bands.
+
+.. [#] 4G uses a different multiplexing strategy for upstream
+       transmissions (from user devices to base stations), but we do
+       not describe it because the approach is not applicable to 5G.
 
 The use of OFDMA naturally leads to conceptualizing the radio spectrum
 as a two-dimensional resource, as shown in :numref:`Figure %s <fig-sched-grid>`.
@@ -306,9 +315,9 @@ depth in a later chapter.
     :width: 600px
     :align: center
 
-    Scheduler allocates Resource Blocks to user data
-    streams based on CQI feedback from receivers and the QCI
-    parameters associated with each class of service.
+    Scheduler allocates Resource Blocks to user data streams based on
+    CQI feedback from receivers and the QCI parameters associated with
+    each class of service.
 
 2.3 New Radio (NR)
 ------------------
@@ -324,22 +333,9 @@ that go well beyond simply delivering increased bandwidth:
 * Ultra-Reliable Low-Latency Communications (URLLC)
 * Massive Machine-Type Communications (mMTC)
 
-All three address the requirements outlined in Chapter 1, and can be
-attributed to three key improvements.
-
-.. sidebar:: OFDMA and OFDM
-
-	We have been describing multiplexing in terms of OFDMA, but
-	that is (in part) an artifact of our initial focus on the
-	narrow issue of how 4G schedules downstream traffic. Once we
-	introduce the flexibility of changing the waveform, as is the
-	case for 5G NR, it is more appropriate to step back from OFDMA
-	and talk instead about the more general idea of *OFDM
-	(Orthogonal Frequency-Division Multiplexing)* .
-
-	For our purposes, OFDMA layers "multiple access" onto OFDM,
-	parameterized with a specific numerology, including the
-	selected waveforms, subcarrier spacing, and scheduling itervals.
+All three correspond to the requirements introduced in Chapter 1, and
+can be attributed to three fundamental improvements in how 5G
+multiplexes data onto the radio spectrum.
 
 The first is the one identified in the previous section: being able to
 change the waveform. This effectively introduces the ability to
@@ -360,10 +356,18 @@ The third is related to the plethora of spectrum available to 5G NR,
 with the new mmWave allocations opening above 24-GHz being especially
 important. This is not only because of the abundance of capacity—which
 makes it possible to set aside dedicated capacity for mission-critical
-applications—but also because the higher-frequency enables even
-finer-grain resource blocks (e.g., scheduling intervals as short as
-0.125ms). Again, this improves scheduling granularity to the benefit
-of applications that cannot tolerate unpredictable latency.
+applications that require low-latency communication—but also because
+the higher-frequency enables even finer-grain resource blocks (e.g.,
+scheduling intervals as short as 0.125ms). Again, this improves
+scheduling granularity to the benefit of applications that cannot
+tolerate unpredictable latency.
+
+As a consequence of all three improvements, 5G NR is able to (a)
+partition the available bandwidth, with different partitions reserved
+for different classes of traffic (e.g., high-bandwidth versus
+low-latency); and (b) make fine-grain scheduling decisions that favor
+small packets. This is the essence of *slicing*, an idea we will
+revisit throughout this book.
 
 
 
