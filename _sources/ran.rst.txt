@@ -286,12 +286,12 @@ on the disaggregated components introduced throughout this chapter.
 .. sidebar:: 3GPP versus O-RAN
 
 	As explained in Chapter 1, 3GPP is the standardization body
-	responsible for the cellular network. This includes
-	identifying the potential “break points” for splitting the RAN
-	into CU, DU, and RU, as depicted in :numref:`Figure %s
-	<fig-split-ran>`. One might wonder, then, what role the O-RAN
-	plays in all of this. There is both a technical and a business
-	answer to this question.
+	responsible for interoperability across the global cellular
+	network. This includes identifying the potential “break
+	points” for splitting the RAN into CU, DU, and RU, as depicted
+	in :numref:`Figure %s <fig-split-ran>`. One might wonder,
+	then, what role the O-RAN plays in all of this. There is both
+	a technical and a business answer to this question.
 	     
 	The technical answer is that O-RAN is responsible for defining
 	the interfaces needed to apply SDN as an implementation option
@@ -350,18 +350,18 @@ this Service Model:
 
 Of course, it is the RAN element, through its published Service Model,
 that defines the relevant set of functions that can be activated, the
-variables that can be reported, and policies that can b set.
+variables that can be reported, and policies that can be set.
 
 Knowing these interface names adds nothing to our conceptual
 understanding of the RAN, except perhaps to re-enforce how challenging
 it is to introduce a transformative technology like Software-Defined
-Networking into an operational environment that is striving to acheive
+Networking into an operational environment that is striving to achieve
 full backward compatibility and universal interoperability. It is
 instructive to contrast this approach with the Internet's philosophy
 of trying to minimize the universally agreed upon definitions.
 
 Finally, to help solidify your understanding, we recommend that you
-match-up the elements in :numref:`Figure %s <fig-3gpp>` with those
+match the elements in :numref:`Figure %s <fig-3gpp>` with those
 described earlier in this chapter. As you do so, keep in mind that you
 won't find an explicit Central Unit Control Plane (CU-C) and Central
 Unit User Plane (CU-U) in the earlier diagrams. They are there, but by

@@ -68,7 +68,11 @@ serves several purposes:
 
 Even though the word “Core” is in its name, from an Internet
 perspective, the Mobile Core is still part of the access network,
-effectively providing a bridge between the RAN and the IP-world.
+effectively providing a bridge between the RAN and the IP-world. And
+while 3GPP provides significant flexibility in how the Mobile Core is
+geographically deployed, assuming one instantiation of the Mobile Core
+serving a metropolitan area is a good working model. The corresponding
+RAN would then span several dozens (or even hundreds) of cell towers.
 
 Taking a closer look at :numref:`Figure %s <fig-cellular>`, we see that a
 *Backhaul Network* interconnects the eNBs that implement the RAN with
@@ -512,7 +516,7 @@ options, which can be summarized as follows:
 -  Non-Standalone (4G+5G RAN) over 5G’s NG-Core
 
 The second of the three options, which is generally referred to by its
-NSA acroynm, involves 5G base stations being deployed alongside the
+NSA acronym, involves 5G base stations being deployed alongside the
 existing 4G base stations in a given geography to provide a data-rate
 and capacity boost. In NSA, control plane traffic between the user
 equipment and the 4G Mobile Core utilizes (i.e., is forwarded through)

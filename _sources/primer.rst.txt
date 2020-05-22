@@ -346,7 +346,7 @@ are critical to predictable, low-latency communication.
 The second is related to the "Multiple Access" aspect of how distinct
 traffic sources are multiplexed onto the available spectrum. In 4G,
 multiplexing happens in both the frequency and time domains for
-downstream traffic (as described in Section2.2.1), but multiplexing
+downstream traffic (as described in Section 2.2.1), but multiplexing
 happens in only the frequency domain for upstream traffic. 5G NR
 multiplexes both upstream and downstream traffic in both the time and
 frequency domains. Doing so provides finer-grain scheduling control
