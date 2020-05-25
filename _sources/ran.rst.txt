@@ -72,7 +72,7 @@ scheduling interval can range from a few bytes to an entire IP packet.
 4.2 Split RAN
 -------------
 
-The next step is understanding how the functionality outlined above is
+The next step is to understand how the functionality outlined above is
 partitioned between physical elements, and hence, “split” across
 centralized and distributed locations. The dominant option has
 historically been "no split," with the entire pipeline shown in
@@ -291,7 +291,7 @@ on the disaggregated components introduced throughout this chapter.
 	points” for splitting the RAN into CU, DU, and RU, as depicted
 	in :numref:`Figure %s <fig-split-ran>`. One might wonder,
 	then, what role the O-RAN plays in all of this. There is both
-	a technical and a business answer to this question.
+	a technical answer and a business answer to this question.
 	     
 	The technical answer is that O-RAN is responsible for defining
 	the interfaces needed to apply SDN as an implementation option
