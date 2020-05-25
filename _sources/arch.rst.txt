@@ -70,9 +70,10 @@ Even though the word “Core” is in its name, from an Internet
 perspective, the Mobile Core is still part of the access network,
 effectively providing a bridge between the RAN and the IP-world. And
 while 3GPP provides significant flexibility in how the Mobile Core is
-geographically deployed, assuming each instantiation of the Mobile Core
-serves a metropolitan area is a good working model. The corresponding
-RAN would then span several dozens (or even hundreds) of cell towers.
+geographically deployed, assuming each instantiation of the Mobile
+Core serves a metropolitan area is a good working model. The
+corresponding RAN would then span several dozens (or even hundreds) of
+cell towers.
 
 Taking a closer look at :numref:`Figure %s <fig-cellular>`, we see that a
 *Backhaul Network* interconnects the eNBs that implement the RAN with

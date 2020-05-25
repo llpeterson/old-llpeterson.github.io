@@ -362,12 +362,13 @@ scheduling intervals as short as 0.125ms). Again, this improves
 scheduling granularity to the benefit of applications that cannot
 tolerate unpredictable latency.
 
-As a consequence of all three improvements, 5G NR is able to (a)
-partition the available bandwidth, with different partitions reserved
-for different classes of traffic (e.g., high-bandwidth versus
-low-latency); and (b) make fine-grain scheduling decisions that favor
-small packets. This is the essence of *slicing*, an idea we will
-revisit throughout this book.
+As a consequence of all three improvements, 5G NR is able to partition
+the available bandwidth, with different partitions reserved for
+different classes of traffic (e.g., high-bandwidth versus
+low-latency). This is the essence of *slicing*, an idea we will
+revisit throughout this book. And then to support mission-critical
+applications, 5G NR is able to make fine-grain scheduling decisions
+that avoid unpredictable queuing delays for small packets.
 
 
 
