@@ -125,13 +125,22 @@ labelled as follows:
 -  DU-CU connectivity is called the Midhaul
 -  CU-Mobile Core connectivity is called the Backhaul
 
-As we will see in a later chapter, one possible deployment co-locates
-the CU and Mobile Core in the same cluster, meaning the backhaul is
-implemented in the cluster switching fabric. In such a configuration,
-the midhaul then effectively serves the same purpose as the original
-backhaul, and the fronthaul is constrained by the
-predictable/low-latency requirements of the MAC stage’s real-time
-scheduler.
+One observation about the CU (which is relevant in the next chapter)
+is that one might co-locate the CU and Mobile Core in the same
+cluster, meaning the backhaul is implemented in the cluster switching
+fabric. In such a configuration, the midhaul then effectively serves
+the same purpose as the original backhaul, and the fronthaul is
+constrained by the predictable/low-latency requirements of the MAC
+stage’s real-time scheduler.
+
+A second observation about the CU shown in :numref:`Figure %s
+<fig-split-ran>` is that it encompasses two functional blocks—the RRM
+and the PDPC—which lie on the RAN's control plane and user plane,
+respectively. This separation is consistent with the idea of CUPS
+introduced in Chapter 3, and plays an increasingly important role as
+we dig deeper into how the RAN is implemented. For now, we note that
+the two parts are typically referred to as the CU-C and CU-U,
+respectively.
 
 .. _reading_backhaul:
 .. admonition:: Further Reading
@@ -256,6 +265,21 @@ then push the respective control parametes back to the base stations
 for execution. Realizing this value in the RAN is still a
 work-in-progress, but evidence using the same approach to optimize
 wide-area networks is compelling.
+
+Another common way to characterize this suite of Control Applications
+for SD-RAN is based on the current practice of controling the mobile
+link at two different levels. At the first level, per-node and
+per-link control is conducted using Radio Resource Management (RRM)
+functions that are distributed across the individual base stations.
+RRM functions include scheduling, handover control, link and carrier
+aggregation control, bearer control, and access control.  At the
+second level, regional mobile network optimization and configuration
+is conducted using *Self-Organizing Network (SON)* functions. These
+functions oversee neighbor lists, manage load balancing, optimize
+coverage and capacity, aim for network-wide interference mitigation,
+centrally configure parameters, and so on. As a consequence of these
+two levels of control, it is not uncommon to see reference to "RRM
+Applications" and "SON Applications" in the context of SD-RAN.
   
 .. _reading_b4:
 .. admonition:: Further Reading
@@ -266,15 +290,27 @@ wide-area networks is compelling.
    <https://cseweb.ucsd.edu/~vahdat/papers/b4-sigcomm13.pdf>`__.  ACM
    SICOMM, August 2013.
 
-We conclude this introduction to SD-RAN with a reminder that all the
+We conclude this introduction to SD-RAN by observing that all the
 disaggregation and softwarization discussed in this chapter is being
-pursued in the context of the 3GPP standard. SD-RAN is an
-implementation choice, and the result is intended to be
-3GPP-compliant. This means that 3GPP-defined interfaces still apply to
-inter-module communication, and while we do not focus on the details
-of those interfaces in this book, it is good to be aware that they
-exist. :numref:`Figure %s <fig-3gpp>` shows those interfaces overlayed
-on the disaggregated components introduced throughout this chapter.
+pursued in three tiers. In the first tier, 3GPP standards provide
+multiple options of how RAN disaggregation can take place. This
+includes both horizontal splits (breaking the RAN pipeline) and
+vertical splits (decoupling the control and user planes). In the
+second tier, the O-RAN Alliance describes a specific disaggregated RAN
+architecture based on a subset of these options. Specifically, in the
+O-RAN architecture selected the CU/DU and the DU/RU splits shown in
+:numref:`Figure %s <fig-split-ran>`, and the CU is further divided
+into its control and user plane components. In the third tier, O-RAN
+is pursuing an SDN-based implementation strategy, resulting in the RIC
+shown in :numref:`Figures %s <fig-rrc-split>` and :numref:`Figures %s
+<fig-ran-controller>`.
+
+The result is 3GPP-compliant, which is to say, all the 3GPP-defined
+interfaces are preserved for inter-module communication, with
+additional O-RAN-defined interfaces established as necessary.  While
+we do not focus on the details of these interfaces in this book, it is
+good to be aware that they exist. :numref:`Figure %s <fig-3gpp>` shows
+those interfaces, and how they correspond to these three tiers.
 
 .. _fig-3gpp:
 .. figure:: figures/Slide38.png 
@@ -283,65 +319,33 @@ on the disaggregated components introduced throughout this chapter.
 	    
     Split-RAN plus SD-RAN annotated with 3GPP-defined interfaces.
 
-.. sidebar:: 3GPP versus O-RAN
+The interface names are cryptic, and knowing them adds nothing to our
+conceptual understanding of the RAN, except perhaps to re-enforce how
+challenging it is to introduce a transformative technology like
+Software-Defined Networking into an operational environment that is
+striving to achieve full backward compatibility and universal
+interoperability. It is instructive to contrast this approach with the
+Internet's philosophy of trying to minimize the universally agreed
+upon definitions.
 
-	As explained in Chapter 1, 3GPP is the standardization body
-	responsible for interoperability across the global cellular
-	network. This includes identifying the potential “break
-	points” for splitting the RAN into CU, DU, and RU, as depicted
-	in :numref:`Figure %s <fig-split-ran>`. One might wonder,
-	then, what role the O-RAN plays in all of this. There is both
-	a technical answer and a business answer to this question.
-	     
-	The technical answer is that O-RAN is responsible for defining
-	the interfaces needed to apply SDN as an implementation option
-	into the 3GPP-defined Split-RAN standard. These SDN-related
-	elements include the NEAR-RT RIC (plus associated Control
-	Apps) and the E2 interface shown in :numref:`Figure %s
-	<fig-3gpp>`. Everything else shown in the figure is
-	3GPP-specified.
+That said, we do call out two notable examples. The first is the
+**A1** interface that the mobile operator's management plane—typically
+called the *OSS/BSS (Operations Support System / Business Support
+System)* in the Telco world—uses the to configure the RAN. We have not
+discussed the Telco OSS/BSS up to this point, but it always assumed to
+be at the top of any Telco software stack, as the source of all
+configuration settings and business logic needed to operate a network.
 
-	The business answer is that over time 3GPP has become a
-	vendor-dominated organization, whereas O-RAN was created more
-	recently by network operators. (AT&T and China Mobile were the
-	founding members.) O-RAN’s goal is to catalyze a
-	software-based implementation that breaks the vendor lock-in
-	that dominates today’s marketplace. The E2 interface, which is
-	architected around the idea of supporting different Service
-	Models, is central to this strategy. Whether the operators
-	will be successful in their ultimate goal is yet to be seen.
-
-The interface names are cryptic, but easily summarized. The mobile
-operator's management plane—typically called the *OSS (Operations
-Support System)* in the Telco world—uses the **A1** interface to
-configure the RAN; the Near-RT RIC uses the **E2** interface to
-control the underlying RAN elements (both legacy eNodeBs and the set
-of Split-RAN elements); the CU's Control Plane (CU-C) uses the **E1**
-interface to control the CU's User Plane (CU-U); the CU-C/CU-U
-combination uses the **F1-C/F1-U** interface-pair to communicate with
-the DU; and the **Fronthaul** described in Section 4.2 connects the DU
-to the RU.
-
-Note that we have not discussed the Telco OSS up to this point, but it
-always assumed to be at the top of any Telco software stack. Also note
-that there is no prescribed interface between the SDN Control
-Applications and the RIC. This is because separating the RIC platform
-from the RIC control apps is an implementation choice; O-RAN
-architecture documents treat the applications as part of the
-RIC. Calling them out separately foreshadows the implementation
-described in Chapter 6.
-
-The E2 interface shown in :numref:`Figure %s <fig-3gpp>` is the
-interesting one, and worth a bit more discussion. The goal is to
-disaggregate the vendor-specific RRM, moving control to the Near-RT
-RIC. You will notice in the figure that the E2 interface connects the
-Near-RT RIC to different types of RAN elements, ranging from legacy
-eNodeBs to the full CU/DU/RU split-RAN. This range is reflected in the
-API, which revolves around a *Service Model* abstraction. The idea is
-that each RAN element advertises a Service Model, which effectively
-defines the set of RAN Functions the element is able to support. The
-RIC then issues a combination of the following four operations against
-this Service Model:
+The second is the **E2** interface that the Near-RT RIC uses to
+control the underlying RAN elements. The goal of the E2 interface is
+to disaggregate the vendor-specific RRM, moving control to the Near-RT
+RIC. The goal is for the E2 interface to connect the Near-RT RIC to
+different types of RAN elements. This range is reflected in the API,
+which revolves around a *Service Model* abstraction. The idea is that
+each RAN element advertises a Service Model, which effectively defines
+the set of RAN Functions the element is able to support. The RIC then
+issues a combination of the following four operations against this
+Service Model:
 
 * **Report:** RIC asks the element to report a function-specific value setting.
 * **Insert:** RIC instructs the element to activate a user plane function.
@@ -352,18 +356,14 @@ Of course, it is the RAN element, through its published Service Model,
 that defines the relevant set of functions that can be activated, the
 variables that can be reported, and policies that can be set.
 
-Knowing these interface names adds nothing to our conceptual
-understanding of the RAN, except perhaps to re-enforce how challenging
-it is to introduce a transformative technology like Software-Defined
-Networking into an operational environment that is striving to achieve
-full backward compatibility and universal interoperability. It is
-instructive to contrast this approach with the Internet's philosophy
-of trying to minimize the universally agreed upon definitions.
-
-Finally, to help solidify your understanding, we recommend that you
-match the elements in :numref:`Figure %s <fig-3gpp>` with those
-described earlier in this chapter. As you do so, keep in mind that you
-won't find an explicit Central Unit Control Plane (CU-C) and Central
-Unit User Plane (CU-U) in the earlier diagrams. They are there, but by
-different names (e.g., the PDCP module corresponds to the CU-U). There
-is more to say on this topic, which we take up in the next chapter.
+Finally, you may be wondering why there is an O-RAN Alliance in the
+first place, given that 3GPP is already the standardization body
+responsible for interoperability across the global cellular network.
+The answer is that over time 3GPP has become a vendor-dominated
+organization, whereas O-RAN was created more recently by network
+operators. (AT&T and China Mobile were the founding members.) O-RAN’s
+goal is to catalyze a software-based implementation that breaks the
+vendor lock-in that dominates today’s marketplace. The E2 interface,
+which is architected around the idea of supporting different Service
+Models, is central to this strategy. Whether the operators will be
+successful in their ultimate goal is yet to be seen.

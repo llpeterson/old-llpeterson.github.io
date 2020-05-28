@@ -98,7 +98,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#radio-access-network">3.2 Radio Access Network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mobile-core">3.3 Mobile Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#g-mobile-core">4G Mobile Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">5G Mobile Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">5G Mobile Core</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#security">3.4 Security</a></li>
@@ -215,32 +215,28 @@ on the move. These devices, which are known as <em>User Equipment (UE)</em>,
 have until recently corresponded to smartphones and tablets, but will
 increasingly include cars, drones, industrial and agricultural machines,
 robots, home appliances, medical devices, and so on.</p>
-<div class="figure align-center" id="id2">
+<div class="figure align-center" id="id4">
 <span id="fig-cellular"></span><a class="reference internal image-reference" href="_images/Slide01.png"><img alt="_images/Slide01.png" src="_images/Slide01.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 6. </span><span class="caption-text">Cellular networks consists of a Radio Access Network
 (RAN) and a Mobile Core.</span></p>
 </div>
-<p>As shown in <a class="reference internal" href="#fig-cellular"><span class="std std-numref">Figure 6</span></a>,
-the cellular network consists of
-two main subsystems: the <em>Radio Access Network (RAN)</em> and the <em>Mobile
-Core</em>. The RAN manages the radio spectrum, making sure it is both used
-efficiently and meets the quality-of-service requirements of every user.
-The main component in the RAN is the crypticly named <em>eNodeB</em> (or
-<em>eNB</em>), which is short for the equally cryptic <em>evolved Node B</em>. The
-Mobile Core is a bundle of functionality (as opposed to a device) that
-serves several purposes:</p>
+<p>As shown in <a class="reference internal" href="#fig-cellular"><span class="std std-numref">Figure 6</span></a>, the cellular network
+consists of two main subsystems: the <em>Radio Access Network (RAN)</em> and
+the <em>Mobile Core</em>. The RAN manages the radio spectrum, making sure it
+is both used efficiently and meets the quality-of-service requirements
+of every user.  The main component in the RAN is the crypticly named
+<em>eNodeB</em> (or <em>eNB</em>), which is short for the equally cryptic <em>evolved
+Node B</em>. The Mobile Core is a bundle of functionality (as opposed to a
+device) that serves several purposes:</p>
 <ul class="simple">
 <li>Provides Internet (IP) connectivity for both data and voice services.</li>
 <li>Ensures this connectivity fulfills the promised QoS requirements.</li>
 <li>Tracks user mobility to ensure uninterrupted service.</li>
 <li>Tracks subscriber usage for billing and charging.</li>
 </ul>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Mobile Core is another example of a generic term. In 4G this is
-called the Evolved Packet Core (EPC) and in 5G it is called the Next
-Generation Core (NG-Core).</p>
-</div>
+<p>Note that Mobile Core is another example of a generic term. In 4G
+this is called the <em>Evolved Packet Core (EPC)</em> and in 5G it is called
+the <em>Next Generation Core (NG-Core)</em>.</p>
 <p>Even though the word “Core” is in its name, from an Internet
 perspective, the Mobile Core is still part of the access network,
 effectively providing a bridge between the RAN in some geographic area
@@ -282,7 +278,7 @@ Internet would recognize. (3GPP also recently introduced a
 corresponding acronym—<em>CUPS, Control and User Plane Separation</em>—to
 denote this idea.) The importance of these two distinctions will
 become clear in the following discussion.</p>
-<div class="figure align-center" id="id3">
+<div class="figure align-center" id="id5">
 <span id="fig-cups"></span><a class="reference internal image-reference" href="_images/Slide02.png"><img alt="_images/Slide02.png" src="_images/Slide02.png" style="width: 400px;" /></a>
 <p class="caption"><span class="caption-number">Figure 7. </span><span class="caption-text">Mobile Core divided into a Control Plan and a User
 Plane, an architectural feature known as CUPS: Control and User
@@ -299,14 +295,17 @@ fully do justice to the end-to-end story.</p>
 subscriber’s UE upon power-up or upon handover when the UE is active.
 This channel is released when the UE remains idle for a predetermined
 period of time. Using 3GPP terminology, this wireless channel is said to
-provide a bearer service.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The term “bearer” has historically been used in telecommunications
-(including early wireline technologies like ISDN) to denote “data,”
-as opposed to a channel that carries “signalling” information.</p>
-</div>
-<div class="figure align-center" id="id4">
+provide a bearer service.<a class="footnote-reference" href="#id2" id="id1">[1]</a></p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>The term “bearer” has historically been used in
+telecommunications (including early wireline technologies like
+ISDN) to denote a data channel, as opposed to a channel that
+carries signalling information.</td></tr>
+</tbody>
+</table>
+<div class="figure align-center" id="id6">
 <span id="fig-active-ue"></span><a class="reference internal image-reference" href="_images/Slide03.png"><img alt="_images/Slide03.png" src="_images/Slide03.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Figure 8. </span><span class="caption-text">Base Station detects (and connects to) active UEs.</span></p>
 </div>
@@ -315,14 +314,14 @@ connectivity between the UE and the corresponding Mobile Core Control
 Plane component, and forwards signaling traffic between the two. This
 signaling traffic enables UE authentication, registration, and
 mobility tracking.</p>
-<div class="figure align-center" id="id5">
+<div class="figure align-center" id="id7">
 <span id="fig-control-plane"></span><a class="reference internal image-reference" href="_images/Slide04.png"><img alt="_images/Slide04.png" src="_images/Slide04.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Figure 9. </span><span class="caption-text">Base Station establishes control plane connectivity
 between each UE and the Mobile Core.</span></p>
 </div>
 <p>Third, for each active UE, the base station establishes one or more
 tunnels between the corresponding Mobile Core User Plane component.</p>
-<div class="figure align-center" id="id6">
+<div class="figure align-center" id="id8">
 <span id="fig-user-plane"></span><a class="reference internal image-reference" href="_images/Slide05.png"><img alt="_images/Slide05.png" src="_images/Slide05.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Figure 10. </span><span class="caption-text">Base station establishes one or more tunnels between
 each UE and the Mobile Core’s User Plane.</span></p>
@@ -340,7 +339,7 @@ Mobile Core is IP-based. This was introduced as one of the main changes
 between 3G and 4G. Prior to 4G, the internals of the cellular network
 were circuit-based, which is not surprising given its origins as a voice
 network.</p>
-<div class="figure align-center" id="id7">
+<div class="figure align-center" id="id9">
 <span id="fig-tunnels"></span><a class="reference internal image-reference" href="_images/Slide06.png"><img alt="_images/Slide06.png" src="_images/Slide06.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Figure 11. </span><span class="caption-text">Base Station to Mobile Core (and Base Station to Base
 Station) control plane tunneled over SCTP/IP and user plane
@@ -351,14 +350,14 @@ base stations, using direct station-to-station links. Exactly like the
 station-to-core connectivity shown in the previous figure, these links
 are used to transfer both control plane (SCTP over IP) and user plane
 (GTP over UDP/IP) packets.</p>
-<div class="figure align-center" id="id8">
+<div class="figure align-center" id="id10">
 <span id="fig-handover"></span><a class="reference internal image-reference" href="_images/Slide07.png"><img alt="_images/Slide07.png" src="_images/Slide07.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Figure 12. </span><span class="caption-text">Base Stations cooperate to implement UE hand over.</span></p>
 </div>
 <p>Sixth, the base station coordinates wireless multi-point transmission to
 a UE from multiple base stations, which may or may not be part of a UE
 handover from one base station to another.</p>
-<div class="figure align-center" id="id9">
+<div class="figure align-center" id="id11">
 <span id="fig-link-aggregation"></span><a class="reference internal image-reference" href="_images/Slide08.png"><img alt="_images/Slide08.png" src="_images/Slide08.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Figure 13. </span><span class="caption-text">Base Stations cooperate to implement multipath
 transmission (link aggregation) to UEs.</span></p>
@@ -437,7 +436,7 @@ charging.</li>
 (RAN-facing) and PGW (Internet-facing) are often combined in a single
 device, commonly referred to as an S/PGW. The end result is illustrated
 in <a class="reference internal" href="#fig-4g-core"><span class="std std-numref">Figure 14</span></a>.</p>
-<div class="figure align-center" id="id10">
+<div class="figure align-center" id="id12">
 <span id="fig-4g-core"></span><a class="reference internal image-reference" href="_images/Slide20.png"><img alt="_images/Slide20.png" src="_images/Slide20.png" style="width: 700px;" /></a>
 <p class="caption"><span class="caption-number">Figure 14. </span><span class="caption-text">4G Mobile Core (Evolved Packet Core).</span></p>
 </div>
@@ -448,8 +447,8 @@ sites spread throughout the city, each of which serves ~100 base
 stations. But alternative deployment configurations are allowed by the
 spec.</p>
 </div>
-<div class="section" id="id1">
-<h3>5G Mobile Core<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>5G Mobile Core<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>The 5G Mobile Core, which 3GPP calls the <em>NG-Core</em>, adopts a
 microservice-like architecture, where we say “microservice-like” because
 while the 3GPP specification spells out this level of disaggregation, it
@@ -520,7 +519,7 @@ common in microservice-based systems, namely, to show a <em>message bus</em>
 interconnecting all the components rather than including a full set of
 pairwise connections. This also suggests a well-understood
 implementation strategy.</p>
-<div class="figure align-center" id="id11">
+<div class="figure align-center" id="id13">
 <span id="fig-5g-core"></span><a class="reference internal image-reference" href="_images/Slide33.png"><img alt="_images/Slide33.png" src="_images/Slide33.png" style="width: 700px;" /></a>
 <p class="caption"><span class="caption-number">Figure 15. </span><span class="caption-text">5G Mobile Core (NG-Core).</span></p>
 </div>
@@ -551,7 +550,7 @@ operator-provided SIM card, which uniquely identifies the subscriber
 frequency band) need to communicate with that operator’s Base
 Stations. The SIM card also includes a secret key that the UE uses to
 authenticate itself.</p>
-<div class="figure align-center" id="id12">
+<div class="figure align-center" id="id14">
 <span id="fig-secure"></span><a class="reference internal image-reference" href="_images/Slide34.png"><img alt="_images/Slide34.png" src="_images/Slide34.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 16. </span><span class="caption-text">Sequence of steps to establish secure Control and User Plane
 channels.</span></p>
@@ -588,7 +587,7 @@ different QCI value. This might be done on an
 application-by-application basis, for example, under the control of
 the Mobile Core doing <em>Deep Packet Inspection</em> (DPI) on the traffic,
 looking for flows that require special treatment.</p>
-<div class="figure align-center" id="id13">
+<div class="figure align-center" id="id15">
 <span id="fig-per-hop"></span><a class="reference internal image-reference" href="_images/Slide35.png"><img alt="_images/Slide35.png" src="_images/Slide35.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 17. </span><span class="caption-text">Sequence of per-hop tunnels involved in an end-to-end User Plane
 channel.</span></p>
@@ -628,7 +627,7 @@ traffic. Eventually, it is expected that operators complete their
 migration to 5G by deploying NG Core and connecting their 5G base
 stations to it for Standalone (SA) operation. NSA and SA operations
 are illustrated in <a class="reference internal" href="#fig-nsa"><span class="std std-numref">Figure 18</span></a>.</p>
-<div class="figure align-center" id="id14">
+<div class="figure align-center" id="id16">
 <span id="fig-nsa"></span><a class="reference internal image-reference" href="_images/Slide39.png"><img alt="_images/Slide39.png" src="_images/Slide39.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 18. </span><span class="caption-text">NSA and SA options for 5G deployment.</span></p>
 </div>
