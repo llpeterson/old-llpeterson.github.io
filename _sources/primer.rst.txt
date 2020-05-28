@@ -383,14 +383,14 @@ complementary technologies: mMTC and NB-IoT (NarrowBand-IoT).  Both
 technologies build on a significantly simplified version of LTE—i.e.,
 limiting the numerology and flexibility needed achieve high spectrum
 utilization—so as to allow for simpler IoT hardware design. mMTC
-delivers up to 1Mbps over a 1.4MHz wide band and NB-IoT delivers a few
-tens of kbps over 200kHz of bandwidth; hence the term *NarrowBand*.
-Both technologies have been designed to support over 1 million devices
-per square kilometer. With Release 16, both technologies can be
-operated in-band with 5G, but still based on LTE numerology. Starting
-with Release 17, a simpler version of 5G NR, called *NR-Light*, will
-be introduced as the evolution of mMTC.  NR-Light is expected to scale
-the device density even further.
+delivers up to 1Mbps over a 1.4MHz of bandwidth and NB-IoT delivers a
+few tens of kbps over 200kHz of bandwidth; hence the term
+*NarrowBand*.  Both technologies have been designed to support over 1
+million devices per square kilometer. With Release 16, both
+technologies can be operated in-band with 5G, but still based on LTE
+numerology. Starting with Release 17, a simpler version of 5G NR,
+called *NR-Light*, will be introduced as the evolution of mMTC.
+NR-Light is expected to scale the device density even further.
 
 As a consequence of all four improvements, 5G NR is designed to
 support partitioning the available bandwidth, with different

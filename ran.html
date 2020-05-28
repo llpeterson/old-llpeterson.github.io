@@ -430,28 +430,67 @@ to a production network, we recommend <a class="reference external" href="https:
 Globally-Deployed Software Defined WAN</a>.  ACM
 SICOMM, August 2013.</p>
 </div>
-<p>We conclude this introduction to SD-RAN by observing that all the
-disaggregation and softwarization discussed in this chapter is being
-pursued in three tiers. In the first tier, 3GPP standards provide
-multiple options of how RAN disaggregation can take place. This
-includes both horizontal splits (breaking the RAN pipeline) and
-vertical splits (decoupling the control and user planes). In the
-second tier, the O-RAN Alliance describes a specific disaggregated RAN
-architecture based on a subset of these options. Specifically, in the
-O-RAN architecture selected the CU/DU and the DU/RU splits shown in
-<a class="reference internal" href="#fig-split-ran"><span class="std std-numref">Figure 20</span></a>, and the CU is further divided
-into its control and user plane components. In the third tier, O-RAN
-is pursuing an SDN-based implementation strategy, resulting in the RIC
-shown in <a class="reference internal" href="#fig-rrc-split"><span class="std std-numref">Figures 22</span></a> and <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">Figures 23</span></a>.</p>
-<p>The result is 3GPP-compliant, which is to say, all the 3GPP-defined
-interfaces are preserved for inter-module communication, with
-additional O-RAN-defined interfaces established as necessary.  While
-we do not focus on the details of these interfaces in this book, it is
-good to be aware that they exist. <a class="reference internal" href="#fig-3gpp"><span class="std std-numref">Figure 24</span></a> shows
-those interfaces, and how they correspond to these three tiers.</p>
+<p>We conclude this introduction to SD-RAN by re-iterating the process of
+disaggregation, which is being pursued in three tiers. In the first
+tier, 3GPP standards provide multiple options of how horizontal RAN
+disaggregation can take place. Horizontal disaggregation basically
+splits the RAN protocol stack (shown as a pipeline in <a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure
+19</span></a>) into independently operating components.
+<a class="reference internal" href="#fig-disagg"><span class="std std-numref">Figure 24 (a)</span></a> illustrates horizontal
+disaggregation of the RAN into 3 distinct components: CU, DU and
+RU. The O-RAN Alliance has selected specific disaggregation options
+from 3GPP and is developing open interfaces between these components.
+3GPP defines the <strong>N2</strong> and <strong>N3</strong> interfaces between the RAN and the
+Mobile Core.</p>
+<p>The second tier of disaggregation is vertical, focusing on
+control/user plane separation (CUPS) of the CU, and resulting in CU-U
+and CU-C shown in <a class="reference internal" href="#fig-disagg"><span class="std std-numref">Figure 24 (b)</span></a>. Here, the
+control plane in question is the 3GPP control plane, where the CU-U
+realizes a pipeline for user traffic and the CU-C focuses on control
+message signaling between mobile core and the disaggregated RAN
+components (as well as to the UE). The O-RAN specified interfaces
+between all disaggregated components are also shown in
+<a class="reference internal" href="#fig-disagg"><span class="std std-numref">Figure 24 (b)</span></a>.</p>
+<p>The third tier follows the SDN paradigm by carrying vertical
+disaggregation one step further. It does this by separating most of
+RAN control (RRM functions) from the disaggregated RAN components, and
+logically centralizing them as applications running on an SDN
+Controller, which corresponds to the Near-RT RIC shown previously in
+<a class="reference internal" href="#fig-rrc-split"><span class="std std-numref">Figures 22</span></a> and <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">Figures 23</span></a>. This SDN-based vertical disaggregation is
+repeated here in <a class="reference internal" href="#fig-disagg"><span class="std std-numref">Figure 24 (c)</span></a>.  The figure
+also shows the additional O-RAN prescribed interfaces.</p>
+<p>The control of the mobile link has tight round-trip delay
+requirements, and as such, not all RRM functions can be
+centralized. After horizontal and vertical CUPS disaggregation, the
+RRM functions are split between CU-C and DU. For this reason, the
+SDN-based vertical disaggregation focuses on centralizing CU-C-side
+RRM functions in the Near-RT RIC. In addition to RRM control, the RIC
+enables a central platform for SON applications as well. It should be
+noted that both RRM and SON-based control are effectively closed-loop
+control, with the aim of maintaining acceptable network operation
+despite stochastic variations on the mobile link.</p>
+<p>The presence of Near RT-RIC also brings in the possibility of
+developing policy-based RAN control, whereby interrupts to these
+closed-loop RAN control based on operator policy become
+possible. These policies need to be delivered to the Near RT-RIC from
+the operator’s management plane. One can imagine developing
+learning-based RRM, SON and Policy applications, in which case the
+inference engines of these applications would run as Near RT-RIC
+applications, and their non-real-time learning-counterparts would run
+elsewhere. A Non-Real-Time RIC (Non-RT-RIC) may be developed to
+interact with the Near-RT-RIC to enable proper operation of such
+applications as well as ensuring delivery of relevant operator
+policies from the Management Plane to the Near RT-RIC.</p>
+<div class="figure align-center" id="fig-disagg">
+<a class="reference internal image-reference" href="_images/Slide40.png"><img alt="_images/Slide40.png" src="_images/Slide40.png" style="width: 500px;" /></a>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/Slide41.png"><img alt="_images/Slide41.png" src="_images/Slide41.png" style="width: 500px;" /></a>
+</div>
 <div class="figure align-center" id="id6">
-<span id="fig-3gpp"></span><a class="reference internal image-reference" href="_images/Slide38.png"><img alt="_images/Slide38.png" src="_images/Slide38.png" style="width: 450px;" /></a>
-<p class="caption"><span class="caption-number">Figure 24. </span><span class="caption-text">Split-RAN plus SD-RAN annotated with 3GPP-defined interfaces.</span></p>
+<a class="reference internal image-reference" href="_images/Slide42.png"><img alt="_images/Slide42.png" src="_images/Slide42.png" style="width: 500px;" /></a>
+<p class="caption"><span class="caption-number">Figure 25. </span><span class="caption-text">RAN disaggregation tiers: (a) horizontal disaggregation, (b)
+vertical CUPS disaggregation, (c) vertical SDN disaggregation.</span></p>
 </div>
 <p>The interface names are cryptic, and knowing them adds nothing to our
 conceptual understanding of the RAN, except perhaps to re-enforce how
@@ -464,10 +503,11 @@ upon definitions.</p>
 <p>That said, we do call out two notable examples. The first is the
 <strong>A1</strong> interface that the mobile operator’s management plane—typically
 called the <em>OSS/BSS (Operations Support System / Business Support
-System)</em> in the Telco world—uses the to configure the RAN. We have not
-discussed the Telco OSS/BSS up to this point, but it always assumed to
-be at the top of any Telco software stack, as the source of all
-configuration settings and business logic needed to operate a network.</p>
+System)</em> in the Telco world—uses the to configure the RAN.  We have
+not discussed the Telco OSS/BSS up to this point, but it always
+assumed to be at the top of any Telco software stack, as the source of
+all configuration settings and business logic needed to operate a
+network.</p>
 <p>The second is the <strong>E2</strong> interface that the Near-RT RIC uses to
 control the underlying RAN elements. The goal of the E2 interface is
 to disaggregate the vendor-specific RRM, moving control to the Near-RT
