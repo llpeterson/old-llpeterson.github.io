@@ -272,9 +272,9 @@ for execution. Realizing this value in the RAN is still a
 work-in-progress, but evidence using the same approach to optimize
 wide-area networks is compelling.
 
-While we have loosely categorized the space of potential control apps
-as either config-oriented or control-oriented, another possible
-characterization is based on the current practice of controling the
+While the above loosely categorizes the space of potential control
+apps as either config-oriented or control-oriented, another possible
+characterization is based on the current practice of controlling the
 mobile link at two different levels. At a fine-grain level, per-node
 and per-link control is conducted using Radio Resource Management
 (RRM) functions that are distributed across the individual base
@@ -287,7 +287,7 @@ balancing, optimize coverage and capacity, aim for network-wide
 interference mitigation, centrally configure parameters, and so on. As
 a consequence of these two levels of control, it is not uncommon to
 see reference to *RRM Applications* and *SON Applications*,
-respectively, in the context of SD-RAN.
+respectively, in O-RAN documents for SD-RAN.
   
 .. _reading_b4:
 .. admonition:: Further Reading
@@ -298,21 +298,22 @@ respectively, in the context of SD-RAN.
    <https://cseweb.ucsd.edu/~vahdat/papers/b4-sigcomm13.pdf>`__.  ACM
    SICOMM, August 2013.
 
-4.4 Design for Evolution
-------------------------
+4.4 Architect to Evolve
+-----------------------
 
 We conclude this description of RAN internals by re-visiting the
-step-by-step process of disaggregation, which as the previous three
-sections revealed, is being pursued in multiple tiers. In doing so, we
-tie up several loose ends, including the new interfaces disaggregation
-exposes, around which the 5G RAN is architected to evolve.
+sequence of steps involved in disaggregation, which as the previous
+three sections reveal, is being pursued in multiple tiers. In doing
+so, we tie up several loose ends, including the new interfaces
+disaggregation exposes. These interfaces define the pivot points
+around which 5G RAN is architected to evolve.
 
 In the first tier of disaggregation, 3GPP standards provide multiple
 options of how horizontal RAN splits can take place. Horizontal
 disaggregation basically splits the RAN pipeline shown in
 :numref:`Figure %s <fig-pipeline>` into independently operating
 components.  :numref:`Figure %s (a) <fig-disagg>` illustrates
-horizontal disaggregation of the RAN froma single base station into
+horizontal disaggregation of the RAN from a single base station into
 three distinct components: CU, DU and RU. The O-RAN Alliance has
 selected specific disaggregation options from 3GPP and is developing
 open interfaces between these components.  3GPP defines the **N2** and
@@ -339,19 +340,19 @@ repeated here in :numref:`Figure %s (c) <fig-disagg>`.  The figure
 also shows the additional O-RAN prescribed interfaces.
 
 .. _fig-disagg:
-.. figure:: figures/Slide40.png 
+.. figure:: figures/Slide39.png 
     :width: 500px 
     :align: center
 	    
-.. figure:: figures/Slide41.png 
+.. figure:: figures/Slide40.png 
     :width: 500px 
     :align: center
 
-.. figure:: figures/Slide42.png 
+.. figure:: figures/Slide41.png 
     :width: 500px 
     :align: center
        
-    RAN disaggregation tiers: (a) horizontal disaggregation, (b)
+    Three tiers of RAN disaggregation: (a) horizontal disaggregation, (b)
     vertical CUPS disaggregation, (c) vertical SDN disaggregation.
 
 The interface names are cryptic, and knowing their details adds little
@@ -371,7 +372,7 @@ Telco software stack. It is the source of all configuration settings
 and business logic needed to operate a network. Notice that the
 Management Plane shown in :numref:`Figure %s (c) <fig-disagg>`
 includes a *Non-Real TIme RIC* functional block, complementing the
-Near-RT RIC that that sits below the A1 interface. We return to the
+Near-RT RIC that sits below the A1 interface. We return to the
 relevance of these two RICs in a moment.
 
 The second is the **E2** interface that the Near-RT RIC uses to

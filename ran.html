@@ -98,7 +98,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#packet-processing-pipeline">4.1 Packet Processing Pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#split-ran">4.2 Split RAN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#software-defined-ran">4.3 Software-Defined RAN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#design-for-evolution">4.4 Design for Evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#architect-to-evolve">4.4 Architect to Evolve</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="disaggregate.html">Chapter 5:  Advanced Capabilities</a></li>
@@ -415,9 +415,9 @@ then push the respective control parametes back to the base stations
 for execution. Realizing this value in the RAN is still a
 work-in-progress, but evidence using the same approach to optimize
 wide-area networks is compelling.</p>
-<p>While we have loosely categorized the space of potential control apps
-as either config-oriented or control-oriented, another possible
-characterization is based on the current practice of controling the
+<p>While the above loosely categorizes the space of potential control
+apps as either config-oriented or control-oriented, another possible
+characterization is based on the current practice of controlling the
 mobile link at two different levels. At a fine-grain level, per-node
 and per-link control is conducted using Radio Resource Management
 (RRM) functions that are distributed across the individual base
@@ -430,7 +430,7 @@ balancing, optimize coverage and capacity, aim for network-wide
 interference mitigation, centrally configure parameters, and so on. As
 a consequence of these two levels of control, it is not uncommon to
 see reference to <em>RRM Applications</em> and <em>SON Applications</em>,
-respectively, in the context of SD-RAN.</p>
+respectively, in O-RAN documents for SD-RAN.</p>
 <div class="admonition-further-reading admonition" id="reading-b4">
 <p class="first admonition-title">Further Reading</p>
 <p class="last">For an example of how SDN principles have been successfully applied
@@ -439,19 +439,20 @@ Globally-Deployed Software Defined WAN</a>.  ACM
 SICOMM, August 2013.</p>
 </div>
 </div>
-<div class="section" id="design-for-evolution">
-<h2>4.4 Design for Evolution<a class="headerlink" href="#design-for-evolution" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="architect-to-evolve">
+<h2>4.4 Architect to Evolve<a class="headerlink" href="#architect-to-evolve" title="Permalink to this headline">¶</a></h2>
 <p>We conclude this description of RAN internals by re-visiting the
-step-by-step process of disaggregation, which as the previous three
-sections revealed, is being pursued in multiple tiers. In doing so, we
-tie up several loose ends, including the new interfaces disaggregation
-exposes, around which the 5G RAN is architected to evolve.</p>
+sequence of steps involved in disaggregation, which as the previous
+three sections reveal, is being pursued in multiple tiers. In doing
+so, we tie up several loose ends, including the new interfaces
+disaggregation exposes. These interfaces define the pivot points
+around which 5G RAN is architected to evolve.</p>
 <p>In the first tier of disaggregation, 3GPP standards provide multiple
 options of how horizontal RAN splits can take place. Horizontal
 disaggregation basically splits the RAN pipeline shown in
 <a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 19</span></a> into independently operating
 components.  <a class="reference internal" href="#fig-disagg"><span class="std std-numref">Figure 24 (a)</span></a> illustrates
-horizontal disaggregation of the RAN froma single base station into
+horizontal disaggregation of the RAN from a single base station into
 three distinct components: CU, DU and RU. The O-RAN Alliance has
 selected specific disaggregation options from 3GPP and is developing
 open interfaces between these components.  3GPP defines the <strong>N2</strong> and
@@ -473,14 +474,14 @@ Controller, which corresponds to the Near-RT RIC shown previously in
 repeated here in <a class="reference internal" href="#fig-disagg"><span class="std std-numref">Figure 24 (c)</span></a>.  The figure
 also shows the additional O-RAN prescribed interfaces.</p>
 <div class="figure align-center" id="fig-disagg">
-<a class="reference internal image-reference" href="_images/Slide40.png"><img alt="_images/Slide40.png" src="_images/Slide40.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="_images/Slide39.png"><img alt="_images/Slide39.png" src="_images/Slide39.png" style="width: 500px;" /></a>
 </div>
 <div class="figure align-center">
-<a class="reference internal image-reference" href="_images/Slide41.png"><img alt="_images/Slide41.png" src="_images/Slide41.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="_images/Slide40.png"><img alt="_images/Slide40.png" src="_images/Slide40.png" style="width: 500px;" /></a>
 </div>
 <div class="figure align-center" id="id6">
-<a class="reference internal image-reference" href="_images/Slide42.png"><img alt="_images/Slide42.png" src="_images/Slide42.png" style="width: 500px;" /></a>
-<p class="caption"><span class="caption-number">Figure 25. </span><span class="caption-text">RAN disaggregation tiers: (a) horizontal disaggregation, (b)
+<a class="reference internal image-reference" href="_images/Slide41.png"><img alt="_images/Slide41.png" src="_images/Slide41.png" style="width: 500px;" /></a>
+<p class="caption"><span class="caption-number">Figure 25. </span><span class="caption-text">Three tiers of RAN disaggregation: (a) horizontal disaggregation, (b)
 vertical CUPS disaggregation, (c) vertical SDN disaggregation.</span></p>
 </div>
 <p>The interface names are cryptic, and knowing their details adds little
@@ -499,7 +500,7 @@ Telco software stack. It is the source of all configuration settings
 and business logic needed to operate a network. Notice that the
 Management Plane shown in <a class="reference internal" href="#fig-disagg"><span class="std std-numref">Figure 24 (c)</span></a>
 includes a <em>Non-Real TIme RIC</em> functional block, complementing the
-Near-RT RIC that that sits below the A1 interface. We return to the
+Near-RT RIC that sits below the A1 interface. We return to the
 relevance of these two RICs in a moment.</p>
 <p>The second is the <strong>E2</strong> interface that the Near-RT RIC uses to
 control the underlying RAN elements. A requirement of the E2 interface
