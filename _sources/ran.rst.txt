@@ -352,8 +352,8 @@ also shows the additional O-RAN prescribed interfaces.
     :width: 500px 
     :align: center
        
-    Three tiers of RAN disaggregation: (a) horizontal disaggregation, (b)
-    vertical CUPS disaggregation, (c) vertical SDN disaggregation.
+    Three tiers of RAN disaggregation: (a) horizontal, (b) vertical
+    CUPS, and (c) vertical SDN.
 
 The interface names are cryptic, and knowing their details adds little
 to our conceptual understanding of the RAN, except perhaps to
