@@ -286,8 +286,8 @@ functions. These functions oversee neighbor lists, manage load
 balancing, optimize coverage and capacity, aim for network-wide
 interference mitigation, centrally configure parameters, and so on. As
 a consequence of these two levels of control, it is not uncommon to
-see reference to *RRM Applications* and *SON Applications* in the
-context of SD-RAN.
+see reference to *RRM Applications* and *SON Applications*,
+respectively, in the context of SD-RAN.
   
 .. _reading_b4:
 .. admonition:: Further Reading
