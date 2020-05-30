@@ -322,7 +322,7 @@ slices share RU, but have their own DU, CU-U and CU-C.
 
 .. _fig-ran-slicing:
 .. figure:: figures/Slide40.png 
-    :width: 800px
+    :width: 700px
     :align: center
 
     Four possible configurations of a disaggregated RAN in support of
