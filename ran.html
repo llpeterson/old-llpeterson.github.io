@@ -207,7 +207,7 @@ helpful).</p>
 <p class="caption"><span class="caption-number">Figure 19. </span><span class="caption-text">RAN processing pipeline, including both user and
 control plane components.</span></p>
 </div>
-<p>The key stages are as follows:</p>
+<p>The key stages are as follows.</p>
 <ul class="simple">
 <li>RRC (Radio Resource Control) → Responsible for configuring the
 coarse-grain and policy-related aspects of the pipeline. The RRC runs
@@ -281,7 +281,7 @@ make this later configuration all the more common.</p>
 <p>Also note that the split-RAN changes the nature of the Backhaul Network,
 which in 4G connected the base stations (eNBs) back to the Mobile Core.
 With the split-RAN there are multiple connections, which are officially
-labelled as follows:</p>
+labeled as follows.</p>
 <ul class="simple">
 <li>RU-DU connectivity is called the Fronthaul</li>
 <li>DU-CU connectivity is called the Midhaul</li>
@@ -344,7 +344,7 @@ Base (R-NIB)</em> that includes time-averaged CQI values and other
 per-session state (e.g., GTP tunnel IDs, QCI values for the type of
 traffic), while the MAC (as part of the DU) maintains the
 instantaneous CQI values required by the real-time
-scheduler. Specifically, the R-NIB includes the following state:</p>
+scheduler. Specifically, the R-NIB includes the following state.</p>
 <ul class="simple">
 <li>NODES: Base Stations and Mobile Devices<ul>
 <li>Base Station Attributes:<ul>
@@ -369,7 +369,7 @@ neighbor cells<ul>
 <li>Link Attributes:<ul>
 <li>Identifiers</li>
 <li>Link Type</li>
-<li>Config / Bearer Parameters</li>
+<li>Config/Bearer Parameters</li>
 <li>QCI Value</li>
 </ul>
 </li>
@@ -378,7 +378,7 @@ neighbor cells<ul>
 <li>SLICES: Virtualized RAN Construct<ul>
 <li>Slice Attributes:<ul>
 <li>Links</li>
-<li>Bearers / Flows</li>
+<li>Bearers/Flows</li>
 <li>Validity Period</li>
 <li>Desired KPIs</li>
 <li>MAC RRM Configuration</li>
@@ -470,7 +470,7 @@ disaggregation one step further. It does this by separating most of
 RAN control (RRM functions) from the disaggregated RAN components, and
 logically centralizing them as applications running on an SDN
 Controller, which corresponds to the Near-RT RIC shown previously in
-<a class="reference internal" href="#fig-rrc-split"><span class="std std-numref">Figures 22</span></a> and <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">Figures 23</span></a>. This SDN-based vertical disaggregation is
+<a class="reference internal" href="#fig-rrc-split"><span class="std std-numref">Figures 22</span></a> and <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">23</span></a>. This SDN-based vertical disaggregation is
 repeated here in <a class="reference internal" href="#fig-disagg"><span class="std std-numref">Figure 24 (c)</span></a>.  The figure
 also shows the additional O-RAN prescribed interfaces.</p>
 <div class="figure align-center" id="id6">
@@ -504,7 +504,7 @@ around a <em>Service Model</em> abstraction. The idea is that each RAN
 element advertises a Service Model, which effectively defines the set
 of RAN Functions the element is able to support. The RIC then issues a
 combination of the following four operations against this Service
-Model:</p>
+Model.</p>
 <ul class="simple">
 <li><strong>Report:</strong> RIC asks the element to report a function-specific value setting.</li>
 <li><strong>Insert:</strong> RIC instructs the element to activate a user plane function.</li>

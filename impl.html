@@ -253,7 +253,7 @@ customized version of ONOS, but that’s an implementation detail.)</p>
 <p>One aspect of <a class="reference internal" href="#fig-cord"><span class="std std-numref">Figure 34</span></a> that requires further
 elaboration is how each of the RAN and Mobile Core components are
 actually realized. Specifically, there are three different
-manifestations of the functional components implied by the Figure: (1)
+manifestations of the functional components implied by the figure: (1)
 the data plane layer of the CU-U and S/PGW-U are realized as P4
 programs loaded into the programmable switches; (2) the control plane
 layer of the CU-U and S/PGW-U (as well as the Trellis platform module)
@@ -274,7 +274,7 @@ combination of ONOS-based control apps and Kubernetes-based
 microservices.</span></p>
 </div>
 <p>When abstracted in this way, we can view a POD as including three major
-subsystems:</p>
+subsystems.</p>
 <ul class="simple">
 <li><strong>Platform:</strong> The base layer common to all configurations includes
 Kubernetes as the container management system and ONOS as the SDN
@@ -302,7 +302,7 @@ complete to operate a CORD POD in a production environment.</p>
 <div class="section" id="platform-components">
 <h2>6.2 Platform Components<a class="headerlink" href="#platform-components" title="Permalink to this headline">¶</a></h2>
 <p>We now return to the three platform-related components shown in
-<a class="reference internal" href="#fig-cord"><span class="std std-numref">Figure 34</span></a> and <a class="reference internal" href="#fig-ci-cd"><span class="std std-numref">Figure 35</span></a>. Each is a substantial open source component in its own
+<a class="reference internal" href="#fig-cord"><span class="std std-numref">Figures 34</span></a> and <a class="reference internal" href="#fig-ci-cd"><span class="std std-numref">35</span></a>. Each is a substantial open source component in its own
 right, but for our purposes, it is enough to understand the role they
 play in supporting a 5G-based profile of CORD.</p>
 <ul class="simple">
@@ -331,7 +331,7 @@ standard BGP.</li>
 </ul>
 <p>Stratum (running on each switch) and ONOS (running off-switch and
 managing a network of switches) communicate using the following
-interfaces:</p>
+interfaces.</p>
 <ul class="simple">
 <li><strong>P4:</strong> Defines the forwarding behavior for programmable switching
 chips as well as model fixed-function ASIC pipelines. A P4 program
