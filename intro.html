@@ -103,7 +103,8 @@
 <li class="toctree-l1"><a class="reference internal" href="disaggregate.html">Chapter 5:  Advanced Capabilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impl.html">Chapter 6:  Exemplar Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud.html">Chapter 7:  Cloudification of Access</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html">About This Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">About The Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">About The Authors</a></li>
 </ul>
 
             
@@ -207,12 +208,12 @@ devices with ultra-low energy (10+ years of battery life), ultra-low
 complexity (10s of bits-per-second), and ultra-high density (1
 million nodes per square kilometer).</li>
 <li>To support <em>Mission-Critical Control</em>, potentially including
-ultra-high availability (greater than <span class="math notranslate nohighlight">\(10^{-5}\)</span> per ms),
+ultra-high availability (greater than 99.999% or “five nines”),
 ultra-low latency (as low as 1 ms), and extreme mobility (up to 100
 km/h).</li>
-<li>To support <em>Enhanced Mobile Broadband</em>, potentially including extreme
-capacity (10 Tbps per square kilometer) and extreme data rates
-(multi-Gbps peak, 100+ Mbps sustained).</li>
+<li>To support <em>Enhanced Mobile Broadband</em>, potentially including extreme data rates
+(multi-Gbps peak, 100+ Mbps sustained) and extreme
+capacity (10 Tbps of aggregate throughput per square kilometer).</li>
 </ul>
 <p>These targets will certainly not be met overnight, but that’s in keeping
 with each generation of the mobile network being a decade-long
@@ -230,7 +231,8 @@ aspirational goals. Because this leaves so much room for interpretation,
 our approach to describing 5G is grounded in two mutually supportive
 principles. The first is to apply a <em>systems lens</em>, which is to say, we
 explain the sequence of design decisions that lead to a solution rather
-than fall back on enumerating the overwhelming number of acronyms as a
+than fall back on enumerating the overwhelming number of acronyms or
+individual point technologies as a
 <em>fait accompli</em>. The second is to aggressively disaggregate the system.
 Building a disaggregated, virtualized, and software-defined 5G access
 network is the direction the industry is already headed (for good
@@ -289,8 +291,8 @@ subscribers.</p>
 Broadband Radio Service (CBRS)</em>, set aside in North America for cellular
 use. Similar spectrum is being set aside in other countries. The CBRS band
 allows 3 tiers of users to share the spectrum: first right of use
-goes to the original owners of this spectrum, naval radars and satellite
-ground stations; followed by priority users who receive this right over
+goes to the original owners of this spectrum (naval radars and satellite
+ground stations); followed by priority users who receive this right over
 10MHz bands for three years via regional auctions; and finally the rest
 of the population, who can access and utilize a portion of this band as
 long as they first check with a central database of registered users.
@@ -309,7 +311,8 @@ allocations opening above 24 GHz.</p>
 understanding 5G from an architectural perspective, it does impact the
 physical-layer components, which in turn has indirect ramifications on
 the overall 5G system. We identify and explain these ramifications
-in later chapters.</p>
+in later chapters. Ensuring that the allocated spectrum is used
+<em>efficiently</em> is also a critical design goal.</p>
 </div>
 <div class="section" id="access-networks">
 <h2>1.2 Access Networks<a class="headerlink" href="#access-networks" title="Permalink to this headline">¶</a></h2>
@@ -345,7 +348,7 @@ term “Central Office” as a synonym for both types of edge sites.</p>
 <h2>1.3 Edge Cloud<a class="headerlink" href="#edge-cloud" title="Permalink to this headline">¶</a></h2>
 <p>Because of their wide distribution and close proximity to end users,
 Central Offices are also an ideal place to host the edge cloud. But this
-begs the question: What exactly is the edge cloud?</p>
+raises the question: What exactly is the edge cloud?</p>
 <p>In a nutshell, the cloud began as a collection of warehouse-sized
 datacenters, each of which provided a cost-effective way to power, cool,
 and operate a scalable number of servers. Over time, this shared
@@ -416,17 +419,17 @@ operated, including practices like <em>DevOps</em> and <em>Continuous Integratio
 operational issues cloud providers face—we recommend <a class="reference external" href="https://landing.google.com/sre/books/">Site
 Reliability Engineering: How Google Runs Production Systems</a>.</p>
 </div>
-<p>One final note about terminology. Anyone that has been paying
+<p>One final note about terminology. Anyone who has been paying
 attention to the discussion surrounding 5G will have undoubtedly heard
 about <em>Network Function Virtualization (NFV)</em>, which involves moving
 functionality that was once embedded in hardware appliances into VMs
+(or, more recently, containers)
 running on commodity servers. In our experience, NFV is a stepping
 stone towards the fully disaggregated and cloud native solution we
 describe in this book, and so we do not dwell on it. You can think of
 the NFV initiative as mostly consistent with the approach taken in
-this book, but making some different engineering choices when we get
-down into the specifics of the implementation (e.g., NFV is generally
-VM-based rather than microservice-based).</p>
+this book, but making some specific engineering choices that may
+differ in detail from that described here.</p>
 <p>While equating NFV with an implementation choice is perfectly valid,
 there is another interpretation of events that better captures the
 essence of the transformation currently underway. When Telcos began
