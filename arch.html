@@ -109,7 +109,8 @@
 <li class="toctree-l1"><a class="reference internal" href="disaggregate.html">Chapter 5:  Advanced Capabilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impl.html">Chapter 6:  Exemplar Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud.html">Chapter 7:  Cloudification of Access</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html">About This Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">About The Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">About The Authors</a></li>
 </ul>
 
             
@@ -212,7 +213,7 @@ July 2018.</p>
 <h2>3.1 Main Components<a class="headerlink" href="#main-components" title="Permalink to this headline">¶</a></h2>
 <p>The cellular network provides wireless connectivity to devices that are
 on the move. These devices, which are known as <em>User Equipment (UE)</em>,
-have until recently corresponded to smartphones and tablets, but will
+have traditionally corresponded to smartphones and tablets, but will
 increasingly include cars, drones, industrial and agricultural machines,
 robots, home appliances, medical devices, and so on.</p>
 <div class="figure align-center" id="id4">
@@ -223,10 +224,12 @@ robots, home appliances, medical devices, and so on.</p>
 <p>As shown in <a class="reference internal" href="#fig-cellular"><span class="std std-numref">Figure 6</span></a>, the cellular network
 consists of two main subsystems: the <em>Radio Access Network (RAN)</em> and
 the <em>Mobile Core</em>. The RAN manages the radio spectrum, making sure it
-is both used efficiently and meets the quality-of-service requirements
-of every user.  The main component in the RAN is the crypticly named
-<em>eNodeB</em> (or <em>eNB</em>), which is short for the equally cryptic <em>evolved
-Node B</em>. The Mobile Core is a bundle of functionality (as opposed to a
+is used efficiently and meets the quality-of-service requirements of
+every user.  It corresponds to a distributed collection of base
+stations. As noted above, in 4G these are (somewhat cryptically) named
+<em>eNodeB</em> (or <em>eNB</em>), which is short for <em>evolved Node B</em>.  In 5G they
+are known as <em>gNB</em>. (The g stands for “next Generation”.)</p>
+<p>The Mobile Core is a bundle of functionality (as opposed to a
 device) that serves several purposes.</p>
 <ul class="simple">
 <li>Provides Internet (IP) connectivity for both data and voice services.</li>
@@ -246,7 +249,7 @@ our purposes, assuming each instantiation of the Mobile Core serves a
 metropolitan area is a good working model. The corresponding RAN would
 then span several dozens (or even hundreds) of cell towers.</p>
 <p>Taking a closer look at <a class="reference internal" href="#fig-cellular"><span class="std std-numref">Figure 6</span></a>, we see that a
-<em>Backhaul Network</em> interconnects the eNBs that implement the RAN with
+<em>Backhaul Network</em> interconnects the base stations that implement the RAN with
 the Mobile Core. This network is typically wired, may or may not have
 the ring topology shown in the Figure, and is often constructed from
 commodity components found elsewhere in the Internet. For example, the
@@ -268,8 +271,7 @@ the RAN and the Mobile Core. The following two sections describe each,
 in turn.</p>
 <p>Before getting to those details, <a class="reference internal" href="#fig-cups"><span class="std std-numref">Figure 7</span></a>
 redraws components from <a class="reference internal" href="#fig-cellular"><span class="std std-numref">Figure 6</span></a> to
-highlight two important distinctions. The first is that the eNB (which
-we will refer to as the Base Station from here on) has an analog
+highlight two important distinctions. The first is that a base station has an analog
 component (depicted by an antenna) and a digital component (depicted
 by a processor pair). The second is that the Mobile Core is
 partitioned into a <em>Control Plane</em> and <em>User Plane</em>, which is similar

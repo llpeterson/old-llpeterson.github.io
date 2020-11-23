@@ -242,9 +242,11 @@ the receiver spread over time, as illustrated in
 <a class="reference internal" href="#fig-coherence"><span class="std std-numref">Figure 3</span></a>. Empirical evidence shows that the
 Multipath Spread—the time between the first and last signals of one
 transmission arriving at the receiver—is 1-10μs in urban
-environments and 10-30μs in suburban environments. Theoretical
+environments and 10-30μs in suburban environments. These multipath
+signals can interfere with each other constructively or destructively,
+and this will vary over time. Theoretical
 bounds for the time duration for which the channel may be assumed to
-be time invariant, known as the <em>Coherence Time</em> and denoted
+be invariant, known as the <em>Coherence Time</em> and denoted
 <span class="math notranslate nohighlight">\(T_c\)</span>, is given by</p>
 <div class="math notranslate nohighlight">
 \[T_c =c/v \times 1/f\]</div>
@@ -258,7 +260,9 @@ and likewise, the faster the receiver is moving the shorter the coherence
 time. Based on the target parameters to this model (selected according
 to the target physical environment), it is possible to calculate
 <span class="math notranslate nohighlight">\(T_c\)</span>, which in turn bounds the rate at which symbols can be
-transmitted without undue risk of interference.</p>
+transmitted without undue risk of interference. The dynamic nature of
+the wireless channel is a central challenge to address in the cellular
+network.</p>
 <div class="figure align-center" id="id7">
 <span id="fig-coherence"></span><a class="reference internal image-reference" href="_images/Slide11.png"><img alt="_images/Slide11.png" src="_images/Slide11.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Figure 3. </span><span class="caption-text">Received data spread over time due to multipath
@@ -301,9 +305,9 @@ independently. The value and efficiency of OFDM is in how it selects
 subcarrier frequencies so as to avoid interference, that is, how it
 achieves orthogonality. That topic is beyond the scope of this book.
 We instead take a decidedly abstract perspective of multiplexing,
-focusing on “discrete scheduleable units of the radio spectrum” rather
+focusing on “discrete schedulable units of the radio spectrum” rather
 the the signalling and modulation underpinnings that yield those
-scheduleable units.</p>
+schedulable units.</p>
 <p>To start, we drill down on these schedulable units. We return to the
 broader issue of the <em>air interface</em> that makes efficient use of the
 spectrum in the concluding section.</p>
@@ -376,7 +380,7 @@ described above means the scheduler also has to determine which antenna
 (or more generally, what subset of antennas) will most effectively reach
 each receiver. But again, in the abstract, the scheduler is charged with
 allocating a sequence of Resource Elements.</p>
-<p>This all begs the question: How does the scheduler decide which set of
+<p>This all raises the question: How does the scheduler decide which set of
 users to service during a given time interval, how many resource
 elements to allocate to each such user, how to select the coding and
 modulation levels, and which antenna to transmit their data on? This is
