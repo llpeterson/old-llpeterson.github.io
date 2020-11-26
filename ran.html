@@ -104,7 +104,8 @@
 <li class="toctree-l1"><a class="reference internal" href="disaggregate.html">Chapter 5:  Advanced Capabilities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="impl.html">Chapter 6:  Exemplar Implementation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cloud.html">Chapter 7:  Cloudification of Access</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html">About This Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">About The Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">About The Authors</a></li>
 </ul>
 
             
@@ -181,8 +182,8 @@
   <div class="section" id="chapter-4-ran-internals">
 <h1>Chapter 4:  RAN Internals<a class="headerlink" href="#chapter-4-ran-internals" title="Permalink to this headline">¶</a></h1>
 <p>The description of the RAN in the previous chapter focused on
-functionality, but was mostly silent about the RAN’s internals
-structure. We now focus in on some of the internal details, and in
+functionality, but was mostly silent about the RAN’s internal
+structure. We now focus on some of the internal details, and in
 doing so, explain how the RAN is being transformed in 5G. This
 involves first describing the stages in the packet processing
 pipeline, and then showing how these stages can be disaggregated,
@@ -196,7 +197,7 @@ system is architected to evolve.</p>
 <p><a class="reference internal" href="#fig-pipeline"><span class="std std-numref">Figure 19</span></a> shows the packet processing stages
 implemented by the base station. These stages are specified by the 3GPP
 standard. Note that the figure depicts the base station as a pipeline
-(running left-to-right) but it is equally valid to view it as a protocol
+(running left-to-right for packets sent to the UE) but it is equally valid to view it as a protocol
 stack (as is typically done in official 3GPP documents). Also note that
 (for now) we are agnostic as to how these stages are implemented, but
 since we are ultimately heading towards a cloud-based implementation,
@@ -220,7 +221,7 @@ packet down the pipeline to the UE or forward it to another base
 station).</li>
 <li>RLC (Radio Link Control) → Responsible for segmentation and
 reassembly, including reliably transmitting/receiving segments by
-implementing ARQ.</li>
+implementing a form of ARQ (automatic repeat request).</li>
 <li>MAC (Media Access Control) → Responsible for buffering, multiplexing
 and demultiplexing segments, including all real-time scheduling
 decisions about what segments are transmitted when. Also able to make
@@ -262,7 +263,7 @@ Central Unit (CU), Distributed Unit (DU), and Radio Unit (RU).</span></p>
 <a class="reference internal" href="#fig-ran-hierarchy"><span class="std std-numref">Figure 21</span></a>, where a single <em>Central Unit (CU)</em>
 running in the cloud serves multiple <em>Distributed Units (DUs)</em>, each of
 which in turn serves multiple <em>Radio Units (RUs)</em>. Critically, the RRC
-(centralized in the CU) is responsible for only near-real time
+(centralized in the CU) is responsible for only near-real-time
 configuration and control decision making, while the Scheduler that is
 part of the MAC stage is responsible for all real-time scheduling
 decisions.</p>
@@ -271,10 +272,13 @@ decisions.</p>
 <p class="caption"><span class="caption-number">Figure 21. </span><span class="caption-text">Split-RAN hierarchy, with one CU serving multiple DUs,
 each of which serves multiple RUs.</span></p>
 </div>
-<p>Clearly, a DU needs to be “near” (within 1ms) the RUs it manages since
-the MAC schedules the radio in real-time. One familiar configuration is
+<p>Because scheduling decisions for radio transmission are made by the
+MAC layer in real
+time, a DU needs to be “near” (within 1ms) the RUs it manages. (You
+can’t afford to make scheduling decisions based on out-of-date channel
+information.) One familiar configuration is
 to co-locate a DU and an RU in a cell tower. But when an RU corresponds
-to a small cell, many of which might be spread across a modestly sized
+to a small cell, many of which might be spread across a modestly-sized
 geographic area (e.g., a mall, campus, or factory), then a single DU
 would likely service multiple RUs. The use of mmWave in 5G is likely to
 make this later configuration all the more common.</p>
@@ -332,15 +336,16 @@ scheduler running in the DU.</p>
 <div class="figure align-center" id="id4">
 <span id="fig-rrc-split"></span><a class="reference internal image-reference" href="_images/Slide18.png"><img alt="_images/Slide18.png" src="_images/Slide18.png" style="width: 600px;" /></a>
 <p class="caption"><span class="caption-number">Figure 22. </span><span class="caption-text">RRC disaggregated into a Mobile Core facing control
-plane component and a Near Real-Time Controller.</span></p>
+plane component and a Near-Real-Time Controller.</span></p>
 </div>
 <p>Although not shown in <a class="reference internal" href="#fig-rrc-split"><span class="std std-numref">Figure 22</span></a>, keep in mind
 (from <a class="reference internal" href="#fig-split-ran"><span class="std std-numref">Figure 20</span></a>) that all constituent parts of
 the RRC, plus the PDCP, form the CU.</p>
 <p>Completing the picture, <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">Figure 23</span></a> shows
-the Near-RT RIC implemented as a traditional SDN Controller hosting a
+the Near-RT RIC implemented as an SDN Controller hosting a
 set of SDN control apps. The RIC maintains a <em>RAN Network Information
-Base (R-NIB)</em> that includes time-averaged CQI values and other
+Base (R-NIB)</em>–a common set of information that can be consumed by numerous
+control apps. The R-NIB includes time-averaged CQI values and other
 per-session state (e.g., GTP tunnel IDs, QCI values for the type of
 traffic), while the MAC (as part of the DU) maintains the
 instantaneous CQI values required by the real-time
@@ -391,7 +396,7 @@ neighbor cells<ul>
 <div class="figure align-center" id="id5">
 <span id="fig-ran-controller"></span><a class="reference internal image-reference" href="_images/Slide19.png"><img alt="_images/Slide19.png" src="_images/Slide19.png" style="width: 500px;" /></a>
 <p class="caption"><span class="caption-number">Figure 23. </span><span class="caption-text">Example set of control applications running on top of
-Near Real-Time RAN Controller.</span></p>
+Near-Real-Time RAN Controller.</span></p>
 </div>
 <p>The example Control Apps in <a class="reference internal" href="#fig-ran-controller"><span class="std std-numref">Figure 23</span></a>
 include a range of possibilities, but is not intended to be an
@@ -406,15 +411,17 @@ state, thereby enabling zero-touch operations. Coming up with meaningful
 policies (perhaps driven by analytics) is likely to be an avenue for
 innovation in the future.</p>
 <p>The left-most four example Control Applications are the sweet spot for
-SDN. These functions—Link Aggregation Control, Interference
+SDN, with its emphasis on central control over distributed
+forwarding. These functions—Link Aggregation Control, Interference
 Management, Load Balancing, and Handover Control—are currently
 implemented by individual base stations with only local visibility,
-but they have global consequenes. The SDN approach is to collect the
+but they have global consequences. The SDN approach is to collect the
 available input data centrally, make a globally optimal decision, and
-then push the respective control parametes back to the base stations
+then push the respective control parameters back to the base stations
 for execution. Realizing this value in the RAN is still a
-work-in-progress, but evidence using the same approach to optimize
-wide-area networks is compelling.</p>
+work-in-progress, but products that take this approach are
+emerging. Evidence using an analogous approach to optimize
+wide-area networks over many years is compelling.</p>
 <p>While the above loosely categorizes the space of potential control
 apps as either config-oriented or control-oriented, another possible
 characterization is based on the current practice of controlling the
@@ -436,7 +443,7 @@ respectively, in O-RAN documents for SD-RAN.</p>
 <p class="last">For an example of how SDN principles have been successfully applied
 to a production network, we recommend <a class="reference external" href="https://cseweb.ucsd.edu/~vahdat/papers/b4-sigcomm13.pdf">B4: Experience with a
 Globally-Deployed Software Defined WAN</a>.  ACM
-SICOMM, August 2013.</p>
+SIGCOMM, August 2013.</p>
 </div>
 </div>
 <div class="section" id="architect-to-evolve">
@@ -487,13 +494,13 @@ and universal interoperability. That said, we call out two notable
 examples.</p>
 <p>The first is the <strong>A1</strong> interface that the mobile operator’s
 management plane—typically called the <em>OSS/BSS (Operations Support
-System / Business Support System)</em> in the Telco world—uses the to
+System / Business Support System)</em> in the Telco world—uses to
 configure the RAN.  We have not discussed the Telco OSS/BSS up to this
 point, but it safe to assume such a component sits at the top of any
 Telco software stack. It is the source of all configuration settings
 and business logic needed to operate a network. Notice that the
 Management Plane shown in <a class="reference internal" href="#fig-disagg"><span class="std std-numref">Figure 24 (c)</span></a>
-includes a <em>Non-Real TIme RIC</em> functional block, complementing the
+includes a <em>Non-Real-Time RIC</em> functional block, complementing the
 Near-RT RIC that sits below the A1 interface. We return to the
 relevance of these two RICs in a moment.</p>
 <p>The second is the <strong>E2</strong> interface that the Near-RT RIC uses to
@@ -515,14 +522,14 @@ Model.</p>
 that defines the relevant set of functions that can be activated, the
 variables that can be reported, and policies that can be set.</p>
 <p>Taken together, the A1 and E2 interfaces complete two of the three
-major control loops of the RAN: the outer (non-realtime) loop has the
-Non-RT RIC as its control point and the middle (near-realtime) loop has
+major control loops of the RAN: the outer (non-real-time) loop has the
+Non-RT RIC as its control point and the middle (near-real-time) loop has
 the Near-RT RIC as its control point. The third (inner) control loop,
 which is not shown in <a class="reference internal" href="#fig-disagg"><span class="std std-numref">Figure 24</span></a>, runs inside
-the DU: It includes the realtime Scheduler embedded in the MAC stage
+the DU: It includes the real-time Scheduler embedded in the MAC stage
 of the RAN pipeline. The two outer control loops have rough time
 bounds of &gt;&gt;1sec and &gt;10ms, respectively, and as we saw in Chapter 2,
-the realtime control loop is assumed by be &lt;1ms.</p>
+the real-time control loop is assumed to be &lt;1ms.</p>
 <p>This raises the question of how specific functionality is distributed
 between the Non-RT RIC, Near-RT RIC, and DU. Starting with the second
 pair (i.e., the two inner loops), it is important to recognize that
@@ -537,7 +544,7 @@ interrupts (exceptions) to operator-defined policies would signal the
 need for the outer loop to become involved. For example, one can
 imagine developing learning-based controls, where the inference
 engines for these controls would run as applications on the Near
-RT-RIC, and their non-realtime learning counterparts would run
+RT-RIC, and their non-real-time learning counterparts would run
 elsewhere. The Non-RT RIC would then interact with the Near-RT RIC to
 deliver relevant operator policies from the Management Plane to the
 Near RT-RIC over the A1 interface.</p>
